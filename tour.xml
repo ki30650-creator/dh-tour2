@@ -117,18 +117,73 @@
         <layer name="title" url="skin/title.png" align="top" y="8" scale="0.7" onclick="select_hanok_btn('none'); loadscene(scene_namsuheon_(1),null,MERGE,BLEND(0.7));"/>
 <events name="responsive_topmenu" keep="true" onresize="adjust_topmenu_for_mobile();" />
 
-<action name="adjust_topmenu_for_mobile">
-    <!-- 화면 폭이 600px 미만이거나 모바일 기기일 때 -->
-    if(stagewidth LT 600 OR device.mobile,
-        <!-- 모바일용: 메뉴 상단으로 바짝 붙이고 크기/스케일 줄이기 -->
-        set(layer[topmenu].scale, 0.75);
-        set(layer[topmenu].y, 5);
-    ,
-        <!-- PC용: 원래 크기 유지 -->
-        set(layer[topmenu].scale, 1.0);
-        set(layer[topmenu].y, 20);
-    );
-</action>
+<events name="responsive_topmenu" keep="true" onresize="adjust_topmenu_for_mobile();" />
+
+    <action name="adjust_topmenu_for_mobile">
+        if(stagewidth LT 600 OR device.mobile,
+            <!-- [모바일 환경] 컨테이너 폭과 높이를 화면에 맞게 재설정 -->
+            set(layer[topmenu].width, 340);
+            set(layer[topmenu].height, 130);
+            set(layer[topmenu].y, 10);
+            set(layer[topmenu].scale, 1.0);
+
+            <!-- 메인 타이틀(로고) 축소 처리 -->
+            set(layer[title].scale, 0.45);
+            set(layer[title].y, 4);
+
+            <!-- 버튼 스케일 및 간격 축소 (모바일 폭 340px에 맞춰 6열 재배치) -->
+            <!-- 1번째 줄 (x간격: 10, 62, 114, 166, 218, 270) -->
+            set(layer[btn_bd101].scale, 0.6); set(layer[btn_bd101].x, 10);  set(layer[btn_bd101].y, 38);
+            set(layer[btn_bd102].scale, 0.6); set(layer[btn_bd102].x, 62);  set(layer[btn_bd102].y, 38);
+            set(layer[btn_bd103].scale, 0.6); set(layer[btn_bd103].x, 114); set(layer[btn_bd103].y, 38);
+            set(layer[btn_bd104].scale, 0.6); set(layer[btn_bd104].x, 166); set(layer[btn_bd104].y, 38);
+            set(layer[btn_sr101].scale, 0.6); set(layer[btn_sr101].x, 218); set(layer[btn_sr101].y, 38);
+            set(layer[btn_sr102].scale, 0.6); set(layer[btn_sr102].x, 270); set(layer[btn_sr102].y, 38);
+
+            <!-- 2번째 줄 -->
+            set(layer[btn_sr103].scale, 0.6); set(layer[btn_sr103].x, 10);  set(layer[btn_sr103].y, 65);
+            set(layer[btn_sr104].scale, 0.6); set(layer[btn_sr104].x, 62);  set(layer[btn_sr104].y, 65);
+            set(layer[btn_an101].scale, 0.6); set(layer[btn_an101].x, 114); set(layer[btn_an101].y, 65);
+            set(layer[btn_an102].scale, 0.6); set(layer[btn_an102].x, 166); set(layer[btn_an102].y, 65);
+            set(layer[btn_an103].scale, 0.6); set(layer[btn_an103].x, 218); set(layer[btn_an103].y, 65);
+            set(layer[btn_an104].scale, 0.6); set(layer[btn_an104].x, 270); set(layer[btn_an104].y, 65);
+
+            <!-- 3번째 줄: 부대시설 -->
+            set(layer[btn_fac_d].scale, 0.6);       set(layer[btn_fac_d].x, 10);   set(layer[btn_fac_d].y, 92);
+            set(layer[btn_fac_parking].scale, 0.6); set(layer[btn_fac_parking].x, 62);  set(layer[btn_fac_parking].y, 92);
+            set(layer[btn_fac_library].scale, 0.6); set(layer[btn_fac_library].x, 124); set(layer[btn_fac_library].y, 92);
+            set(layer[btn_fac_cafe].scale, 0.6);    set(layer[btn_fac_cafe].x, 195); set(layer[btn_fac_cafe].y, 92);
+        ,
+            <!-- [PC 환경] 원본 값 복구 -->
+            set(layer[topmenu].width, 620);
+            set(layer[topmenu].height, 140);
+            set(layer[topmenu].y, 20);
+            set(layer[topmenu].scale, 1.0);
+
+            set(layer[title].scale, 0.7);
+            set(layer[title].y, 8);
+
+            <!-- 버튼 스케일 복구 (1.0) 및 원본 위치 세팅 -->
+            set(layer[btn_bd101].scale, 1.0); set(layer[btn_bd101].x, 20);  set(layer[btn_bd101].y, 48);
+            set(layer[btn_bd102].scale, 1.0); set(layer[btn_bd102].x, 115); set(layer[btn_bd102].y, 48);
+            set(layer[btn_bd103].scale, 1.0); set(layer[btn_bd103].x, 210); set(layer[btn_bd103].y, 48);
+            set(layer[btn_bd104].scale, 1.0); set(layer[btn_bd104].x, 305); set(layer[btn_bd104].y, 48);
+            set(layer[btn_sr101].scale, 1.0); set(layer[btn_sr101].x, 400); set(layer[btn_sr101].y, 48);
+            set(layer[btn_sr102].scale, 1.0); set(layer[btn_sr102].x, 495); set(layer[btn_sr102].y, 48);
+
+            set(layer[btn_sr103].scale, 1.0); set(layer[btn_sr103].x, 20);  set(layer[btn_sr103].y, 78);
+            set(layer[btn_sr104].scale, 1.0); set(layer[btn_sr104].x, 115); set(layer[btn_sr104].y, 78);
+            set(layer[btn_an101].scale, 1.0); set(layer[btn_an101].x, 210); set(layer[btn_an101].y, 78);
+            set(layer[btn_an102].scale, 1.0); set(layer[btn_an102].x, 305); set(layer[btn_an102].y, 78);
+            set(layer[btn_an103].scale, 1.0); set(layer[btn_an103].x, 400); set(layer[btn_an103].y, 78);
+            set(layer[btn_an104].scale, 1.0); set(layer[btn_an104].x, 495); set(layer[btn_an104].y, 78);
+
+            set(layer[btn_fac_d].scale, 1.0);       set(layer[btn_fac_d].x, 20);  set(layer[btn_fac_d].y, 108);
+            set(layer[btn_fac_parking].scale, 1.0); set(layer[btn_fac_parking].x, 115); set(layer[btn_fac_parking].y, 108);
+            set(layer[btn_fac_library].scale, 1.0); set(layer[btn_fac_library].x, 210); set(layer[btn_fac_library].y, 108);
+            set(layer[btn_fac_cafe].scale, 1.0);    set(layer[btn_fac_cafe].x, 320); set(layer[btn_fac_cafe].y, 108);
+        );
+    </action>
 
         <!-- 1번째 줄: 객실 (별당채 101~104, 사랑채 101~102) -->
         <layer name="btn_bd101" style="hanokbtn" x="20"  y="48" html="별당채101호" onclick="select_hanok_btn('btn_bd101'); loadscene(scene_namsuheon_(14),null,MERGE,BLEND(0.7));"/>
