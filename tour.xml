@@ -112,59 +112,69 @@
     </action>
 
     <!-- Top 메뉴 (부대시설 메뉴 줄 추가를 위해 height 및 배치 조정) -->
-<layer name="topmenu" type="container" keep="true" align="centertop" x="0" y="20" width="620" height="140" bgcolor="0x000000" bgalpha="0.35" roundedge="18">        
+<layer name="topmenu" type="container" keep="true" align="centertop" x="0" y="20" width="620" height="140" bgcolor="0x000000" bgalpha="0.35" roundedge="18">
         <!-- 메인 타이틀/로고 -->
-        <layer name="title" url="skin/title.png" align="top" y="8" scale="0.7" onclick="select_hanok_btn('none'); loadscene(scene_namsuheon_(1),null,MERGE,BLEND(0.7));"/>
+<layer name="title" url="skin/title.png" align="top" y="8" scale="0.7" onclick="select_hanok_btn('none'); loadscene(scene_namsuheon_(1),null,MERGE,BLEND(0.7));"/>
 
+<!-- 1번째 줄: 객실 -->
+    <layer name="btn_bd101" style="hanokbtn" x="20"  y="48" html="별당채101호" onclick="select_hanok_btn('btn_bd101'); loadscene(scene_namsuheon_(14),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_bd102" style="hanokbtn" x="115" y="48" html="별당채102호" onclick="select_hanok_btn('btn_bd102'); loadscene(scene_namsuheon_(15),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_bd103" style="hanokbtn" x="210" y="48" html="별당채103호" onclick="select_hanok_btn('btn_bd103'); loadscene(scene_namsuheon_(24),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_bd104" style="hanokbtn" x="305" y="48" html="별당채104호" onclick="select_hanok_btn('btn_bd104'); loadscene(scene_namsuheon_(33),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_sr101" style="hanokbtn" x="400" y="48" html="사랑채101호" onclick="select_hanok_btn('btn_sr101'); loadscene(scene_namsuheon_(41),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_sr102" style="hanokbtn" x="495" y="48" html="사랑채102호" onclick="select_hanok_btn('btn_sr102'); loadscene(scene_namsuheon_(46),null,MERGE,BLEND(0.7));"/>
+    
+    <!-- 2번째 줄: 객실 -->
+    <layer name="btn_sr103" style="hanokbtn" x="20"  y="78" html="사랑채103호" onclick="select_hanok_btn('btn_sr103'); loadscene(scene_namsuheon_(51),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_sr104" style="hanokbtn" x="115" y="78" html="사랑채104호" onclick="select_hanok_btn('btn_sr104'); loadscene(scene_namsuheon_(56),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_an101" style="hanokbtn" x="210" y="78" html="안채101호"   onclick="select_hanok_btn('btn_an101'); loadscene(scene_namsuheon_(60),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_an102" style="hanokbtn" x="305" y="78" html="안채102호"   onclick="select_hanok_btn('btn_an102'); loadscene(scene_namsuheon_(65),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_an103" style="hanokbtn" x="400" y="78" html="안채103호"   onclick="select_hanok_btn('btn_an103'); loadscene(scene_namsuheon_(70),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_an104" style="hanokbtn" x="495" y="78" html="안채104호"   onclick="select_hanok_btn('btn_an104'); loadscene(scene_namsuheon_(75),null,MERGE,BLEND(0.7));"/>
 
-        <!-- 1번째 줄: 객실 (별당채 101~104, 사랑채 101~102) -->
-        <layer name="btn_bd101" style="hanokbtn" x="20"  y="48" html="별당채101호" onclick="select_hanok_btn('btn_bd101'); loadscene(scene_namsuheon_(14),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_bd102" style="hanokbtn" x="115" y="48" html="별당채102호" onclick="select_hanok_btn('btn_bd102'); loadscene(scene_namsuheon_(15),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_bd103" style="hanokbtn" x="210" y="48" html="별당채103호" onclick="select_hanok_btn('btn_bd103'); loadscene(scene_namsuheon_(24),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_bd104" style="hanokbtn" x="305" y="48" html="별당채104호" onclick="select_hanok_btn('btn_bd104'); loadscene(scene_namsuheon_(33),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_sr101" style="hanokbtn" x="400" y="48" html="사랑채101호" onclick="select_hanok_btn('btn_sr101'); loadscene(scene_namsuheon_(41),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_sr102" style="hanokbtn" x="495" y="48" html="사랑채102호" onclick="select_hanok_btn('btn_sr102'); loadscene(scene_namsuheon_(46),null,MERGE,BLEND(0.7));"/>
-        
-        <!-- 2번째 줄: 객실 (사랑채 103~104, 안채 101~104) -->
-        <layer name="btn_sr103" style="hanokbtn" x="20"  y="78" html="사랑채103호" onclick="select_hanok_btn('btn_sr103'); loadscene(scene_namsuheon_(51),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_sr104" style="hanokbtn" x="115" y="78" html="사랑채104호" onclick="select_hanok_btn('btn_sr104'); loadscene(scene_namsuheon_(56),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_an101" style="hanokbtn" x="210" y="78" html="안채101호"   onclick="select_hanok_btn('btn_an101'); loadscene(scene_namsuheon_(60),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_an102" style="hanokbtn" x="305" y="78" html="안채102호"   onclick="select_hanok_btn('btn_an102'); loadscene(scene_namsuheon_(65),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_an103" style="hanokbtn" x="400" y="78" html="안채103호"   onclick="select_hanok_btn('btn_an103'); loadscene(scene_namsuheon_(70),null,MERGE,BLEND(0.7));"/>
-        <layer name="btn_an104" style="hanokbtn" x="495" y="78" html="안채104호"   onclick="select_hanok_btn('btn_an104'); loadscene(scene_namsuheon_(75),null,MERGE,BLEND(0.7));"/>
+    <!-- 3번째 줄: 부대시설 -->
+    <layer name="btn_fac_d" style="hanokbtn" x="20" y="108" width="85" html="부대시설"/>
+    <layer name="btn_fac_parking" style="hanokbtn" x="115" y="108" width="85" html="지하주차장" onclick="select_hanok_btn('btn_fac_parking'); loadscene(scene_namsuheon_(79),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_fac_library" style="hanokbtn" x="210" y="108" width="100" html="라이브러리 한옥" onclick="select_hanok_btn('btn_fac_library'); loadscene(scene_namsuheon_(84),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_fac_cafe" style="hanokbtn" x="320" y="108" width="90" html="갤러리카페" onclick="select_hanok_btn('btn_fac_cafe'); loadscene(scene_namsuheon_(86),null,MERGE,BLEND(0.7));"/>
+</layer>
 
-        <!-- 3번째 줄: 부대시설 (탑메뉴 하단 왼쪽에 가로 일렬 배치) -->
-
-        <layer name="btn_fac_d" 
-               style="hanokbtn"
-               x="20" y="108" width="85"
-               html="부대시설"
-/>
-
-        <layer name="btn_fac_parking" 
-               style="hanokbtn"
-               x="115" y="108" width="85"
-               html="지하주차장"
-               onclick="select_hanok_btn('btn_fac_parking'); loadscene(scene_namsuheon_(79),null,MERGE,BLEND(0.7));"/>
-
-        <layer name="btn_fac_library" 
-               style="hanokbtn"
-               x="210" y="108" width="100"
-               html="라이브러리 한옥"
-               onclick="select_hanok_btn('btn_fac_library'); loadscene(scene_namsuheon_(84),null,MERGE,BLEND(0.7));"/>
-
-        <layer name="btn_fac_cafe" 
-               style="hanokbtn"
-               x="320" y="108" width="90"
-               html="갤러리카페"
-               onclick="select_hanok_btn('btn_fac_cafe'); loadscene(scene_namsuheon_(86),null,MERGE,BLEND(0.7));"/>
-    </layer>
 <action name="check_mobile_layout" autorun="onstart">
-        if(device.mobile OR device.tablet,
-            set(layer[topmenu_container].scale, 0.85);
-            set(layer[topmenu_container].y, 10);
-        );
-    </action>
+    if(device.mobile OR device.tablet,
+        <!-- 모바일에서는 메뉴 폭 축소 및 왼쪽 상단 기준 정렬 -->
+        set(layer[topmenu].scale, 0.55);
+        set(layer[topmenu].align, "topleft");
+        set(layer[topmenu].x, 10);
+        set(layer[topmenu].y, 45);
+        <!-- 기본 상태는 메뉴 숨김 처리 -->
+        set(layer[topmenu].visible, false);
+        <!-- 메뉴 토글 버튼 표시 -->
+        set(layer[btn_mobile_toggle].visible, true);
+    );
+</action>
+<!-- 1. 모바일용 접기/펼치기 토글 액션 -->
+<action name="toggle_topmenu">
+    if(layer[topmenu].visible,
+        set(layer[topmenu].visible, false);
+        set(layer[btn_mobile_toggle].html, "메뉴 ☰");
+    ,
+        set(layer[topmenu].visible, true);
+        set(layer[btn_mobile_toggle].html, "닫기 ✕");
+    );
+</action>
+
+<!-- 2. 모바일 전용 [메뉴 열기/접기] 토글 버튼 -->
+<layer name="btn_mobile_toggle" 
+       type="text" 
+       keep="true" 
+       align="topleft" x="10" y="10" 
+       width="75" height="30" 
+       bgcolor="0x000000" bgalpha="0.75" 
+       roundedge="6" 
+       visible="false"
+       css="text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:30px;" 
+       onclick="toggle_topmenu();" 
+       zorder="10" />
 
     <!-- 모바일 최적화 topmenu 스타일 -->
     <style name="style_topmenu_mobile" 
