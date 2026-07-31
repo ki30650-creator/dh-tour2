@@ -1647,10 +1647,9 @@
        url="skin/title.png" 
        keep="true" 
        devices="mobile" 
-       align="topleft" x="10" y="10" height="auto"
+       align="top" edge="top" x="0" y="15" width="180" height="auto"
        zorder="1000"
-       onclick="load_scene_by_name('scene_namsuheon_(1)');" /> <!-- 클릭 시 씬1 이동 (필요시 씬 이름 수정) -->
-
+       onclick="load_scene_by_name('scene_namsuheon_(1)');" />
 
 <!-- 1. 모바일 메인 메뉴바 (타이틀 이미지 아래로 y 위치 자동 조정됨) -->
 <layer name="mobile_menu_bar" 
@@ -1759,4 +1758,32 @@
     set(layer[sub_fac].visible, false);
 
     loadscene(%1, null, MERGE, BLEND(1));
+<action name="toggle_mobile_sub">
+    <!-- 1. 다른 서브메뉴들 닫기 -->
+    if(%1 != 'sub_bdc', set(layer[sub_bdc].visible, false); );
+    if(%1 != 'sub_src', set(layer[sub_src].visible, false); );
+    if(%1 != 'sub_ac', set(layer[sub_ac].visible, false); );
+    if(%1 != 'sub_fac', set(layer[sub_fac].visible, false); );
+
+    <!-- 2. 클릭한 서브메뉴 열기/닫기 -->
+    switch(layer[%1].visible);
+
+    <!-- 3. 모든 버튼 색상 초기화 (기본: 배경 없음, 흰색 글씨) -->
+    set(layer[btn_m_bdc].bg, false);
+    set(layer[btn_m_src].bg, false);
+    set(layer[btn_m_ac].bg,  false);
+    set(layer[btn_m_fac].bg, false);
+
+    set(layer[btn_m_bdc].css, "color:#ffffff; font-size:13px; text-align:center; line-height:40px;");
+    set(layer[btn_m_src].css, "color:#ffffff; font-size:13px; text-align:center; line-height:40px;");
+    set(layer[btn_m_ac].css,  "color:#ffffff; font-size:13px; text-align:center; line-height:40px;");
+    set(layer[btn_m_fac].css, "color:#ffffff; font-size:13px; text-align:center; line-height:40px;");
+
+    <!-- 4. 서브메뉴가 열려있는 경우 해당 버튼만 갈색 활성화 -->
+    if(layer[%1].visible,
+        if(%1 == 'sub_bdc', set(layer[btn_m_bdc].bg, true); set(layer[btn_m_bdc].bgcolor, 0x8B5A2B); set(layer[btn_m_bdc].bgroundedge, 6); );
+        if(%1 == 'sub_src', set(layer[btn_m_src].bg, true); set(layer[btn_m_src].bgcolor, 0x8B5A2B); set(layer[btn_m_src].bgroundedge, 6); );
+        if(%1 == 'sub_ac',  set(layer[btn_m_ac].bg,  true); set(layer[btn_m_ac].bgcolor,  0x8B5A2B); set(layer[btn_m_ac].bgroundedge, 6); );
+        if(%1 == 'sub_fac', set(layer[btn_m_fac].bg, true); set(layer[btn_m_fac].bgcolor, 0x8B5A2B); set(layer[btn_m_fac].bgroundedge, 6); );
+    );
 </action></krpano>
