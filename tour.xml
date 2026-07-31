@@ -1652,27 +1652,26 @@
        align="topleft" x="10" y="10" width="calc:view.width - 20" height="40" 
        bgcolor="0x000000" bgalpha="0.75" bgroundedge="8" zorder="1000">
 
-    <!-- [1] 별당채 : 왼쪽 끝 정렬 (0% ~ 25% 영역) -->
+    <!-- [1] 별당채 : 맨 왼쪽 (align="left", x="0") -->
     <layer name="btn_m_bdc" type="text" align="left" edge="left" x="0" width="25%" height="40"
            html="[bold]별당채[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
            vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_bdc');" />
 
-    <!-- [2] 사랑채 : 별당채의 오른쪽 끝에 이어 붙이기 (25% ~ 50% 영역) -->
-    <layer name="btn_m_src" type="text" parent="layer[btn_m_bdc]" align="right" edge="left" x="0" width="100%" height="40"
+    <!-- [2] 사랑채 : 중앙 기준 좌측 배치 (align="center", x="-25%", edge="center") -->
+    <layer name="btn_m_src" type="text" align="center" edge="center" x="-25%" width="25%" height="40"
            html="[bold]사랑채[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
            vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_src');" />
 
-    <!-- [3] 안채 : 부대시설의 왼쪽 끝에 이어 붙이기 (50% ~ 75% 영역) -->
-    <layer name="btn_m_ac" type="text" parent="layer[btn_m_fac]" align="left" edge="right" x="0" width="100%" height="40"
+    <!-- [3] 안채 : 중앙 기준 우측 배치 (align="center", x="25%", edge="center") -->
+    <layer name="btn_m_ac" type="text" align="center" edge="center" x="25%" width="25%" height="40"
            html="[bold]안채[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
            vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_ac');" />
 
-    <!-- [4] 부대시설 : 오른쪽 끝 정렬 (75% ~ 100% 영역) -->
+    <!-- [4] 부대시설 : 맨 오른쪽 (align="right", x="0") -->
     <layer name="btn_m_fac" type="text" align="right" edge="right" x="0" width="25%" height="40"
            html="[bold]부대시설[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
            vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_fac');" />
 </layer>
-
 
 <!-- 2. 드롭다운 서브메뉴 그룹 -->
 
