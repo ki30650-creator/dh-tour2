@@ -1644,6 +1644,7 @@
 
 	</scene>
 
+<!-- 1. 모바일 메인 메뉴바 (상단 가로 일렬 배치) -->
 <layer name="mobile_menu_bar" 
        type="container" 
        keep="true" 
@@ -1672,6 +1673,7 @@
            vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_fac');" />
 </layer>
 
+
 <!-- 2. 드롭다운 서브메뉴 그룹 (기본적으로 모두 숨김) -->
 
 <!-- [별당채 서브메뉴] -->
@@ -1684,9 +1686,9 @@
     <layer name="sub_bdc_104" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="104호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(33)');" />
 </layer>
 
-<!-- [사랑채 서브메뉴] -->
+<!-- [사랑채 서브메뉴] 메인 메뉴 25% 지점 하단 배치 -->
 <layer name="sub_src" type="container" keep="true" devices="mobile" visible="false"
-       align="topleft" x="26%" y="55" width="120" height="160" 
+       align="topleft" x="calc:10 + (view.width - 20) * 0.25" y="55" width="120" height="160" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
     <layer name="sub_src_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(41)');" />
     <layer name="sub_src_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(46)');" />
@@ -1694,9 +1696,9 @@
     <layer name="sub_src_104" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="104호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(56)');" />
 </layer>
 
-<!-- [안채 서브메뉴] -->
+<!-- [안채 서브메뉴] 메인 메뉴 50% 지점 하단 배치 -->
 <layer name="sub_ac" type="container" keep="true" devices="mobile" visible="false"
-       align="topleft" x="51%" y="55" width="120" height="160" 
+       align="topleft" x="calc:10 + (view.width - 20) * 0.50" y="55" width="120" height="160" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
     <layer name="sub_ac_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(60)');" />
     <layer name="sub_ac_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(65)');" />
@@ -1704,7 +1706,7 @@
     <layer name="sub_ac_104" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="104호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(75)');" />
 </layer>
 
-<!-- [부대시설 서브메뉴] -->
+<!-- [부대시설 서브메뉴] 우측 끝 정렬 -->
 <layer name="sub_fac" type="container" keep="true" devices="mobile" visible="false"
        align="topright" x="10" y="55" width="130" height="120" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
