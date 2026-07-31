@@ -1652,33 +1652,33 @@
        align="topleft" x="10" y="10" width="calc:view.width - 20" height="40" 
        bgcolor="0x000000" bgalpha="0.75" bgroundedge="8" zorder="1000">
 
-    <!-- 별당채 (왼쪽 기준 align="left") -->
-    <layer name="btn_m_bdc" type="text" align="left" x="0" width="25%" height="40"
+    <!-- [1] 별당채 : 왼쪽 끝 정렬 (0% ~ 25% 영역) -->
+    <layer name="btn_m_bdc" type="text" align="left" edge="left" x="0" width="25%" height="40"
            html="[bold]별당채[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
            vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_bdc');" />
 
-    <!-- 사랑채 (중앙 좌측 align="center" x="-25%") 대신 중앙에서 기준 잡기 -->
-    <layer name="btn_m_src" type="text" align="left" edge="left" x="0" width="25%" height="40"
+    <!-- [2] 사랑채 : 별당채의 오른쪽 끝에 이어 붙이기 (25% ~ 50% 영역) -->
+    <layer name="btn_m_src" type="text" parent="layer[btn_m_bdc]" align="right" edge="left" x="0" width="100%" height="40"
            html="[bold]사랑채[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
            vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_src');" />
 
-    <!-- 안채 -->
-    <layer name="btn_m_ac" type="text" align="center" x="0" width="25%" height="40"
+    <!-- [3] 안채 : 부대시설의 왼쪽 끝에 이어 붙이기 (50% ~ 75% 영역) -->
+    <layer name="btn_m_ac" type="text" parent="layer[btn_m_fac]" align="left" edge="right" x="0" width="100%" height="40"
            html="[bold]안채[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
            vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_ac');" />
 
-    <!-- 부대시설 (오른쪽 끝 정렬) -->
-    <layer name="btn_m_fac" type="text" align="right" x="0" width="25%" height="40"
+    <!-- [4] 부대시설 : 오른쪽 끝 정렬 (75% ~ 100% 영역) -->
+    <layer name="btn_m_fac" type="text" align="right" edge="right" x="0" width="25%" height="40"
            html="[bold]부대시설[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
            vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_fac');" />
 </layer>
 
 
-<!-- 2. 드롭다운 서브메뉴 그룹 (부모 레이어 parent 설정 이용) -->
+<!-- 2. 드롭다운 서브메뉴 그룹 -->
 
-<!-- [별당채 서브메뉴] 메인 메뉴바 기준 왼쪽 끝 아래 -->
+<!-- [별당채 서브메뉴] 별당채 버튼 아래 -->
 <layer name="sub_bdc" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[mobile_menu_bar]" align="bottomleft" edge="topleft" x="0" y="5" width="120" height="160" 
+       parent="layer[btn_m_bdc]" align="bottomleft" edge="topleft" x="0" y="5" width="120" height="160" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
     <layer name="sub_bdc_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(14)');" />
     <layer name="sub_bdc_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(15)');" />
@@ -1686,9 +1686,9 @@
     <layer name="sub_bdc_104" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="104호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(33)');" />
 </layer>
 
-<!-- [사랑채 서브메뉴] 별당채 버튼 오른쪽 끝 하단에 부착 -->
+<!-- [사랑채 서브메뉴] 사랑채 버튼 아래 -->
 <layer name="sub_src" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_bdc]" align="bottomright" edge="topleft" x="0" y="5" width="120" height="160" 
+       parent="layer[btn_m_src]" align="bottomleft" edge="topleft" x="0" y="5" width="120" height="160" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
     <layer name="sub_src_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(41)');" />
     <layer name="sub_src_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(46)');" />
@@ -1696,9 +1696,9 @@
     <layer name="sub_src_104" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="104호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(56)');" />
 </layer>
 
-<!-- [안채 서브메뉴] 안채 버튼 중앙 하단에 부착 -->
+<!-- [안채 서브메뉴] 안채 버튼 아래 -->
 <layer name="sub_ac" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_ac]" align="bottomcenter" edge="topcenter" x="0" y="5" width="120" height="160" 
+       parent="layer[btn_m_ac]" align="bottomright" edge="topright" x="0" y="5" width="120" height="160" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
     <layer name="sub_ac_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(60)');" />
     <layer name="sub_ac_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(65)');" />
@@ -1706,7 +1706,7 @@
     <layer name="sub_ac_104" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="104호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(75)');" />
 </layer>
 
-<!-- [부대시설 서브메뉴] 부대시설 버튼 오른쪽 아래에 부착 -->
+<!-- [부대시설 서브메뉴] 부대시설 버튼 아래 -->
 <layer name="sub_fac" type="container" keep="true" devices="mobile" visible="false"
        parent="layer[btn_m_fac]" align="bottomright" edge="topright" x="0" y="5" width="130" height="120" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
@@ -1716,7 +1716,7 @@
 </layer>
 
 
-<!-- 3. 제어 액션 (동일) -->
+<!-- 3. 제어 액션 -->
 <action name="toggle_mobile_sub">
     if(%1 != 'sub_bdc', set(layer[sub_bdc].visible, false); );
     if(%1 != 'sub_src', set(layer[sub_src].visible, false); );
