@@ -1643,6 +1643,7 @@
 		</image>
 
 	</scene>
+<!-- 0. 모바일 타이틀 로고 (가운데 정렬 및 크기 고정) -->
 <layer name="mobile_title_logo" 
        url="skin/title.png" 
        keep="true" 
@@ -1651,12 +1652,12 @@
        zorder="1000"
        onclick="load_scene_by_name('scene_namsuheon_(1)');" />
 
-<!-- 1. 모바일 메인 메뉴바 (타이틀 이미지 아래로 y 위치 자동 조정됨) -->
+<!-- 1. 모바일 메인 메뉴바 -->
 <layer name="mobile_menu_bar" 
        type="container" 
        keep="true" 
        devices="mobile" 
-       align="topleft" x="10" y="60" width="calc:stageheight GT stagewidth ? (stagewidth - 20) : (stagewidth * 0.5)" height="40" 
+       align="top" edge="top" x="0" y="65" width="calc:stageheight GT stagewidth ? (stagewidth - 20) : (stagewidth * 0.5)" height="40" 
        bgcolor="0x000000" bgalpha="0.75" bgroundedge="8" zorder="1000"
        onloaded="align_mobile_menu();"
        onresize="align_mobile_menu();">
@@ -1685,11 +1686,8 @@
 
 <!-- 2. 레이아웃 & 4등분 자동 연산 액션 -->
 <action name="align_mobile_menu">
-    <!-- 타이틀 이미지 크기 지정 (메뉴바 너비와 동일하게 연동) -->
+    <!-- 메뉴바 너비 측정 및 4등분 계산 -->
     copy(bar_w, layer[mobile_menu_bar].pixelwidth);
-    set(layer[mobile_title_logo].width, get(bar_w));
-
-    <!-- 버튼 1개당 너비 (1/4) 계산 및 재배치 -->
     calc(btn_w, bar_w / 4);
 
     set(layer[btn_m_bdc].width, get(btn_w));
@@ -1742,22 +1740,8 @@
 
 
 <!-- 4. 액션 제어 -->
-<action name="toggle_mobile_sub">
-    if(%1 != 'sub_bdc', set(layer[sub_bdc].visible, false); );
-    if(%1 != 'sub_src', set(layer[sub_src].visible, false); );
-    if(%1 != 'sub_ac', set(layer[sub_ac].visible, false); );
-    if(%1 != 'sub_fac', set(layer[sub_fac].visible, false); );
 
-    switch(layer[%1].visible);
-</action>
-
-<action name="load_scene_by_name">
-    set(layer[sub_bdc].visible, false);
-    set(layer[sub_src].visible, false);
-    set(layer[sub_ac].visible, false);
-    set(layer[sub_fac].visible, false);
-
-    loadscene(%1, null, MERGE, BLEND(1));
+<!-- 서브메뉴 토글 및 버튼 갈색 활성화 액션 -->
 <action name="toggle_mobile_sub">
     <!-- 1. 다른 서브메뉴들 닫기 -->
     if(%1 != 'sub_bdc', set(layer[sub_bdc].visible, false); );
@@ -1768,22 +1752,36 @@
     <!-- 2. 클릭한 서브메뉴 열기/닫기 -->
     switch(layer[%1].visible);
 
-    <!-- 3. 모든 버튼 색상 초기화 (기본: 배경 없음, 흰색 글씨) -->
+    <!-- 3. 모든 버튼 색상 초기화 -->
     set(layer[btn_m_bdc].bg, false);
     set(layer[btn_m_src].bg, false);
     set(layer[btn_m_ac].bg,  false);
     set(layer[btn_m_fac].bg, false);
 
-    set(layer[btn_m_bdc].css, "color:#ffffff; font-size:13px; text-align:center; line-height:40px;");
-    set(layer[btn_m_src].css, "color:#ffffff; font-size:13px; text-align:center; line-height:40px;");
-    set(layer[btn_m_ac].css,  "color:#ffffff; font-size:13px; text-align:center; line-height:40px;");
-    set(layer[btn_m_fac].css, "color:#ffffff; font-size:13px; text-align:center; line-height:40px;");
-
-    <!-- 4. 서브메뉴가 열려있는 경우 해당 버튼만 갈색 활성화 -->
+    <!-- 4. 열려있는 서브메뉴의 버튼만 갈색 활성화 -->
     if(layer[%1].visible,
         if(%1 == 'sub_bdc', set(layer[btn_m_bdc].bg, true); set(layer[btn_m_bdc].bgcolor, 0x8B5A2B); set(layer[btn_m_bdc].bgroundedge, 6); );
         if(%1 == 'sub_src', set(layer[btn_m_src].bg, true); set(layer[btn_m_src].bgcolor, 0x8B5A2B); set(layer[btn_m_src].bgroundedge, 6); );
         if(%1 == 'sub_ac',  set(layer[btn_m_ac].bg,  true); set(layer[btn_m_ac].bgcolor,  0x8B5A2B); set(layer[btn_m_ac].bgroundedge, 6); );
         if(%1 == 'sub_fac', set(layer[btn_m_fac].bg, true); set(layer[btn_m_fac].bgcolor, 0x8B5A2B); set(layer[btn_m_fac].bgroundedge, 6); );
     );
-</action></krpano>
+</action>
+
+<!-- 씬 이동 액션 (오류 지점 수정 완료) -->
+<action name="load_scene_by_name">
+    <!-- 서브메뉴 닫기 -->
+    set(layer[sub_bdc].visible, false);
+    set(layer[sub_src].visible, false);
+    set(layer[sub_ac].visible, false);
+    set(layer[sub_fac].visible, false);
+
+    <!-- 버튼 색상 초기화 -->
+    set(layer[btn_m_bdc].bg, false);
+    set(layer[btn_m_src].bg, false);
+    set(layer[btn_m_ac].bg,  false);
+    set(layer[btn_m_fac].bg, false);
+
+    <!-- 씬 로드 -->
+    loadscene(%1, null, MERGE, BLEND(1));
+</action>
+</krpano>
