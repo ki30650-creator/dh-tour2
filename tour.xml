@@ -118,10 +118,10 @@
 
 <!-- 1번째 줄: 객실 -->
     <layer name="btn_bd101" style="hanokbtn" x="20"  y="48" html="별당채101호" devices="desktop"onclick="select_hanok_btn('btn_bd101'); loadscene(scene_namsuheon_(14),null,MERGE,BLEND(0.7));"/>
-    <layer name="btn_bd102" style="hanokbtn" x="115" y="48" html="별당채102호"devices="desktop" onclick="select_hanok_btn('btn_bd102'); loadscene(scene_namsuheon_(15),null,MERGE,BLEND(0.7));"/>
-    <layer name="btn_bd103" style="hanokbtn" x="210" y="48" html="별당채103호"devices="desktop" onclick="select_hanok_btn('btn_bd103'); loadscene(scene_namsuheon_(24),null,MERGE,BLEND(0.7));"/>
-    <layer name="btn_bd104" style="hanokbtn" x="305" y="48" html="별당채104호"devices="desktop" onclick="select_hanok_btn('btn_bd104'); loadscene(scene_namsuheon_(33),null,MERGE,BLEND(0.7));"/>
-    <layer name="btn_sr101" style="hanokbtn" x="400" y="48" html="사랑채101호"devices="desktop" onclick="select_hanok_btn('btn_sr101'); loadscene(scene_namsuheon_(41),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_bd102" style="hanokbtn" x="115" y="48" html="별당채102호"devices="desktop"onclick="select_hanok_btn('btn_bd102'); loadscene(scene_namsuheon_(15),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_bd103" style="hanokbtn" x="210" y="48" html="별당채103호"devices="desktop"onclick="select_hanok_btn('btn_bd103'); loadscene(scene_namsuheon_(24),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_bd104" style="hanokbtn" x="305" y="48" html="별당채104호"devices="desktop"onclick="select_hanok_btn('btn_bd104'); loadscene(scene_namsuheon_(33),null,MERGE,BLEND(0.7));"/>
+    <layer name="btn_sr101" style="hanokbtn" x="400" y="48" html="사랑채101호"devices="desktop"onclick="select_hanok_btn('btn_sr101'); loadscene(scene_namsuheon_(41),null,MERGE,BLEND(0.7));"/>
     <layer name="btn_sr102" style="hanokbtn" x="495" y="48" html="사랑채102호" devices="desktop"onclick="select_hanok_btn('btn_sr102'); loadscene(scene_namsuheon_(46),null,MERGE,BLEND(0.7));"/>
     
     <!-- 2번째 줄: 객실 -->
