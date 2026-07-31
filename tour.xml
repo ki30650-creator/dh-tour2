@@ -115,7 +115,6 @@
 <layer name="topmenu" type="container" keep="true" align="centertop" x="0" y="20" width="620" height="140" bgcolor="0x000000" bgalpha="0.35" roundedge="18">        
         <!-- 메인 타이틀/로고 -->
         <layer name="title" url="skin/title.png" align="top" y="8" scale="0.7" onclick="select_hanok_btn('none'); loadscene(scene_namsuheon_(1),null,MERGE,BLEND(0.7));"/>
-<events name="responsive_topmenu" keep="true" onresize="adjust_topmenu_for_mobile();" />
 
 <events name="responsive_topmenu" keep="true" onresize="adjust_topmenu_for_mobile();" />
 
