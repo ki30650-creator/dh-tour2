@@ -112,10 +112,23 @@
     </action>
 
     <!-- Top 메뉴 (부대시설 메뉴 줄 추가를 위해 height 및 배치 조정) -->
-<layer name="topmenu" type="container" keep="true" align="centertop" x="0" y="20" width="620" height="140" bgcolor="0x000000" bgalpha="0.35" roundedge="18"
-           scaledesktop="1.0" scalemobile="0.65" scale="calc(device.mobile ? 0.65 : 1.0)">        
+<layer name="topmenu" type="container" keep="true" align="centertop" x="0" y="20" width="620" height="140" bgcolor="0x000000" bgalpha="0.35" roundedge="18">        
         <!-- 메인 타이틀/로고 -->
         <layer name="title" url="skin/title.png" align="top" y="8" scale="0.7" onclick="select_hanok_btn('none'); loadscene(scene_namsuheon_(1),null,MERGE,BLEND(0.7));"/>
+<events name="responsive_topmenu" keep="true" onresize="adjust_topmenu_for_mobile();" />
+
+<action name="adjust_topmenu_for_mobile">
+    <!-- 화면 폭이 600px 미만이거나 모바일 기기일 때 -->
+    if(stagewidth LT 600 OR device.mobile,
+        <!-- 모바일용: 메뉴 상단으로 바짝 붙이고 크기/스케일 줄이기 -->
+        set(layer[topmenu].scale, 0.75);
+        set(layer[topmenu].y, 5);
+    ,
+        <!-- PC용: 원래 크기 유지 -->
+        set(layer[topmenu].scale, 1.0);
+        set(layer[topmenu].y, 20);
+    );
+</action>
 
         <!-- 1번째 줄: 객실 (별당채 101~104, 사랑채 101~102) -->
         <layer name="btn_bd101" style="hanokbtn" x="20"  y="48" html="별당채101호" onclick="select_hanok_btn('btn_bd101'); loadscene(scene_namsuheon_(14),null,MERGE,BLEND(0.7));"/>
