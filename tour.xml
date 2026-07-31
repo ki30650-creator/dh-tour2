@@ -1648,7 +1648,7 @@
        url="skin/title.png" 
        keep="true" 
        devices="mobile" 
-       align="top" edge="top" x="0" y="15" width="180" height="auto"
+       align="top" edge="top" x="0" y="15" width="120" height="auto"
        zorder="1000"
        onclick="load_scene_by_name('scene_namsuheon_(1)');" />
 
