@@ -1644,7 +1644,7 @@
 
 	</scene>
 <layer name="mobile_title_logo" 
-       url="title.png" 
+       url="url="skin/title.png" 
        keep="true" 
        devices="mobile" 
        align="topleft" x="10" y="10" height="auto"
