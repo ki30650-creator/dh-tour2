@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿HTML
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>수원360투어</title>
@@ -12,12 +15,11 @@
     <!-- 카카오 SDK 불러오기 -->
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
-    // 현재 접속된 정확한 VR 투어 전체 URL 구하기 함수
+    // 현재 접속된 정확한 VR 투어 전체 URL 구하기
     function getExactTourUrl() {
         var urlParams = new URLSearchParams(window.location.search);
         var xmlFile = urlParams.get('xml') || 'tour.xml';
         
-        // 도메인 + 경로 + ?xml=파일명 형태로 주소 완전 재조합
         var baseUrl = window.location.origin + window.location.pathname;
         return baseUrl + '?xml=' + encodeURIComponent(xmlFile);
     }
@@ -66,9 +68,8 @@
         document.body.removeChild(textArea);
     }
 
-    // 2. 카카오톡 공유 함수
+    // 2. 카카오톡 공유 함수 (본문에 현재 URL 표시)
     function krpanoShareKakao() {
-        // 정확한 URL 조합해서 가져오기
         var currentUrl = getExactTourUrl();
 
         if (typeof Kakao !== 'undefined') {
@@ -76,27 +77,14 @@
                 Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
             }
 
+            // text 타입으로 본문에 현재 URL 주소를 직접 출력
             Kakao.Share.sendDefault({
-                objectType: 'feed',
-                content: {
-                    title: '수원 360 VR 투어',
-                    description: '수원의 360도 VR투어를 확인해보세요!',
-                    // 카카오 규격상 이미지 주소가 필수라 1x1 투명 이미지를 대입합니다.
-                    imageUrl: 'https://k.kakaocdn.net/14/dn/btqC1T5fW3S/5v11Kk406f3W68k820K7k0/o.jpg',
-                    link: {
-                        mobileWebUrl: currentUrl,
-                        webUrl: currentUrl,
-                    },
+                objectType: 'text',
+                text: '[수원 360 VR 투어]\n수원의 360도 VR투어를 확인해보세요!\n\n🔗 접속 주소:\n' + currentUrl,
+                link: {
+                    mobileWebUrl: currentUrl,
+                    webUrl: currentUrl,
                 },
-                buttons: [
-                    {
-                        title: 'VR 투어 보러가기',
-                        link: {
-                            mobileWebUrl: currentUrl,
-                            webUrl: currentUrl,
-                        },
-                    },
-                ],
             });
         } else if (navigator.share) {
             navigator.share({
@@ -143,3 +131,4 @@
 </div>
 <script src="app.js"></script>
 </body>
+</html>
