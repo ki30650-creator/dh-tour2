@@ -284,6 +284,7 @@
 	       onover.addevent="tween(scale,0.55);"
 	       onout.addevent="tween(scale,0.5);"
 	       onloaded.addevent="skin_hotspotstyle_setup();"
+onloaded="add_permanent_title();"
 	       />
 
 	<action name="skin_hotspotstyle_setup" scope="local">
