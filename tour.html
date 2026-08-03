@@ -12,9 +12,19 @@
     <!-- 카카오 SDK 불러오기 -->
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
+    // 현재 접속된 정확한 VR 투어 전체 URL 구하기 함수
+    function getExactTourUrl() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var xmlFile = urlParams.get('xml') || 'tour.xml';
+        
+        // 도메인 + 경로 + ?xml=파일명 형태로 주소 완전 재조합
+        var baseUrl = window.location.origin + window.location.pathname;
+        return baseUrl + '?xml=' + encodeURIComponent(xmlFile);
+    }
+
     // 1. 클립보드 URL 복사 함수
     function krpanoCopyUrl() {
-        var currentUrl = window.location.href;
+        var currentUrl = getExactTourUrl();
 
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(currentUrl).catch(function(err) {
@@ -56,46 +66,47 @@
         document.body.removeChild(textArea);
     }
 
-    // 2. 카카오톡 공유 함수 (안내 문구 + 하단 링크 버튼)
-function krpanoShareKakao() {
-    var currentUrl = window.location.href;
+    // 2. 카카오톡 공유 함수
+    function krpanoShareKakao() {
+        // 정확한 URL 조합해서 가져오기
+        var currentUrl = getExactTourUrl();
 
-    if (typeof Kakao !== 'undefined') {
-        if (!Kakao.isInitialized()) {
-            Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
-        }
+        if (typeof Kakao !== 'undefined') {
+            if (!Kakao.isInitialized()) {
+                Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
+            }
 
-        // objectType을 'feed'로 설정하여 하단 버튼이 강제로 생성되도록 지정
-        Kakao.Share.sendDefault({
-            objectType: 'feed',
-            content: {
-                title: '수원 360 VR 투어',
-                description: '수원의 360도 VR투어를 확인해보세요!',
-                imageUrl: '', // 빈 값으로 지정하여 이미지를 숨김
-                link: {
-                    mobileWebUrl: currentUrl,
-                    webUrl: currentUrl,
-                },
-            },
-            buttons: [
-                {
-                    title: 'VR 투어 보러가기',
+            Kakao.Share.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: '수원 360 VR 투어',
+                    description: '수원의 360도 VR투어를 확인해보세요!',
+                    // 카카오 규격상 이미지 주소가 필수라 1x1 투명 이미지를 대입합니다.
+                    imageUrl: 'https://k.kakaocdn.net/14/dn/btqC1T5fW3S/5v11Kk406f3W68k820K7k0/o.jpg',
                     link: {
                         mobileWebUrl: currentUrl,
                         webUrl: currentUrl,
                     },
                 },
-            ],
-        });
-    } else if (navigator.share) {
-        navigator.share({
-            title: document.title,
-            url: currentUrl
-        }).catch(function(e) { console.log(e); });
-    } else {
-        alert('카카오톡 공유를 사용할 수 없습니다.');
+                buttons: [
+                    {
+                        title: 'VR 투어 보러가기',
+                        link: {
+                            mobileWebUrl: currentUrl,
+                            webUrl: currentUrl,
+                        },
+                    },
+                ],
+            });
+        } else if (navigator.share) {
+            navigator.share({
+                title: document.title,
+                url: currentUrl
+            }).catch(function(e) { console.log(e); });
+        } else {
+            alert('카카오톡 공유를 사용할 수 없습니다.');
+        }
     }
-}
     </script>
 
     <style>
@@ -116,11 +127,9 @@ function krpanoShareKakao() {
         </table>
     </noscript>
     <script>
-        // URL 파라미터에서 xml 파일명 가져오기 (?xml=yharbor.xml 또는 ?xml=tour.xml)
         var urlParams = new URLSearchParams(window.location.search);
         var xmlFile = urlParams.get('xml');
 
-        // 기본값 설정 (파라미터가 없으면 tour.xml)
         if (!xmlFile) {
             xmlFile = "tour.xml";
         }
@@ -134,4 +143,3 @@ function krpanoShareKakao() {
 </div>
 <script src="app.js"></script>
 </body>
-</html>
