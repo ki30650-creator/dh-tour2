@@ -2,8 +2,10 @@
 
     <include url="skin/vtourskin.xml" />
 
+    <layer name="skin_control_bar" visible="false" />
 
     <!-- 1. 공통 스타일 정의 -->
+
     <style name="hs_title_box"
            type="text"
            bg="true"
@@ -71,8 +73,6 @@
             loadscene(get(linkedscene), null, MERGE, BLEND(0.7)); 
         );
     </action>
-    <!-- 3. 컨트롤 바 숨김 처리 -->
-    <layer name="skin_control_bar" visible="false" />
 
     <hotspot name="suwon"
              url="skin/수원이.png"
