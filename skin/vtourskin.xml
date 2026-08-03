@@ -46,7 +46,7 @@
 	               controlbar_offset_closed="-40"
 	               controlbar_overlap.no-fractionalscaling="10"
 	               controlbar_overlap.fractionalscaling="0"
-	               design_skin_images="vtourskin.png"
+	               design_skin_images="skin/vtourskin.png"
 	               design_bgcolor="0x2D3E50"
 	               design_bgalpha="0.8"
 	               design_bgborder="0"
@@ -61,7 +61,7 @@
 
 
 	<!-- save the url path of this xml file (the url value will be adjusted during xml parsing) -->
-	<vtourskinxmlpath url="./" />
+	<vtourskinxmlpath url="" />
 
 	<!-- iPhone X safe-area support: use the horizontal safe-area only -->	
 	<display safearea="h-only" />
@@ -1507,11 +1507,6 @@ onloaded="add_permanent_title();"
        css="color:#FFFFFF; font-size:13px; font-weight:bold; text-align:center; padding:10px 18px;"
        bg="true" bgcolor="0x000000" bgalpha="0.85" bgroundedge="20" />
 
-
-<!-- =================================================================== -->
-<!-- 동작 액션 (Actions)                                                 -->
-<!-- =================================================================== -->
-
 <!-- 팝업 열기 -->
 <action name="open_share_modal">
     set(layer[share_modal_bg].visible, true);
@@ -1531,27 +1526,7 @@ onloaded="add_permanent_title();"
 
 <!-- 1. 링크 복사 기능 (iOS / 구형 브라우저 / Non-HTTPS 예외처리 완료) -->
 <action name="copy_tour_url">
-    js(
-        if (navigator.clipboard) {
-            if (window.isSecureContext) {
-                navigator.clipboard.writeText(window.location.href);
-            } else {
-                var textArea = document.createElement("textarea");
-                textArea.value = window.location.href;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-            }
-        } else {
-            var textArea = document.createElement("textarea");
-            textArea.value = window.location.href;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-        }
-    );
+    js( krpanoCopyUrl() );
     close_share_modal();
     
     <!-- 토스트 알림 표시 -->
@@ -1562,6 +1537,12 @@ onloaded="add_permanent_title();"
             set(layer[share_toast_msg].visible, false);
         );
     );
+</action>
+
+<!-- 2. 카카오톡 공유 기능 수정 -->
+<action name="share_kakao">
+    close_share_modal();
+    js( krpanoShareKakao() );
 </action>
 
 <action name="share_kakao">
