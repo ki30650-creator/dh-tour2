@@ -83,15 +83,23 @@ body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Hel
 
 
 <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  let xmlParam = urlParams.get('xml');
 
+  if (!xmlParam) {
+    xmlParam = "tour.xml"; // 기본으로 보여줄 파일명
+  }
 
+  if (!xmlParam.endsWith('.xml')) {
+    xmlParam += '.xml';
+  }
 
-embedpano({xml:"tour.xml", target:"pano", passQueryParameters:"startscene,startlookat"});
-
-
-
+  embedpano({
+    xml: xmlParam, 
+    target: "pano", 
+    passQueryParameters: "startscene,startlookat"
+  });
 </script>
-
 
 
 </div>
