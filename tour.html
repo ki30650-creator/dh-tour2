@@ -52,19 +52,14 @@ function fallbackCopyTextToClipboard(text) {
 }
 function krpanoShareKakao() {
     if (typeof Kakao !== 'undefined') {
-        if (!Kakao.isInitialized()) {
-            Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f'); 
-        }
-
         var currentUrl = window.location.href;
 
         Kakao.Share.sendDefault({
             objectType: 'feed',
             content: {
-                title: document.title || 'VR 투어',
+                title: document.title || '수원 360 VR 투어',
                 description: '수원의 360도 VR 투어를 확인해보세요!',
-                // 미리보기 이미지는 반드시 외부에서 접근 가능한 전체 URL(https://...)이어야 합니다.
-                imageUrl: 'https://cdn.pixabay.com/photo/2016/11/29/04/17/bonfire-1867275_1280.jpg', 
+                // imageUrl 항목을 제거하면 메시지 카드에서 이미지가 출력되지 않습니다.
                 link: {
                     mobileWebUrl: currentUrl,
                     webUrl: currentUrl,
