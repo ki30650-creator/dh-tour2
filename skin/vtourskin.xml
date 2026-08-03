@@ -4,6 +4,8 @@
 
 
 	<!-- skin settings (can be overridden in the tour.xml) -->
+    <layer name="skin_control_bar" visible="false" />
+
 	<skin_settings maps="false"
 	               maps_type="openstreetmaps"
 	               maps_bing_api_key=""
