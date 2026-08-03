@@ -56,20 +56,18 @@
         document.body.removeChild(textArea);
     }
 
-    // 2. 카카오톡 공유 함수 (이미지 없이 텍스트 + 버튼)
+    // 2. 카카오톡 공유 함수 (안내 문구 + 하단 링크 버튼)
     function krpanoShareKakao() {
         var currentUrl = window.location.href;
 
         if (typeof Kakao !== 'undefined') {
-            // 버튼 클릭 시점에 SDK 안전하게 초기화
             if (!Kakao.isInitialized()) {
                 Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
             }
 
-            // 이미지 없이 텍스트 및 버튼만 노출하는 text 타입 공유
             Kakao.Share.sendDefault({
                 objectType: 'text',
-                text: (document.title || '수원 360 VR 투어') + '\n수원의 360도 VR 투어를 확인해보세요!',
+                text: '수원의 360도 VR투어를 확인해보세요!',
                 link: {
                     mobileWebUrl: currentUrl,
                     webUrl: currentUrl,
