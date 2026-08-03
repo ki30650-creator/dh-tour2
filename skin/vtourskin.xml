@@ -4,7 +4,6 @@
 
 
 	<!-- skin settings (can be overridden in the tour.xml) -->
-    <layer name="skin_control_bar" visible="false" />
 
 	<skin_settings maps="false"
 	               maps_type="openstreetmaps"
@@ -46,7 +45,7 @@
 	               controlbar_height=""
 	               controlbar_offset=""
 	               controlbar_offset_closed=""
-	               controlbar_overlap.no-fractionalscaling=""
+	               controlbar_overlap.no-fractionalscaling="10"
 	               controlbar_overlap.fractionalscaling="0"
 	               design_skin_images="skin/vtourskin.png"
 	               design_bgcolor="0x2D3E50"
@@ -1490,18 +1489,21 @@ onloaded="add_permanent_title();"
 <layer name="qr_modal_box" keep="true" type="container"
        align="center" width="240" height="260" zorder="10002" visible="false" alpha="0.0"
        bgcolor="0xFFFFFF" bgalpha="0.98" bgroundedge="16"
+       bgcapture="true"
        onclick="close_qr_modal();">
     
     <layer name="qr_title" type="text" align="topcenter" y="15"
-           html="스캔하여 접속하기" css="color:#0F172A; font-size:14px; font-weight:bold;" bg="false" />
+           html="스캔하여 접속하기" css="color:#0F172A; font-size:14px; font-weight:bold;" bg="false" enabled="false" />
     
     <!-- QR코드 이미지 -->
-    <layer name="qr_code_img" type="image" align="center" y="10" width="160" height="160" />
+    <layer name="qr_code_img" type="image" align="center" y="10" width="160" height="160" enabled="false" />
 
+    <!-- 문구 레이어에 직접 닫기 액션 및 클릭 캡처 추가 -->
     <layer name="qr_close_tip" type="text" align="bottomcenter" y="12"
-           html="터치하면 닫힙니다" css="color:#64748B; font-size:11px;" bg="false" />
+           html="터치하면 닫힙니다" css="color:#64748B; font-size:11px; cursor:pointer;" bg="false"
+           bgcapture="true"
+           onclick="close_qr_modal();" />
 </layer>
-
 <!-- 5. 토스트 알림 메시지 (링크 복사 완료) -->
 <layer name="share_toast_msg" keep="true" type="text"
        align="bottomcenter" y="80" zorder="10005" visible="false" alpha="0.0"
@@ -1526,9 +1528,10 @@ onloaded="add_permanent_title();"
     );
 </action>
 
-<!-- 1. 링크 복사 기능 (iOS / 구형 브라우저 / Non-HTTPS 예외처리 완료) -->
 <action name="copy_tour_url">
+    <!-- HTML에 정의한 krpanoCopyUrl 함수 호출 -->
     js( krpanoCopyUrl() );
+    
     close_share_modal();
     
     <!-- 토스트 알림 표시 -->
@@ -1544,40 +1547,9 @@ onloaded="add_permanent_title();"
 <!-- 2. 카카오톡 공유 기능 수정 -->
 <action name="share_kakao">
     close_share_modal();
+    
+    <!-- HTML에 만든 함수 호출 -->
     js( krpanoShareKakao() );
-</action>
-
-<action name="share_kakao">
-    close_share_modal();
-    js(
-        if (navigator.share) {
-            navigator.share({
-                title: document.title,
-                url: window.location.href
-            });
-        } else {
-            if (navigator.clipboard) {
-                if (window.isSecureContext) {
-                    navigator.clipboard.writeText(window.location.href);
-                } else {
-                    var textArea = document.createElement("textarea");
-                    textArea.value = window.location.href;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                }
-            } else {
-                var textArea = document.createElement("textarea");
-                textArea.value = window.location.href;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-            }
-            alert('주소가 복사되었습니다. 카카오톡에 붙여넣어 공유하세요!');
-        }
-    );
 </action>
 
 <!-- 3. QR코드 보기 기능 (JavaScript 문법 정상화 반영) -->
