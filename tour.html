@@ -57,40 +57,45 @@
     }
 
     // 2. 카카오톡 공유 함수 (안내 문구 + 하단 링크 버튼)
-    function krpanoShareKakao() {
-        var currentUrl = window.location.href;
+function krpanoShareKakao() {
+    var currentUrl = window.location.href;
 
-        if (typeof Kakao !== 'undefined') {
-            if (!Kakao.isInitialized()) {
-                Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
-            }
+    if (typeof Kakao !== 'undefined') {
+        if (!Kakao.isInitialized()) {
+            Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
+        }
 
-            Kakao.Share.sendDefault({
-                objectType: 'text',
-                text: '수원의 360도 VR투어를 확인해보세요!',
+        // objectType을 'feed'로 설정하여 하단 버튼이 강제로 생성되도록 지정
+        Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '수원 360 VR 투어',
+                description: '수원의 360도 VR투어를 확인해보세요!',
+                imageUrl: '', // 빈 값으로 지정하여 이미지를 숨김
                 link: {
                     mobileWebUrl: currentUrl,
                     webUrl: currentUrl,
                 },
-                buttons: [
-                    {
-                        title: 'VR 투어 보러가기',
-                        link: {
-                            mobileWebUrl: currentUrl,
-                            webUrl: currentUrl,
-                        },
+            },
+            buttons: [
+                {
+                    title: 'VR 투어 보러가기',
+                    link: {
+                        mobileWebUrl: currentUrl,
+                        webUrl: currentUrl,
                     },
-                ],
-            });
-        } else if (navigator.share) {
-            navigator.share({
-                title: document.title,
-                url: currentUrl
-            }).catch(function(e) { console.log(e); });
-        } else {
-            alert('카카오톡 공유를 사용할 수 없습니다.');
-        }
+                },
+            ],
+        });
+    } else if (navigator.share) {
+        navigator.share({
+            title: document.title,
+            url: currentUrl
+        }).catch(function(e) { console.log(e); });
+    } else {
+        alert('카카오톡 공유를 사용할 수 없습니다.');
     }
+}
     </script>
 
     <style>
