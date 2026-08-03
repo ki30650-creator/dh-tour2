@@ -1440,7 +1440,7 @@ onloaded="add_permanent_title();"
 
 <layer name="skin_btn_share" keep="true" type="text"
        align="righttop" x="15" y="15" zorder="999"
-       html="🔗 공유하기"
+       html="🔗"
        css="color:#FFFFFF; font-size:13px; font-weight:bold; padding:8px 14px;"
        bg="true" bgcolor="0x1E293B" bgalpha="0.85" bgborder="1 0x334155 0.8" bgroundedge="20"
        onclick="open_share_modal();" />
