@@ -51,40 +51,47 @@ function fallbackCopyTextToClipboard(text) {
     document.body.removeChild(textArea);
 }
 function krpanoShareKakao() {
-    // 1. Kakao 객체 존재 및 초기화 여부 확인
     if (typeof Kakao !== 'undefined') {
         if (!Kakao.isInitialized()) {
-            // 아직 초기화가 안 되었다면 키 등록 (본인 JavaScript 키 입력)
-            Kakao.init('YOUR_JAVASCRIPT_KEY'); 
+            Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f'); 
         }
+
+        var currentUrl = window.location.href;
 
         Kakao.Share.sendDefault({
             objectType: 'feed',
             content: {
                 title: document.title || 'VR 투어',
-                description: 'VR 투어를 확인해보세요!',
-                imageUrl: window.location.origin + '/preview.jpg', // 미리보기 이미지
+                description: '수원의 360도 VR 투어를 확인해보세요!',
+                // 미리보기 이미지는 반드시 외부에서 접근 가능한 전체 URL(https://...)이어야 합니다.
+                imageUrl: 'https://cdn.pixabay.com/photo/2016/11/29/04/17/bonfire-1867275_1280.jpg', 
                 link: {
-                    mobileWebUrl: window.location.href,
-                    webUrl: window.location.href,
+                    mobileWebUrl: currentUrl,
+                    webUrl: currentUrl,
                 },
             },
+            buttons: [
+                {
+                    title: 'VR 투어 보러가기',
+                    link: {
+                        mobileWebUrl: currentUrl,
+                        webUrl: currentUrl,
+                    },
+                },
+            ],
         });
-    } 
-    // 2. Kakao SDK가 없을 경우 모바일 기본 공유(Web Share API) 시도
-    else if (navigator.share) {
+    } else if (navigator.share) {
         navigator.share({
             title: document.title,
             url: window.location.href
         }).catch(function(e) { console.log(e); });
-    } 
-    else {
-        alert('카카오톡 공유를 사용할 수 없는 환경입니다.');
+    } else {
+        alert('카카오톡 공유를 사용할 수 없습니다.');
     }
 }
 </script>
 
-	<title>krpano - namsuheon (81)</title>
+	<title>수원360투어</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
