@@ -99,7 +99,7 @@
         set(layer[btn_an104].bgcolor, 0xFFFFFF); set(layer[btn_an104].bgalpha, 0.35);
 
         <!-- 2) 부대시설 메뉴 전체 리셋 (안내데스크/지하주차장/라이브러리/카페) -->
-        set(layer[btn_fac_d].bgcolor, 0xFFFFFF); set(layer[btn_fac_parking].bgalpha, 0.35);
+        set(layer[btn_fac_d].bgcolor, 0xFFFFFF); set(layer[btn_fac_d].bgalpha, 0.35);
         set(layer[btn_fac_parking].bgcolor, 0xFFFFFF); set(layer[btn_fac_parking].bgalpha, 0.35);
         set(layer[btn_fac_library].bgcolor, 0xFFFFFF); set(layer[btn_fac_library].bgalpha, 0.35);
         set(layer[btn_fac_cafe].bgcolor,    0xFFFFFF); set(layer[btn_fac_cafe].bgalpha,    0.35);
@@ -1733,7 +1733,7 @@
 <layer name="sub_fac" type="container" keep="true" devices="mobile" visible="false"
        parent="layer[btn_m_fac]" align="bottomright" edge="topright" x="0" y="5" width="125" height="120" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
-   <layer name="sub_fac_parking" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="안내데스크" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(11)');" />
+   <layer name="sub_fac_d" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="안내데스크" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(11)');" />
     <layer name="sub_fac_parking" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="지하주차장" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(79)');" />
     <layer name="sub_fac_library" type="text" align="topleft" x="0" y="80" width="100%" height="40" html="라이브러리 한옥" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(84)');" />
     <layer name="sub_fac_cafe" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="갤러리카페" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(86)');" />
