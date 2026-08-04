@@ -1668,7 +1668,7 @@
     <!-- [메뉴 감추기/열기 버튼] -->
     <layer name="btn_menu_toggle" type="text" align="topright" 
            x="8" 
-           y="-28"  <!-- [조정 포인트 2] 접기 버튼을 메뉴바 바깥 위쪽으로 올림 (기존 6 -> -28로 변경) -->
+           y="-28" 
            width="50" height="22"
            html="[bold]접기 —[/bold]" css="color:#ffffff; font-size:10px; text-align:center; line-height:22px;"
            bg="true" bgcolor="0x000000" bgalpha="0.8" bgroundedge="4" zorder="1002"
