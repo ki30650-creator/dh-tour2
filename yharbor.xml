@@ -1225,14 +1225,24 @@ lat="37.26290833" lng="127.07152500" alt="79.34" heading="157.0">
        vcenter="true"
        onclick="loadscene(get(linkedscene), null, MERGE, BLEND(0.7)); activate_mobile_menu_item(get(name));" />
 
-<!-- 2. 모바일 메인 뷰포트 영역 (상단 70%) -->
-<area devices="mobile" align="top" x="0" y="0" w="100%" h="80%" />
+<!-- 2. 토글 상태 관리 변수 초기화 -->
+<attribute name="mobile_menu_open" value="true" />
 
-<!-- 3. 모바일 하단 30% 스와이프 메뉴 바 -->
+<!-- 3. 모바일 메인 뷰포트 영역 (기본 상단 80%) -->
+<area name="mobile_viewport" devices="mobile" align="top" x="0" y="0" w="100%" h="80%" />
+
+<!-- 4. 모바일 하단 스와이프 메뉴 바 -->
 <layer name="mobile_bottom_bar" devices="mobile" type="container" keep="true"
        align="leftbottom" x="0" y="0" width="100%" height="20%" zorder="999"
        bgcolor="0x0A0A0A" bgalpha="0.95"
        onloaded="init_mobile_grid_menu_8();" onresize="init_mobile_grid_menu_8();">
+
+    <!-- [신규] 상단 접기/펴기 토글 버튼 -->
+    <layer name="mobile_toggle_btn" type="text" keep="true"
+           align="top" edge="bottom" x="0" y="0" width="60" height="24" zorder="1000"
+           bg="true" bgcolor="0x0A0A0A" bgalpha="0.95" bgroundedge="8 8 0 0" bgborder="1 0x334155 0.8"
+           html="▼" css="color:#FFFFFF; font-size:12px; text-align:center; line-height:22px; cursor:pointer;"
+           onclick="toggle_mobile_bottom_bar();" />
 
     <layer name="mobile_scroll_container" type="container" keep="true"
            align="leftbottom" x="0" y="0" width="100%" height="100%" maskchildren="true">
@@ -1272,65 +1282,82 @@ lat="37.26290833" lng="127.07152500" alt="79.34" heading="157.0">
     </layer>
 </layer>
 
-<!-- 4. 한 화면 8개(2열 4행) x 총 3페이지 자동 배치 액션 -->
+<!-- 5. [신규] 접기/펴기 토글 액션 -->
+<action name="toggle_mobile_bottom_bar">
+    if(mobile_menu_open,
+        <!-- 메뉴 접기 (아래로 감추기) -->
+        set(mobile_menu_open, false);
+        set(layer[mobile_toggle_btn].html, '▲');
+        
+        <!-- 하단 바 Y값 이동 애니메이션 (높이만큼 아래로 내림) -->
+        copy(bar_h, layer[mobile_bottom_bar].pixelheight);
+        mul(target_y, bar_h, -1);
+        tween(layer[mobile_bottom_bar].y, get(target_y), 0.35, easeOutQuad);
+        
+        <!-- 파노라마 메인 영역 전체화면으로 확장 -->
+        set(area[mobile_viewport].h, 100%);
+    ,
+        <!-- 메뉴 펴기 (상단으로 복구) -->
+        set(mobile_menu_open, true);
+        set(layer[mobile_toggle_btn].html, '▼');
+        
+        <!-- 하단 바 원래 위치로 복원 -->
+        tween(layer[mobile_bottom_bar].y, 0, 0.35, easeOutQuad);
+        
+        <!-- 파노라마 영역 80%로 축소 -->
+        set(area[mobile_viewport].h, 80%);
+    );
+</action>
+
+<!-- 6. 그리드 배치 액션 -->
 <action name="init_mobile_grid_menu_8">
-    <!-- 화면 크기 측정 -->
     copy(screen_w, layer[mobile_bottom_bar].pixelwidth);
     if(screen_w LE 0, copy(screen_w, stagewidth));
     
     copy(screen_h, layer[mobile_bottom_bar].pixelheight);
     if(screen_h LE 0, copy(screen_h, stageheight));
 
-    <!-- 전체 스크롤 길이를 3페이지 폭(화면폭 x 3)으로 설정 -->
     mul(total_w, screen_w, 3);
     copy(layer[mobile_scroll_content].width, total_w);
 
-    <!-- 카드의 너비(44%) 및 여백 계산 -->
     mul(card_w, screen_w, 0.44);
     mul(gap_x, screen_w, 0.04);
     mul(margin_x, screen_w, 0.04);
 
-    <!-- 카드의 높이(21%) 및 여백 계산 -->
     mul(card_h, screen_h, 0.21);
     mul(gap_y, screen_h, 0.03);
     mul(margin_y, screen_h, 0.02);
 
-    <!-- 24개 항목 위치 계산 루프 -->
     for(set(i,0), i LT 24, inc(i),
         add(item_idx, i, 1);
         
-        <!-- 레이어 이름 결합 -->
         if(item_idx LT 10, 
             txtadd(lname, 'm_drop_0', get(item_idx)), 
             txtadd(lname, 'm_drop_', get(item_idx))
         );
 
-        <!-- 페이지 번호(0~2), 열 번호(0~1), 행 번호(0~3) 계산 -->
         div(page_idx, i, 8);
-        Math.floor(page_idx); <!-- 8개 단위로 페이지 생성 -->
+        Math.floor(page_idx);
         
         mul(page_start_i, page_idx, 8);
-        sub(in_page_i, i, page_start_i); <!-- 페이지 내 인덱스 (0~7) -->
+        sub(in_page_i, i, page_start_i);
 
         div(col_idx, in_page_i, 4);
-        Math.floor(col_idx); <!-- 열 번호 (0:왼쪽열, 1:오른쪽열) -->
+        Math.floor(col_idx);
 
         mul(col_start_i, col_idx, 4);
-        sub(row_idx, in_page_i, col_start_i); <!-- 행 번호 (0,1,2,3) -->
+        sub(row_idx, in_page_i, col_start_i);
 
-        <!-- X 위치 계산 = (페이지 * 화면폭) + 좌측 여백 + (열 번호 * (카드폭 + 가로간격)) -->
         mul(pos_x, page_idx, screen_w);
         add(pos_x, pos_x, margin_x);
         add(w_and_gap, card_w, gap_x);
         mul(col_offset, col_idx, w_and_gap);
         add(pos_x, pos_x, col_offset);
 
-        <!-- Y 위치 계산 = 상단 여백 + (행 번호 * (카드높이 + 세로간격)) -->
         add(h_and_gap, card_h, gap_y);
         mul(pos_y, row_idx, h_and_gap);
         add(pos_y, pos_y, margin_y);
 
-        <!-- 크기 및 위치 적용 -->
         copy(layer[get(lname)].width, card_w);
         copy(layer[get(lname)].height, card_h);
         copy(layer[get(lname)].x, pos_x);
@@ -1338,7 +1365,7 @@ lat="37.26290833" lng="127.07152500" alt="79.34" heading="157.0">
     );
 </action>
 
-<!-- 5. 메뉴 활성화 액션 -->
+<!-- 7. 메뉴 활성화 액션 -->
 <action name="activate_mobile_menu_item">
     if(current_active_menu,
         set(layer[get(current_active_menu)].bgcolor, 0x1E293B);
