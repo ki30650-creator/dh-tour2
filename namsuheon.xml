@@ -1652,39 +1652,56 @@
        zorder="1000"
        onclick="load_scene_by_name('scene_namsuheon_(1)');" />
 
-<!-- 1. 모바일 메인 메뉴바 -->
+krpano 모바일 메뉴의 레이아웃과 동작 방식을 요청하신 조건에 맞게 대폭 간소화했습니다.
+
+수정 핵심 포인트
+메뉴 위치 하단 이동 & 너비 조정: 상단(align="top") 대신 화면 아래쪽(align="bottom")으로 내렸으며, 화면 너비의 30%만 차지하도록 설정했습니다. (투어 70%, 메뉴 30% 비중)
+
+드롭다운 서브메뉴 제거: 터치 시 서브메뉴가 열리는 동작 대신, 각 메인 버튼을 누르면 대표 씬으로 즉시 이동하도록 변경했습니다.
+
+가로/세로 모드 반응형 대응: align_mobile_menu 액션을 통해 화면 방향이 바뀔 때마다 하단 오른쪽(또는 정렬 위치)에 안정적으로 배치되고 버튼 너비가 4등분으로 자동 계산됩니다.
+
+수정된 krpano XML 코드
+XML
+<!-- 1. 모바일 하단 메인 메뉴바 (투어 7 : 메뉴 3 비율) -->
 <layer name="mobile_menu_bar" 
        type="container" 
        keep="true" 
        devices="mobile" 
-       align="top" edge="top" x="0" y="65" width="calc:stageheight GT stagewidth ? (stagewidth - 20) : (stagewidth * 0.5)" height="40" 
+       align="bottom" edge="bottom" x="0" y="20" 
+       width="calc:stageheight GT stagewidth ? (stagewidth * 0.3) : (stagewidth * 0.3)" 
+       height="40" 
        bgcolor="0x000000" bgalpha="0.75" bgroundedge="8" zorder="1000"
        onloaded="align_mobile_menu();"
        onresize="align_mobile_menu();">
 
     <!-- [1] 별당채 -->
     <layer name="btn_m_bdc" type="text" align="left" edge="left" y="0" height="40"
-           html="[bold]별당채[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
-           vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_bdc');" />
+           html="[bold]별당채[/bold]" css="color:#ffffff; font-size:12px; text-align:center; line-height:40px;"
+           vcenter="true" bg="false" 
+           onclick="load_scene_by_name('scene_namsuheon_(14)');" />
 
     <!-- [2] 사랑채 -->
     <layer name="btn_m_src" type="text" align="left" edge="left" y="0" height="40"
-           html="[bold]사랑채[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
-           vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_src');" />
+           html="[bold]사랑채[/bold]" css="color:#ffffff; font-size:12px; text-align:center; line-height:40px;"
+           vcenter="true" bg="false" 
+           onclick="load_scene_by_name('scene_namsuheon_(41)');" />
 
     <!-- [3] 안채 -->
     <layer name="btn_m_ac" type="text" align="left" edge="left" y="0" height="40"
-           html="[bold]안채[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
-           vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_ac');" />
+           html="[bold]안채[/bold]" css="color:#ffffff; font-size:12px; text-align:center; line-height:40px;"
+           vcenter="true" bg="false" 
+           onclick="load_scene_by_name('scene_namsuheon_(60)');" />
 
     <!-- [4] 부대시설 -->
     <layer name="btn_m_fac" type="text" align="left" edge="left" y="0" height="40"
-           html="[bold]부대시설[/bold]" css="color:#ffffff; font-size:13px; text-align:center; line-height:40px;"
-           vcenter="true" bg="false" onclick="toggle_mobile_sub('sub_fac');" />
+           html="[bold]부대시설[/bold]" css="color:#ffffff; font-size:12px; text-align:center; line-height:40px;"
+           vcenter="true" bg="false" 
+           onclick="load_scene_by_name('scene_namsuheon_(11)');" />
 </layer>
 
 
-<!-- 2. 레이아웃 & 4등분 자동 연산 액션 -->
+<!-- 2. 레이아웃 4등분 자동 연산 액션 -->
 <action name="align_mobile_menu">
     <!-- 메뉴바 너비 측정 및 4등분 계산 -->
     copy(bar_w, layer[mobile_menu_bar].pixelwidth);
@@ -1702,87 +1719,7 @@
 </action>
 
 
-<!-- 3. 드롭다운 서브메뉴 그룹 -->
-<layer name="sub_bdc" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_bdc]" align="bottomleft" edge="topleft" x="0" y="5" width="90" height="160" 
-       bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
-    <layer name="sub_bdc_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(14)');" />
-    <layer name="sub_bdc_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(15)');" />
-    <layer name="sub_bdc_103" type="text" align="topleft" x="0" y="80" width="100%" height="40" html="103호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(24)');" />
-    <layer name="sub_bdc_104" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="104호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(33)');" />
-</layer>
-
-<layer name="sub_src" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_src]" align="bottomcenter" edge="topcenter" x="0" y="5" width="90" height="160" 
-       bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
-    <layer name="sub_src_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(41)');" />
-    <layer name="sub_src_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(46)');" />
-    <layer name="sub_src_103" type="text" align="topleft" x="0" y="80" width="100%" height="40" html="103호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(51)');" />
-    <layer name="sub_src_104" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="104호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(56)');" />
-</layer>
-
-<layer name="sub_ac" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_ac]" align="bottomcenter" edge="topcenter" x="0" y="5" width="90" height="160" 
-       bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
-    <layer name="sub_ac_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(60)');" />
-    <layer name="sub_ac_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(65)');" />
-    <layer name="sub_ac_103" type="text" align="topleft" x="0" y="80" width="100%" height="40" html="103호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(70)');" />
-    <layer name="sub_ac_104" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="104호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(75)');" />
-</layer>
-
-<layer name="sub_fac" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_fac]" align="bottomright" edge="topright" x="0" y="5" width="110" height="160" 
-       bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
-   <layer name="sub_fac_d" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="안내데스크" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(11)');" />
-    <layer name="sub_fac_parking" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="지하주차장" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(79)');" />
-    <layer name="sub_fac_library" type="text" align="topleft" x="0" y="80" width="100%" height="40" html="라이브러리 한옥" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(84)');" />
-    <layer name="sub_fac_cafe" type="text" align="topleft" x="0" y="120" width="100%" height="40" html="갤러리카페" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(86)');" />
-</layer>
-
-
-<!-- 4. 액션 제어 -->
-
-<!-- 서브메뉴 토글 및 버튼 갈색 활성화 액션 -->
-<action name="toggle_mobile_sub">
-    <!-- 1. 다른 서브메뉴들 닫기 -->
-    if(%1 != 'sub_bdc', set(layer[sub_bdc].visible, false); );
-    if(%1 != 'sub_src', set(layer[sub_src].visible, false); );
-    if(%1 != 'sub_ac', set(layer[sub_ac].visible, false); );
-    if(%1 != 'sub_fac', set(layer[sub_fac].visible, false); );
-
-    <!-- 2. 클릭한 서브메뉴 열기/닫기 -->
-    switch(layer[%1].visible);
-
-    <!-- 3. 모든 버튼 색상 초기화 -->
-    set(layer[btn_m_bdc].bg, false);
-    set(layer[btn_m_src].bg, false);
-    set(layer[btn_m_ac].bg,  false);
-    set(layer[btn_m_fac].bg, false);
-
-    <!-- 4. 열려있는 서브메뉴의 버튼만 갈색 활성화 -->
-    if(layer[%1].visible,
-        if(%1 == 'sub_bdc', set(layer[btn_m_bdc].bg, true); set(layer[btn_m_bdc].bgcolor, 0x8B5A2B); set(layer[btn_m_bdc].bgroundedge, 6); );
-        if(%1 == 'sub_src', set(layer[btn_m_src].bg, true); set(layer[btn_m_src].bgcolor, 0x8B5A2B); set(layer[btn_m_src].bgroundedge, 6); );
-        if(%1 == 'sub_ac',  set(layer[btn_m_ac].bg,  true); set(layer[btn_m_ac].bgcolor,  0x8B5A2B); set(layer[btn_m_ac].bgroundedge, 6); );
-        if(%1 == 'sub_fac', set(layer[btn_m_fac].bg, true); set(layer[btn_m_fac].bgcolor, 0x8B5A2B); set(layer[btn_m_fac].bgroundedge, 6); );
-    );
-</action>
-
-<!-- 씬 이동 액션 (오류 지점 수정 완료) -->
+<!-- 3. 씬 이동 전용 액션 -->
 <action name="load_scene_by_name">
-    <!-- 서브메뉴 닫기 -->
-    set(layer[sub_bdc].visible, false);
-    set(layer[sub_src].visible, false);
-    set(layer[sub_ac].visible, false);
-    set(layer[sub_fac].visible, false);
-
-    <!-- 버튼 색상 초기화 -->
-    set(layer[btn_m_bdc].bg, false);
-    set(layer[btn_m_src].bg, false);
-    set(layer[btn_m_ac].bg,  false);
-    set(layer[btn_m_fac].bg, false);
-
-    <!-- 씬 로드 -->
     loadscene(%1, null, MERGE, BLEND(1));
-</action>
-</krpano>
+</action></krpano>
