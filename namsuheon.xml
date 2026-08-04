@@ -1656,22 +1656,18 @@
        type="container" 
        keep="true" 
        devices="mobile" 
-       align="bottom" edge="bottom" 
-       x="0" 
-       y="5"  
+       align="bottom" edge="bottom" x="0" y="5" 
        width="calc: stageheight GT stagewidth ? (stagewidth * 0.80) : (stagewidth * 0.60)" 
        height="175" 
-       bgcolor="0x000000" bgalpha="0.8" bgroundedge="10" zorder="1000"
+       bgcolor="0x000000" bgalpha="0.85" bgroundedge="10 10 0 0" zorder="1000"
        onloaded="align_mobile_menu();"
        onresize="align_mobile_menu();">
 
-    <!-- [메뉴 감추기/열기 버튼] -->
-    <layer name="btn_menu_toggle" type="text" align="topright" 
-           x="8" 
-           y="-28" 
-           width="50" height="22"
-           html="[bold]접기 —[/bold]" css="color:#ffffff; font-size:10px; text-align:center; line-height:22px;"
-           bg="true" bgcolor="0x000000" bgalpha="0.8" bgroundedge="4" zorder="1002"
+    <!-- [신규] 상단 중앙 삼각형 토글 버튼 (▼ / ▲) -->
+    <layer name="mobile_toggle_btn" type="text" keep="true"
+           align="top" edge="bottom" x="0" y="0" width="60" height="22" zorder="1002"
+           bg="true" bgcolor="0x000000" bgalpha="0.85" bgroundedge="8 8 0 0" bgborder="1 0x334155 0.8"
+           html="▼" css="color:#FFFFFF; font-size:11px; text-align:center; line-height:20px; cursor:pointer;"
            onclick="toggle_mobile_menu();" />
 
     <!-- [메뉴 콘텐츠 컨테이너] -->
@@ -1717,16 +1713,18 @@
 </layer>
 
 
-<!-- 2. 메뉴 감추기/열기 토글 액션 -->
+<!-- 2. 메뉴 감추기/열기 토글 액션 (화살표 탭 애니메이션 방식) -->
 <action name="toggle_mobile_menu">
     switch(layer[menu_content_wrapper].visible);
 
     if(layer[menu_content_wrapper].visible,
+        <!-- 메뉴 열림 (원래 높이로 지정) -->
         set(layer[mobile_menu_bar].height, 175);
-        set(layer[btn_menu_toggle].html, "[bold]접기 —[/bold]");
+        set(layer[mobile_toggle_btn].html, "▼");
     ,
-        set(layer[mobile_menu_bar].height, 0);  <!-- 접히면 메뉴 상자 높이를 0으로 숨김 -->
-        set(layer[btn_menu_toggle].html, "[bold]메뉴 ☰[/bold]");
+        <!-- 메뉴 접힘 (높이를 0으로 만들어 깔끔하게 아래로 접힘) -->
+        set(layer[mobile_menu_bar].height, 0);
+        set(layer[mobile_toggle_btn].html, "▲");
     );
 </action>
 
