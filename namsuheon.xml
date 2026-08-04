@@ -1652,16 +1652,13 @@
        zorder="1000"
        onclick="load_scene_by_name('scene_namsuheon_(1)');" />
 
-각 호수나 시설 버튼을 누르면 해당 버튼의 배경색만 갈색(0x8B5A2B)으로 바뀌고, 기존에 선택되어 있던 다른 버튼들은 다시 투명하게(원래대로) 되돌아가는 기능을 추가했습니다.
-
-수정된 krpano XML 코드
-XML
-<!-- 1. 모바일 하단 4컬럼 일체형 메뉴바 -->
 <layer name="mobile_menu_bar" 
        type="container" 
        keep="true" 
        devices="mobile" 
-       align="bottom" edge="bottom" x="0" y="20" 
+       align="bottom" edge="bottom" 
+       x="0" 
+       y="5"  <!-- [조정 포인트 1] 메뉴 전체를 아래로 내림 (기존 20 -> 5로 변경) -->
        width="calc: stageheight GT stagewidth ? (stagewidth * 0.80) : (stagewidth * 0.60)" 
        height="175" 
        bgcolor="0x000000" bgalpha="0.8" bgroundedge="10" zorder="1000"
@@ -1669,9 +1666,12 @@ XML
        onresize="align_mobile_menu();">
 
     <!-- [메뉴 감추기/열기 버튼] -->
-    <layer name="btn_menu_toggle" type="text" align="topright" x="8" y="6" width="50" height="20"
-           html="[bold]접기 —[/bold]" css="color:#aaaaaa; font-size:10px; text-align:center; line-height:20px;"
-           bg="true" bgcolor="0x222222" bgalpha="0.6" bgroundedge="4" zorder="1002"
+    <layer name="btn_menu_toggle" type="text" align="topright" 
+           x="8" 
+           y="-28"  <!-- [조정 포인트 2] 접기 버튼을 메뉴바 바깥 위쪽으로 올림 (기존 6 -> -28로 변경) -->
+           width="50" height="22"
+           html="[bold]접기 —[/bold]" css="color:#ffffff; font-size:10px; text-align:center; line-height:22px;"
+           bg="true" bgcolor="0x000000" bgalpha="0.8" bgroundedge="4" zorder="1002"
            onclick="toggle_mobile_menu();" />
 
     <!-- [메뉴 콘텐츠 컨테이너] -->
@@ -1725,7 +1725,7 @@ XML
         set(layer[mobile_menu_bar].height, 175);
         set(layer[btn_menu_toggle].html, "[bold]접기 —[/bold]");
     ,
-        set(layer[mobile_menu_bar].height, 32);
+        set(layer[mobile_menu_bar].height, 0);  <!-- 접히면 메뉴 상자 높이를 0으로 숨김 -->
         set(layer[btn_menu_toggle].html, "[bold]메뉴 ☰[/bold]");
     );
 </action>
@@ -1750,12 +1750,10 @@ XML
 
 <!-- 4. 씬 이동 & 버튼 갈색 활성화 액션 -->
 <action name="load_scene_by_name">
-    <!-- 1. 기존에 활성화되어 있던 버튼이 있다면 배경 해제 -->
     if(active_btn_name,
         set(layer[get(active_btn_name)].bg, false);
     );
 
-    <!-- 2. 새로 클릭된 버튼 저장 및 갈색 활성화 적용 -->
     set(active_btn_name, %2);
     if(active_btn_name,
         set(layer[get(active_btn_name)].bg, true);
@@ -1763,7 +1761,6 @@ XML
         set(layer[get(active_btn_name)].bgroundedge, 4);
     );
 
-    <!-- 3. 해당 씬 로드 -->
     loadscene(%1, null, MERGE, BLEND(1));
 </action>
 </krpano>
