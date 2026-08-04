@@ -133,7 +133,7 @@
     <layer name="btn_an104" style="hanokbtn" x="495" y="78" html="안채104호"  devices="desktop" onclick="select_hanok_btn('btn_an104'); loadscene(scene_namsuheon_(75),null,MERGE,BLEND(0.7));"/>
 
     <!-- 3번째 줄: 부대시설 -->
-    <layer name="btn_fac_d" style="hanokbtn" x="20" y="108" width="85" html="안내데스크" devices="desktop" onclick="select_hanok_btn('btn_fac_d'); loadscene(scene_namsuheon_(11),null,MERGE,BLEND(0.7));/>
+    <layer name="btn_fac_d" style="hanokbtn" x="20" y="108" width="85" html="안내데스크" devices="desktop" onclick="select_hanok_btn('btn_fac_d'); loadscene(scene_namsuheon_(11),null,MERGE,BLEND(0.7));"/>
     <layer name="btn_fac_parking" style="hanokbtn" x="115" y="108" width="85" html="지하주차장" devices="desktop" onclick="select_hanok_btn('btn_fac_parking'); loadscene(scene_namsuheon_(79),null,MERGE,BLEND(0.7));"/>
     <layer name="btn_fac_library" style="hanokbtn" x="210" y="108" width="100" html="라이브러리 한옥" devices="desktop" onclick="select_hanok_btn('btn_fac_library'); loadscene(scene_namsuheon_(84),null,MERGE,BLEND(0.7));"/>
     <layer name="btn_fac_cafe" style="hanokbtn" x="320" y="108" width="90" html="갤러리카페" devices="desktop" onclick="select_hanok_btn('btn_fac_cafe'); loadscene(scene_namsuheon_(86),null,MERGE,BLEND(0.7));"/>
