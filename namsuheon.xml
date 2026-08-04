@@ -1658,7 +1658,7 @@
        devices="mobile" 
        align="bottom" edge="bottom" 
        x="0" 
-       y="5"  <!-- [조정 포인트 1] 메뉴 전체를 아래로 내림 (기존 20 -> 5로 변경) -->
+       y="5"  
        width="calc: stageheight GT stagewidth ? (stagewidth * 0.80) : (stagewidth * 0.60)" 
        height="175" 
        bgcolor="0x000000" bgalpha="0.8" bgroundedge="10" zorder="1000"
