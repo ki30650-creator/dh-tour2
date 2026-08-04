@@ -791,7 +791,7 @@
 
 	</scene>
 
-	<scene name="scene_namsuheon_(40)" title="namsuheon (40)" onstart="" thumburl="panos/namsuheon_(40).tiles/thumb.jpg" lat="37.28410833" lng="127.02266944" alt="93.22" heading="0.0">
+	<scene name="scene_namsuheon_(40)" title="화장실" onstart="" thumburl="panos/namsuheon_(40).tiles/thumb.jpg" lat="37.28410833" lng="127.02266944" alt="93.22" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -1630,7 +1630,7 @@
 
 	</scene>
 
-	<scene name="scene_namsuheon_(90)" title="namsuheon (90)" onstart="" thumburl="panos/namsuheon_(90).tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_namsuheon_(90)" title="" onstart="" thumburl="panos/namsuheon_(90).tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
