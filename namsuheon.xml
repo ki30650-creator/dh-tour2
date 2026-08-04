@@ -1657,7 +1657,7 @@
        keep="true" 
        devices="mobile" 
        align="bottom" edge="bottom" x="0" y="20" 
-       width="calc: stageheight GT stagewidth ? (stagewidth * 0.45) : (stagewidth * 0.35)" 
+       width="calc: stageheight GT stagewidth ? (stagewidth * 0.80) : (stagewidth * 0.60)" 
        height="175" 
        bgcolor="0x000000" bgalpha="0.8" bgroundedge="10" zorder="1000"
        onloaded="align_mobile_menu();"
