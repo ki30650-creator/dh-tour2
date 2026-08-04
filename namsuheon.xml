@@ -1704,7 +1704,7 @@
 
 <!-- 3. 드롭다운 서브메뉴 그룹 -->
 <layer name="sub_bdc" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_bdc]" align="bottomleft" edge="topleft" x="0" y="5" width="100" height="160" 
+       parent="layer[btn_m_bdc]" align="bottomleft" edge="topleft" x="0" y="5" width="90" height="160" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
     <layer name="sub_bdc_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(14)');" />
     <layer name="sub_bdc_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(15)');" />
@@ -1713,7 +1713,7 @@
 </layer>
 
 <layer name="sub_src" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_src]" align="bottomcenter" edge="topcenter" x="0" y="5" width="100" height="160" 
+       parent="layer[btn_m_src]" align="bottomcenter" edge="topcenter" x="0" y="5" width="90" height="160" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
     <layer name="sub_src_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(41)');" />
     <layer name="sub_src_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(46)');" />
@@ -1722,7 +1722,7 @@
 </layer>
 
 <layer name="sub_ac" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_ac]" align="bottomcenter" edge="topcenter" x="0" y="5" width="100" height="160" 
+       parent="layer[btn_m_ac]" align="bottomcenter" edge="topcenter" x="0" y="5" width="90" height="160" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
     <layer name="sub_ac_101" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="101호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(60)');" />
     <layer name="sub_ac_102" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="102호" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(65)');" />
@@ -1731,7 +1731,7 @@
 </layer>
 
 <layer name="sub_fac" type="container" keep="true" devices="mobile" visible="false"
-       parent="layer[btn_m_fac]" align="bottomright" edge="topright" x="0" y="5" width="125" height="160" 
+       parent="layer[btn_m_fac]" align="bottomright" edge="topright" x="0" y="5" width="110" height="160" 
        bgcolor="0x111111" bgalpha="0.9" bgroundedge="6" zorder="1001">
    <layer name="sub_fac_d" type="text" align="topleft" x="0" y="0" width="100%" height="40" html="안내데스크" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(11)');" />
     <layer name="sub_fac_parking" type="text" align="topleft" x="0" y="40" width="100%" height="40" html="지하주차장" css="color:#fff; font-size:12px; text-align:center; line-height:40px;" bg="false" onclick="load_scene_by_name('scene_namsuheon_(79)');" />
