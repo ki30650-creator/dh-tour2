@@ -361,6 +361,25 @@
                 font-size:12px;
             }
         }
+
+#panoramaWebsiteBtn {
+    min-width:68px;
+    height:36px;
+    padding:0 14px;
+    border:1px solid rgba(51,65,85,0.8);
+    border-radius:20px;
+    background:rgba(30,41,59,0.85);
+    color:#FFFFFF;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#close-btn:hover,
+#panoramaWebsiteBtn:hover,
+#panoramaShareBtn:hover {
+    background:rgba(0,0,0,0.82);
+}
     </style>
 </head>
 <body>
@@ -406,6 +425,7 @@
 <!-- 우측 상단 기능 버튼: 종료 버튼은 기존 viewer.html과 동일한 close-btn 사용 -->
 <div id="panoramaActionButtons">
     <button type="button" id="close-btn" title="종료" aria-label="파노라마 종료">&times;</button>
+<button type="button" id="panoramaWebsiteBtn" title="웹사이트 바로가기" aria-label="웹사이트">웹사이트</button>
     <button type="button" id="panoramaShareBtn" title="공유" aria-label="파노라마 공유">🔗공유</button>
 </div>
 
