@@ -395,6 +395,8 @@
 </div>
 
 <script>
+var krpanoObj = null; // ★ 1. krpano 인스턴스를 저장할 전역/상위 변수 추가
+
 (function () {
     var tourInfo = getTourInfo();
     var script = document.createElement("script");
@@ -410,7 +412,10 @@
         embedpano({
             xml: tourInfo.xmlFile,
             target: "pano",
-            passQueryParameters: "startscene,startlookat"
+            passQueryParameters: "startscene,startlookat",
+            onready: function (krpano) { // ★ 2. onready 콜백 추가
+                krpanoObj = krpano;
+            }
         });
     };
 
@@ -532,6 +537,26 @@
 
     if (closeBtn) {
         closeBtn.addEventListener("click", closeTour);
+    }
+if (websiteBtn) {
+        websiteBtn.addEventListener('click', function () {
+            if (krpanoObj) {
+                var targetUrl = krpanoObj.get('website_url');
+                if (targetUrl) {
+                    window.open(targetUrl, '_blank');
+                } else {
+                    alert('등록된 웹사이트 주소가 없습니다.');
+                }
+            } else {
+                alert('투어가 로드되지 않았습니다.');
+            }
+        });
+    }
+
+    if (shareBtn) {
+        shareBtn.addEventListener('click', function () {
+            openModal(shareModal);
+        });
     }
 
     if (shareBtn) {
