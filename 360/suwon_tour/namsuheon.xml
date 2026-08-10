@@ -1,11 +1,11 @@
 ﻿<krpano version="1.22" title="Suwon Tour">
+<website_url>https://www.namsuheon.kr/main/</website_url>
 
     <include url="skin/vtourskin.xml" />
 
     <layer name="skin_control_bar" visible="false" />
 
     <!-- 1. 공통 스타일 정의 -->
-<website_url>https://www.namsuheon.kr/main/</website_url>
     <style name="hs_title_box"
            type="text"
            bg="true"
