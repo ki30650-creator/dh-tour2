@@ -33,9 +33,10 @@
     <!-- 카카오 SDK 불러오기 -->
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
+    // krpano 객체를 전역에서 접근할 수 있도록 선언
+    var krpanoObj = null;
+
     // URL 파라미터에 따라 불러올 XML 파일 결정
-    // 권장 주소: tour.html?tour=namsuheon / tour.html?tour=yharbor
-    // 기존 주소: tour.html?xml=namsuheon.xml 형식도 함께 지원
     function getTourInfo() {
         var urlParams = new URLSearchParams(window.location.search);
         var contentsName = (urlParams.get('contents') || 'suwon_tour').trim();
@@ -149,7 +150,6 @@
                 Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
             }
 
-            // text 타입으로 본문에 현재 URL 주소를 직접 출력
             Kakao.Share.sendDefault({
                 objectType: 'text',
                 text: '[수원 360 VR 투어]\n수원의 360도 VR투어를 확인해보세요!\n\n🔗 접속 주소:\n' + currentUrl,
@@ -182,7 +182,7 @@
             background-color:#000000;
         }
 
-        /* 우측 상단: 종료 버튼 위 / 공유 버튼 아래 */
+        /* 우측 상단: 종료 버튼 위 / 웹사이트, 공유 버튼 아래 */
         #panoramaActionButtons {
             position:fixed;
             top:18px;
@@ -215,6 +215,7 @@
             cursor:pointer;
         }
 
+        #panoramaWebsiteBtn,
         #panoramaShareBtn {
             min-width:68px;
             height:36px;
@@ -229,6 +230,7 @@
         }
 
         #close-btn:hover,
+        #panoramaWebsiteBtn:hover,
         #panoramaShareBtn:hover {
             background:rgba(0,0,0,0.82);
         }
@@ -355,31 +357,13 @@
                 line-height:36px;
             }
 
+            #panoramaWebsiteBtn,
             #panoramaShareBtn {
                 height:34px;
                 padding:0 12px;
                 font-size:12px;
             }
         }
-
-#panoramaWebsiteBtn {
-    min-width:68px;
-    height:36px;
-    padding:0 14px;
-    border:1px solid rgba(51,65,85,0.8);
-    border-radius:20px;
-    background:rgba(30,41,59,0.85);
-    color:#FFFFFF;
-    font-size:13px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-#close-btn:hover,
-#panoramaWebsiteBtn:hover,
-#panoramaShareBtn:hover {
-    background:rgba(0,0,0,0.82);
-}
     </style>
 </head>
 <body>
@@ -395,8 +379,6 @@
 </div>
 
 <script>
-var krpanoObj = null; // ★ 1. krpano 인스턴스를 저장할 전역/상위 변수 추가
-
 (function () {
     var tourInfo = getTourInfo();
     var script = document.createElement("script");
@@ -413,8 +395,8 @@ var krpanoObj = null; // ★ 1. krpano 인스턴스를 저장할 전역/상위 �
             xml: tourInfo.xmlFile,
             target: "pano",
             passQueryParameters: "startscene,startlookat",
-            onready: function (krpano) { // ★ 2. onready 콜백 추가
-                krpanoObj = krpano;
+            onready: function (krpano) {
+                krpanoObj = krpano; // krpano 객체 연결
             }
         });
     };
@@ -427,10 +409,10 @@ var krpanoObj = null; // ★ 1. krpano 인스턴스를 저장할 전역/상위 �
 })();
 </script>
 
-<!-- 우측 상단 기능 버튼: 종료 버튼은 기존 viewer.html과 동일한 close-btn 사용 -->
+<!-- 우측 상단 기능 버튼 -->
 <div id="panoramaActionButtons">
     <button type="button" id="close-btn" title="종료" aria-label="파노라마 종료">&times;</button>
-<button type="button" id="panoramaWebsiteBtn" title="웹사이트 바로가기" aria-label="웹사이트">웹사이트</button>
+    <button type="button" id="panoramaWebsiteBtn" title="웹사이트 바로가기" aria-label="웹사이트">🌐웹사이트</button>
     <button type="button" id="panoramaShareBtn" title="공유" aria-label="파노라마 공유">🔗공유</button>
 </div>
 
@@ -462,6 +444,7 @@ var krpanoObj = null; // ★ 1. krpano 인스턴스를 저장할 전역/상위 �
     'use strict';
 
     var closeBtn = document.getElementById('close-btn');
+    var websiteBtn = document.getElementById('panoramaWebsiteBtn');
     var shareBtn = document.getElementById('panoramaShareBtn');
     var shareModal = document.getElementById('shareModal');
     var qrModal = document.getElementById('qrModal');
@@ -495,16 +478,15 @@ var krpanoObj = null; // ★ 1. krpano 인스턴스를 저장할 전역/상위 �
             shareToast.classList.remove('is-visible');
         }, 2000);
     }
-    function closeTour(event) {
-        const closeButton = event?.currentTarget || document.getElementById("close-btn");
 
-        // 모바일에서 종료 버튼을 누른 뒤 선택 상태가 남지 않도록 즉시 해제
-        closeButton?.blur();
+    function closeTour(event) {
+        var closeButton = (event && event.currentTarget) || document.getElementById("close-btn");
+
+        if (closeButton) closeButton.blur();
         if (document.activeElement === closeButton) {
             document.activeElement.blur();
         }
 
-        // 생활지리정보 메인의 iframe 안에서 실행 중이면 부모 페이지에 종료 요청
         if (window.parent !== window) {
             window.parent.postMessage(
                 {
@@ -517,7 +499,6 @@ var krpanoObj = null; // ★ 1. krpano 인스턴스를 저장할 전역/상위 �
             return;
         }
 
-        // QR·외부 링크 등 일반 페이지로 직접 들어온 경우
         if (window.history.length > 1) {
             window.history.back();
             return;
@@ -529,16 +510,19 @@ var krpanoObj = null; // ★ 1. krpano 인스턴스를 저장할 전역/상위 �
             window.location.href = "./";
         }
 
-        window.setTimeout(() => {
+        window.setTimeout(function () {
             if (!document.hidden) window.location.href = "./";
         }, 250);
-    }// 업체 연계 시 기존과 동일한 함수명으로 호출할 수 있도록 전역 공개
+    }
+
     window.closeTour = closeTour;
 
     if (closeBtn) {
         closeBtn.addEventListener("click", closeTour);
     }
-if (websiteBtn) {
+
+    // 웹사이트 버튼 클릭 이벤트
+    if (websiteBtn) {
         websiteBtn.addEventListener('click', function () {
             if (krpanoObj) {
                 var targetUrl = krpanoObj.get('website_url');
@@ -548,14 +532,8 @@ if (websiteBtn) {
                     alert('등록된 웹사이트 주소가 없습니다.');
                 }
             } else {
-                alert('투어가 로드되지 않았습니다.');
+                alert('투어가 아직 완전히 로드되지 않았습니다.');
             }
-        });
-    }
-
-    if (shareBtn) {
-        shareBtn.addEventListener('click', function () {
-            openModal(shareModal);
         });
     }
 
