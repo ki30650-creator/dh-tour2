@@ -7,59 +7,6 @@
 -->
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>투어 페이지</title>
-    <style>
-        /* 기본적으로 버튼을 숨겨둡니다 */
-        .booking-btn {
-            display: none; 
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .booking-btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 예약 버튼 -->
-    <a id="reserveBtn" class="booking-btn" target="_blank">예약</a>
-
-    <script>
-        // tour.xml 경로
-        const xmlUrl = 'tour.xml'; 
-
-        fetch(xmlUrl)
-            .then(response => response.text())
-            .then(str => new DOMParser().parseFromString(str, "text/xml"))
-            .then(xml => {
-                const reservationNode = xml.querySelector('reservation');
-                
-                if (reservationNode) {
-                    const enable = reservationNode.getAttribute('enable')?.toLowerCase().trim();
-                    const linkUrl = reservationNode.getAttribute('url');
-                    const btn = document.getElementById('reserveBtn');
-
-                    // 예약 설정이 'yes'이고 링크가 존재하는 경우
-                    if (enable === 'yes' && linkUrl) {
-                        btn.href = linkUrl;
-                        btn.style.display = 'inline-block'; // 버튼 표시
-                    } else {
-                        btn.style.display = 'none'; // 버튼 숨김
-                    }
-                }
-            })
-            .catch(error => console.error('XML 로드 오류:', error));
-    </script>
-
-</body>
-<html>
-<head>
     <script>
     (function () {
         var params = new URLSearchParams(window.location.search);
@@ -86,8 +33,6 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
     // URL 파라미터에 따라 불러올 XML 파일 결정
-    // 권장 주소: tour.html?tour=namsuheon / tour.html?tour=yharbor
-    // 기존 주소: tour.html?xml=namsuheon.xml 형식도 함께 지원
     function getTourInfo() {
         var urlParams = new URLSearchParams(window.location.search);
         var contentsName = (urlParams.get('contents') || 'suwon_tour').trim();
@@ -192,7 +137,7 @@
         document.body.removeChild(textArea);
     }
 
-    // 2. 카카오톡 공유 함수 (본문에 현재 URL 표시)
+    // 2. 카카오톡 공유 함수
     function krpanoShareKakao() {
         var currentUrl = getExactTourUrl();
 
@@ -201,7 +146,6 @@
                 Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
             }
 
-            // text 타입으로 본문에 현재 URL 주소를 직접 출력
             Kakao.Share.sendDefault({
                 objectType: 'text',
                 text: '[수원 360 VR 투어]\n수원의 360도 VR투어를 확인해보세요!\n\n🔗 접속 주소:\n' + currentUrl,
@@ -234,7 +178,7 @@
             background-color:#000000;
         }
 
-        /* 우측 상단: 종료 버튼 위 / 공유 버튼 아래 */
+        /* 우측 상단: 종료 버튼 > 공유 버튼 > 예약 버튼 순서 정렬 */
         #panoramaActionButtons {
             position:fixed;
             top:18px;
@@ -247,10 +191,12 @@
             pointer-events:none;
         }
 
-        #panoramaActionButtons button {
+        #panoramaActionButtons button,
+        #panoramaActionButtons a {
             pointer-events:auto;
             font-family:Arial, Helvetica, sans-serif;
             -webkit-tap-highlight-color:transparent;
+            box-sizing:border-box;
         }
 
         #close-btn {
@@ -280,9 +226,31 @@
             cursor:pointer;
         }
 
+        /* 예약 버튼 스타일 (기본 숨김) */
+        #panoramaReserveBtn {
+            display:none; 
+            min-width:68px;
+            height:36px;
+            line-height:34px;
+            padding:0 14px;
+            border:1px solid rgba(0,123,255,0.8);
+            border-radius:20px;
+            background:rgba(0,123,255,0.85);
+            color:#FFFFFF;
+            font-size:13px;
+            font-weight:bold;
+            text-decoration:none;
+            text-align:center;
+            cursor:pointer;
+        }
+
         #close-btn:hover,
         #panoramaShareBtn:hover {
             background:rgba(0,0,0,0.82);
+        }
+
+        #panoramaReserveBtn:hover {
+            background:rgba(0,86,179,0.95);
         }
 
         /* 공유 팝업 공통 */
@@ -407,8 +375,10 @@
                 line-height:36px;
             }
 
-            #panoramaShareBtn {
+            #panoramaShareBtn,
+            #panoramaReserveBtn {
                 height:34px;
+                line-height:32px;
                 padding:0 12px;
                 font-size:12px;
             }
@@ -455,10 +425,12 @@
 })();
 </script>
 
-<!-- 우측 상단 기능 버튼: 종료 버튼은 기존 viewer.html과 동일한 close-btn 사용 -->
+<!-- 우측 상단 기능 버튼: 종료 버튼 > 공유 버튼 > 예약 버튼 -->
 <div id="panoramaActionButtons">
     <button type="button" id="close-btn" title="종료" aria-label="파노라마 종료">&times;</button>
     <button type="button" id="panoramaShareBtn" title="공유" aria-label="파노라마 공유">🔗공유</button>
+    <!-- 예약 버튼 (공유 버튼 아래에 위치) -->
+    <a id="panoramaReserveBtn" title="예약" aria-label="투어 예약하기" target="_blank">📅예약</a>
 </div>
 
 <!-- 공유 팝업 -->
@@ -483,7 +455,6 @@
 
 <div id="shareToast" role="status" aria-live="polite">주소가 복사되었습니다!</div>
 
-
 <script>
 (function () {
     'use strict';
@@ -499,6 +470,32 @@
     var shareQrImage = document.getElementById('shareQrImage');
     var shareToast = document.getElementById('shareToast');
     var toastTimer = null;
+
+    // --- XML에서 예약 정보 읽어오기 ---
+    var tourInfo = getTourInfo();
+    fetch(tourInfo.xmlFile)
+        .then(function(response) { return response.text(); })
+        .then(function(str) {
+            return new DOMParser().parseFromString(str, "text/xml");
+        })
+        .then(function(xml) {
+            var reservationNode = xml.querySelector('reservation');
+            if (reservationNode) {
+                var enable = (reservationNode.getAttribute('enable') || '').toLowerCase().trim();
+                var linkUrl = reservationNode.getAttribute('url');
+                var reserveBtn = document.getElementById('panoramaReserveBtn');
+
+                if (enable === 'yes' && linkUrl) {
+                    reserveBtn.href = linkUrl;
+                    reserveBtn.style.display = 'inline-block'; // 예약 가능한 경우 표시
+                } else {
+                    reserveBtn.style.display = 'none'; // 비활성화인 경우 숨김
+                }
+            }
+        })
+        .catch(function(error) {
+            console.error('투어 XML 예약 정보 로드 실패:', error);
+        });
 
     function openModal(modal) {
         if (modal) modal.classList.add('is-open');
@@ -522,16 +519,15 @@
             shareToast.classList.remove('is-visible');
         }, 2000);
     }
+
     function closeTour(event) {
         const closeButton = event?.currentTarget || document.getElementById("close-btn");
 
-        // 모바일에서 종료 버튼을 누른 뒤 선택 상태가 남지 않도록 즉시 해제
         closeButton?.blur();
         if (document.activeElement === closeButton) {
             document.activeElement.blur();
         }
 
-        // 생활지리정보 메인의 iframe 안에서 실행 중이면 부모 페이지에 종료 요청
         if (window.parent !== window) {
             window.parent.postMessage(
                 {
@@ -544,7 +540,6 @@
             return;
         }
 
-        // QR·외부 링크 등 일반 페이지로 직접 들어온 경우
         if (window.history.length > 1) {
             window.history.back();
             return;
@@ -559,7 +554,8 @@
         window.setTimeout(() => {
             if (!document.hidden) window.location.href = "./";
         }, 250);
-    }// 업체 연계 시 기존과 동일한 함수명으로 호출할 수 있도록 전역 공개
+    }
+
     window.closeTour = closeTour;
 
     if (closeBtn) {
