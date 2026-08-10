@@ -5,7 +5,59 @@
     - 종료 함수: closeTour(event)
     - iframe 종료는 postMessage, 외부 직접 접속은 기존 종료 방식 적용
 -->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>투어 페이지</title>
+    <style>
+        /* 기본적으로 버튼을 숨겨둡니다 */
+        .booking-btn {
+            display: none; 
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .booking-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
 
+    <!-- 예약 버튼 -->
+    <a id="reserveBtn" class="booking-btn" target="_blank">예약</a>
+
+    <script>
+        // tour.xml 경로
+        const xmlUrl = 'tour.xml'; 
+
+        fetch(xmlUrl)
+            .then(response => response.text())
+            .then(str => new DOMParser().parseFromString(str, "text/xml"))
+            .then(xml => {
+                const reservationNode = xml.querySelector('reservation');
+                
+                if (reservationNode) {
+                    const enable = reservationNode.getAttribute('enable')?.toLowerCase().trim();
+                    const linkUrl = reservationNode.getAttribute('url');
+                    const btn = document.getElementById('reserveBtn');
+
+                    // 예약 설정이 'yes'이고 링크가 존재하는 경우
+                    if (enable === 'yes' && linkUrl) {
+                        btn.href = linkUrl;
+                        btn.style.display = 'inline-block'; // 버튼 표시
+                    } else {
+                        btn.style.display = 'none'; // 버튼 숨김
+                    }
+                }
+            })
+            .catch(error => console.error('XML 로드 오류:', error));
+    </script>
+
+</body>
 <html>
 <head>
     <script>
