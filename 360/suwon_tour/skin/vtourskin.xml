@@ -1303,20 +1303,6 @@ onloaded="add_permanent_title();"
 	</action>
 
 
-	<!-- context menu - https://krpano.com/docu/xml/#contextmenu -->
-	<contextmenu fullscreen="false" versioninfo="false">
-		<item name="kr" caption="KRPANO" />
-		<item name="fs" caption="FULLSCREEN" />
-		<item name="cm" separator="above" caption="" />
-		<item name="nv" caption="Normal View"        onclick="skin_view_normal();"        showif="view.vlookatrange == 180" separator="above" />
-		<item name="fv" caption="Fisheye View"       onclick="skin_view_fisheye();"       showif="view.vlookatrange == 180" devices="webgl" />
-		<item name="sv" caption="Stereographic View" onclick="skin_view_stereographic();" showif="view.vlookatrange == 180" devices="webgl" />
-		<item name="av" caption="Architectural View" onclick="skin_view_architectural();" showif="view.vlookatrange == 180" />
-		<item name="pv" caption="Pannini View"       onclick="skin_view_pannini();"       showif="view.vlookatrange == 180" devices="webgl" />
-		<item name="lp" caption="Little Planet View" onclick="skin_view_littleplanet();"  showif="view.vlookatrange == 180" devices="webgl" />
-		<item name="sa" caption="Start Autotour"     onclick="autorotate.start();" separator="both" showif="autorotate.isrotating == false" visible="calc:skin_settings.autotour == true" />
-		<item name="ta" caption="Stop Autotour"      onclick="autorotate.stop();"  separator="both" showif="autorotate.isrotating == true"  visible="calc:skin_settings.autotour == true" />
-	</contextmenu>
 	
 	<events name="skin_contextmenu" keep="true"
 		oncontextmenu="skin_update_contextmenu();"
