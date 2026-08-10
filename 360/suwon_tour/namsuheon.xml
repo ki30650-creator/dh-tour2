@@ -12,7 +12,7 @@
            bgalpha="0.85"
            bgborder="1 0x334155 0.8"
            bgroundedge="18"
-           align="topright"
+           align="topleft"
            x="18"
            y="70"
            width="90"
