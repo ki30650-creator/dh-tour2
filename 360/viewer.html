@@ -33,10 +33,9 @@
     <!-- 카카오 SDK 불러오기 -->
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
-    // krpano 객체를 전역에서 접근할 수 있도록 선언
-    var krpanoObj = null;
-
     // URL 파라미터에 따라 불러올 XML 파일 결정
+    // 권장 주소: tour.html?tour=namsuheon / tour.html?tour=yharbor
+    // 기존 주소: tour.html?xml=namsuheon.xml 형식도 함께 지원
     function getTourInfo() {
         var urlParams = new URLSearchParams(window.location.search);
         var contentsName = (urlParams.get('contents') || 'suwon_tour').trim();
@@ -150,6 +149,7 @@
                 Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
             }
 
+            // text 타입으로 본문에 현재 URL 주소를 직접 출력
             Kakao.Share.sendDefault({
                 objectType: 'text',
                 text: '[수원 360 VR 투어]\n수원의 360도 VR투어를 확인해보세요!\n\n🔗 접속 주소:\n' + currentUrl,
@@ -182,7 +182,7 @@
             background-color:#000000;
         }
 
-        /* 우측 상단: 종료 버튼 위 / 웹사이트, 공유 버튼 아래 */
+        /* 우측 상단: 종료 버튼 위 / 공유 버튼 아래 */
         #panoramaActionButtons {
             position:fixed;
             top:18px;
@@ -215,7 +215,6 @@
             cursor:pointer;
         }
 
-        #panoramaWebsiteBtn,
         #panoramaShareBtn {
             min-width:68px;
             height:36px;
@@ -230,7 +229,6 @@
         }
 
         #close-btn:hover,
-        #panoramaWebsiteBtn:hover,
         #panoramaShareBtn:hover {
             background:rgba(0,0,0,0.82);
         }
@@ -357,7 +355,6 @@
                 line-height:36px;
             }
 
-            #panoramaWebsiteBtn,
             #panoramaShareBtn {
                 height:34px;
                 padding:0 12px;
@@ -394,10 +391,7 @@
         embedpano({
             xml: tourInfo.xmlFile,
             target: "pano",
-            passQueryParameters: "startscene,startlookat",
-            onready: function (krpano) {
-                krpanoObj = krpano; // krpano 객체 연결
-            }
+            passQueryParameters: "startscene,startlookat"
         });
     };
 
@@ -409,10 +403,9 @@
 })();
 </script>
 
-<!-- 우측 상단 기능 버튼 -->
+<!-- 우측 상단 기능 버튼: 종료 버튼은 기존 viewer.html과 동일한 close-btn 사용 -->
 <div id="panoramaActionButtons">
     <button type="button" id="close-btn" title="종료" aria-label="파노라마 종료">&times;</button>
-    <button type="button" id="panoramaWebsiteBtn" title="웹사이트 바로가기" aria-label="웹사이트">🌐웹사이트</button>
     <button type="button" id="panoramaShareBtn" title="공유" aria-label="파노라마 공유">🔗공유</button>
 </div>
 
@@ -444,7 +437,6 @@
     'use strict';
 
     var closeBtn = document.getElementById('close-btn');
-    var websiteBtn = document.getElementById('panoramaWebsiteBtn');
     var shareBtn = document.getElementById('panoramaShareBtn');
     var shareModal = document.getElementById('shareModal');
     var qrModal = document.getElementById('qrModal');
@@ -478,15 +470,16 @@
             shareToast.classList.remove('is-visible');
         }, 2000);
     }
-
     function closeTour(event) {
-        var closeButton = (event && event.currentTarget) || document.getElementById("close-btn");
+        const closeButton = event?.currentTarget || document.getElementById("close-btn");
 
-        if (closeButton) closeButton.blur();
+        // 모바일에서 종료 버튼을 누른 뒤 선택 상태가 남지 않도록 즉시 해제
+        closeButton?.blur();
         if (document.activeElement === closeButton) {
             document.activeElement.blur();
         }
 
+        // 생활지리정보 메인의 iframe 안에서 실행 중이면 부모 페이지에 종료 요청
         if (window.parent !== window) {
             window.parent.postMessage(
                 {
@@ -499,6 +492,7 @@
             return;
         }
 
+        // QR·외부 링크 등 일반 페이지로 직접 들어온 경우
         if (window.history.length > 1) {
             window.history.back();
             return;
@@ -510,39 +504,14 @@
             window.location.href = "./";
         }
 
-        window.setTimeout(function () {
+        window.setTimeout(() => {
             if (!document.hidden) window.location.href = "./";
         }, 250);
-    }
-
+    }// 업체 연계 시 기존과 동일한 함수명으로 호출할 수 있도록 전역 공개
     window.closeTour = closeTour;
 
     if (closeBtn) {
         closeBtn.addEventListener("click", closeTour);
-    }
-
-    // 웹사이트 버튼 클릭 이벤트
-if (websiteBtn) {
-        websiteBtn.addEventListener('click', function () {
-            if (krpanoObj) {
-                var targetUrl = krpanoObj.get('website_url');
-
-                if (!targetUrl && krpanoObj.website_url) {
-                    targetUrl = krpanoObj.website_url;
-                }
-
-                if (targetUrl && targetUrl.trim() !== '') {
-                    if (!/^https?:\/\//i.test(targetUrl)) {
-                        targetUrl = 'https://' + targetUrl;
-                    }
-                    window.open(targetUrl, '_blank');
-                } else {
-                    alert('등록된 웹사이트 주소가 없습니다.\n(XML 파일의 <website_url> 태그를 확인해주세요)');
-                }
-            } else {
-                alert('투어가 아직 완전히 로드되지 않았습니다.');
-            }
-        });
     }
 
     if (shareBtn) {
