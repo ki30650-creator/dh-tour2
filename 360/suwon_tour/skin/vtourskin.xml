@@ -1304,7 +1304,7 @@ onloaded="add_permanent_title();"
 
 
 	<!-- context menu - https://krpano.com/docu/xml/#contextmenu -->
-	<contextmenu fullscreen="true" versioninfo="false">
+	<contextmenu fullscreen="false" versioninfo="false">
 		<item name="kr" caption="KRPANO" />
 		<item name="fs" caption="FULLSCREEN" />
 		<item name="cm" separator="above" caption="" />

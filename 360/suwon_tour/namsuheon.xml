@@ -3,25 +3,6 @@
     <include url="skin/vtourskin.xml" />
 
     <layer name="skin_control_bar" visible="false" />
-<layer name="btn_website"
-           type="text"
-           keep="true"
-           html="예약"
-           css="font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; color:#FFFFFF; text-align:center; line-height:36px;"
-           bg="true"
-           bgcolor="0x1E293B"
-           bgalpha="0.85"
-           bgborder="1 0x334155 0.8"
-           bgroundedge="18"
-           align="topright"
-           x="15"
-           y="110"
-           width="68"
-           height="32"
-           cursor="pointer"
-           zorder="9999"
-           onclick="openurl('https://www.namsuheon.kr/main/', '_blank');"
-    />    />
     <!-- 1. 공통 스타일 정의 -->
     <style name="hs_title_box"
            type="text"
