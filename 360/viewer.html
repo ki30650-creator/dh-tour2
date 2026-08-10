@@ -566,6 +566,10 @@
         if (event.key === 'Escape') closeAllModals();
     });
 })();
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
 </script>
 </body>
 </html>
