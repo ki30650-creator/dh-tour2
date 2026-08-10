@@ -3,7 +3,24 @@
     <include url="skin/vtourskin.xml" />
 
     <layer name="skin_control_bar" visible="false" />
-
+<layer name="btn_website"
+           type="text"
+           html="🌐"
+           css="font-family:Arial, sans-serif; font-size:13px; font-weight:bold; color:#FFFFFF; text-align:center; line-height:36px;"
+           bg="true"
+           bgcolor="0x1E293B"
+           bgalpha="0.85"
+           bgborder="1 0x334155 0.8"
+           bgroundedge="18"
+           align="topright"
+           x="18"
+           y="70"
+           width="90"
+           height="36"
+           cursor="pointer"
+           zorder="1000"
+           onclick="openurl('https://www.namsuheon.kr/main/', _blank);"
+    />
     <!-- 1. 공통 스타일 정의 -->
     <style name="hs_title_box"
            type="text"
