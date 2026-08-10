@@ -1,4 +1,4 @@
-﻿<krpano version="1.22" title="Suwon Tour">
+﻿<krpano version="1.22" title="남수헌">
 
     <include url="skin/vtourskin.xml" />
 <reservation enable="yes" url="https://www.namsuheon.kr/main/" />

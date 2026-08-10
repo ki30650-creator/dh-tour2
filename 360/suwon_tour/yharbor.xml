@@ -1,4 +1,4 @@
-﻿<krpano version="1.22" title="Suwon Tour">
+﻿<krpano version="1.22" title="영흥수목원">
 
 	<include url="skin/vtourskin.xml" />.
 <plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
