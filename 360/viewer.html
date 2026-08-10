@@ -522,14 +522,22 @@
     }
 
     // 웹사이트 버튼 클릭 이벤트
-    if (websiteBtn) {
+if (websiteBtn) {
         websiteBtn.addEventListener('click', function () {
             if (krpanoObj) {
                 var targetUrl = krpanoObj.get('website_url');
-                if (targetUrl) {
+
+                if (!targetUrl && krpanoObj.website_url) {
+                    targetUrl = krpanoObj.website_url;
+                }
+
+                if (targetUrl && targetUrl.trim() !== '') {
+                    if (!/^https?:\/\//i.test(targetUrl)) {
+                        targetUrl = 'https://' + targetUrl;
+                    }
                     window.open(targetUrl, '_blank');
                 } else {
-                    alert('등록된 웹사이트 주소가 없습니다.');
+                    alert('등록된 웹사이트 주소가 없습니다.\n(XML 파일의 <website_url> 태그를 확인해주세요)');
                 }
             } else {
                 alert('투어가 아직 완전히 로드되지 않았습니다.');
