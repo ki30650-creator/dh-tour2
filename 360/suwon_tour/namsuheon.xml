@@ -5,6 +5,7 @@
     <layer name="skin_control_bar" visible="false" />
 <layer name="btn_website"
            type="text"
+             keep="true"
            html="🌐"
            css="font-family:Arial, sans-serif; font-size:13px; font-weight:bold; color:#FFFFFF; text-align:center; line-height:36px;"
            bg="true"
