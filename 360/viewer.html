@@ -214,34 +214,34 @@
         }
 
         #panoramaShareBtn {
-            min-width:68px;
-            height:36px;
-            padding:0 14px;
+            width:44px;
+            height:44px;
+            padding:0 
             border:1px solid rgba(51,65,85,0.8);
-            border-radius:20px;
+            border-radius:50px;
             background:rgba(30,41,59,0.85);
             color:#FFFFFF;
-            font-size:13px;
-            font-weight:bold;
+            font-size:16px;
+            text-align: center;
             cursor:pointer;
         }
 
         /* 예약 버튼 스타일 (기본 숨김) */
         #panoramaReserveBtn {
             display:none; 
-            min-width:68px;
-            height:36px;
-            line-height:34px;
-            padding:0 14px;
-            border:1px solid rgba(51,65,85,0.8);
-            border-radius:20px;
-            background:rgba(30,41,59,0.85);
-            color:#FFFFFF;
-            font-size:13px;
-            font-weight:bold;
-            text-decoration:none;
-            text-align:center;
-            cursor:pointer;
+display: none; 
+            width: 44px;              /* close-btn과 동일한 크기 */
+            height: 44px;             /* 너비와 높이를 동일하게 설정 */
+            line-height: 42px;        /* 텍스트 수직 중앙 정렬 */
+            padding: 0;               /* 패딩 제거 */
+            border: 1px solid rgba(51,65,85,0.8);
+            border-radius: 50%;       /* 원형 만들기 */
+            background: rgba(30,41,59,0.85);
+            color: #FFFFFF;
+            font-size: 16px;          /* 아이콘 크기 조정 */
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
         }
 
         #close-btn:hover,
@@ -377,10 +377,11 @@
 
             #panoramaShareBtn,
             #panoramaReserveBtn {
-                height:34px;
-                line-height:32px;
-                padding:0 12px;
-                font-size:12px;
+width: 40px;
+                height: 40px;
+                line-height: 38px;
+                padding: 0;
+                font-size: 14px;
             }
         }
     </style>
@@ -428,9 +429,9 @@
 <!-- 우측 상단 기능 버튼: 종료 버튼 > 공유 버튼 > 예약 버튼 -->
 <div id="panoramaActionButtons">
     <button type="button" id="close-btn" title="종료" aria-label="파노라마 종료">&times;</button>
-    <button type="button" id="panoramaShareBtn" title="공유" aria-label="파노라마 공유">🔗공유</button>
+    <button type="button" id="panoramaShareBtn" title="공유" aria-label="파노라마 공유">🔗</button>
     <!-- 예약 버튼 (공유 버튼 아래에 위치) -->
-    <a id="panoramaReserveBtn" title="예약" aria-label="투어 예약하기" target="_blank">예약</a>
+    <a id="panoramaReserveBtn" title="예약" aria-label="투어 예약하기" target="_blank">🌐</a>
 </div>
 
 <!-- 공유 팝업 -->
