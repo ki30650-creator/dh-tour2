@@ -1,5 +1,5 @@
 ﻿<krpano version="1.22" title="영흥수목원">
-
+<reservation enable="yes" url="https://www.suwon.go.kr/web/yharbor/index.do" />
 	<include url="skin/vtourskin.xml" />.
 <plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
 
