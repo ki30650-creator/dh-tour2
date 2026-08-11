@@ -191,15 +191,14 @@
             pointer-events:none;
         }
 
+        /* 모든 파노라마 액션 버튼의 공통 원형 스타일 */
         #panoramaActionButtons button,
         #panoramaActionButtons a {
             pointer-events:auto;
             font-family:Arial, Helvetica, sans-serif;
             -webkit-tap-highlight-color:transparent;
             box-sizing:border-box;
-        }
 
-        #close-btn {
             width:44px;
             height:44px;
             padding:0;
@@ -207,47 +206,35 @@
             border-radius:50%;
             background:rgba(0,0,0,0.55);
             color:#FFFFFF;
-            font-size:32px;
-            line-height:40px;
-            text-align:center;
             cursor:pointer;
+
+            /* 정중앙 정렬 */
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            text-decoration:none;
         }
 
-        #panoramaShareBtn {
-            width:44px;
-            height:44px;
-            padding:0 
-            border:1px solid rgba(255,255,255,0.45);
-            border-radius:50px;
-            background:rgba(0,0,0,0.55);
-            color:#FFFFFF;
-            font-size:32px;
-            line-height:40px;
-            text-align: center;
-            cursor:pointer;
+        /* 버튼 개별 폰트/아이콘 크기 설정 */
+        #close-btn {
+            font-size:28px;
+            line-height:1;
         }
 
-        /* 예약 버튼 스타일 (기본 숨김) */
+        #panoramaShareBtn,
+        #panoramaReserveBtn {
+            font-size:18px;
+            line-height:1;
+        }
+
+        /* 예약 버튼 기본 숨김 처리 (JS에서 조건에 따라 flex로 전환) */
         #panoramaReserveBtn {
             display:none; 
-            width:44px;
-            height:44px;
-            padding:0 
-            border:1px solid rgba(255,255,255,0.45);
-            border-radius:50px;
-            background:rgba(0,0,0,0.55);
-            color:#FFFFFF;
-            font-size:32px;
-            line-height:40px;
-            text-align: center;
-            cursor:pointer;
         }
 
+        /* 마우스 호버 시 동일한 어두운 효과 */
         #close-btn:hover,
-        #panoramaShareBtn:hover {
-            background:rgba(0,0,0,0.82);
-        }
-
+        #panoramaShareBtn:hover,
         #panoramaReserveBtn:hover {
             background:rgba(0,0,0,0.82);
         }
@@ -360,6 +347,7 @@
 
         #shareToast.is-visible { display:block; }
 
+        /* 모바일용 동일 반응형 크기 조절 */
         @media screen and (max-width:768px) {
             #panoramaActionButtons {
                 top:12px;
@@ -367,20 +355,19 @@
                 gap:7px;
             }
 
-            #close-btn {
+            #panoramaActionButtons button,
+            #panoramaActionButtons a {
                 width:40px;
                 height:40px;
-                font-size:28px;
-                line-height:36px;
+            }
+
+            #close-btn {
+                font-size:24px;
             }
 
             #panoramaShareBtn,
             #panoramaReserveBtn {
-width: 40px;
-                height: 40px;
-                line-height: 38px;
-                padding: 0;
-                font-size: 14px;
+                font-size:16px;
             }
         }
     </style>
@@ -487,7 +474,7 @@ width: 40px;
 
                 if (enable === 'yes' && linkUrl) {
                     reserveBtn.href = linkUrl;
-                    reserveBtn.style.display = 'inline-block'; // 예약 가능한 경우 표시
+                    reserveBtn.style.display = 'inline-flex'; // 예약 가능한 경우 수직중앙 정렬을 포함해 표시
                 } else {
                     reserveBtn.style.display = 'none'; // 비활성화인 경우 숨김
                 }
