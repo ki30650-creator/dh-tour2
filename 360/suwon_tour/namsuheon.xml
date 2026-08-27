@@ -1,11 +1,9 @@
-﻿<krpano version="1.22" title="Suwon Tour">
+﻿<krpano version="1.22" title="남수헌">
 
     <include url="skin/vtourskin.xml" />
-
+<reservation enable="yes" url="https://www.namsuheon.kr/main/" />
     <layer name="skin_control_bar" visible="false" />
-
     <!-- 1. 공통 스타일 정의 -->
-
     <style name="hs_title_box"
            type="text"
            bg="true"

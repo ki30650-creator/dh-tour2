@@ -5,8 +5,7 @@
     - 종료 함수: closeTour(event)
     - iframe 종료는 postMessage, 외부 직접 접속은 기존 종료 방식 적용
 -->
-
-<html>
+<html lang="ko">
 <head>
     <script>
     (function () {
@@ -34,8 +33,6 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
     // URL 파라미터에 따라 불러올 XML 파일 결정
-    // 권장 주소: tour.html?tour=namsuheon / tour.html?tour=yharbor
-    // 기존 주소: tour.html?xml=namsuheon.xml 형식도 함께 지원
     function getTourInfo() {
         var urlParams = new URLSearchParams(window.location.search);
         var contentsName = (urlParams.get('contents') || 'suwon_tour').trim();
@@ -140,7 +137,7 @@
         document.body.removeChild(textArea);
     }
 
-    // 2. 카카오톡 공유 함수 (본문에 현재 URL 표시)
+    // 2. 카카오톡 공유 함수
     function krpanoShareKakao() {
         var currentUrl = getExactTourUrl();
 
@@ -149,10 +146,9 @@
                 Kakao.init('b7e3aba75c04fb23f7e67e8353f74f8f');
             }
 
-            // text 타입으로 본문에 현재 URL 주소를 직접 출력
             Kakao.Share.sendDefault({
                 objectType: 'text',
-                text: '[수원 360 VR 투어]\n수원의 360도 VR투어를 확인해보세요!\n\n🔗 접속 주소:\n' + currentUrl,
+                text: '[수원360투어]\n수원의 360도 VR투어를 확인해보세요!\n\n🔗 접속 주소:\n' + currentUrl,
                 link: {
                     mobileWebUrl: currentUrl,
                     webUrl: currentUrl,
@@ -182,7 +178,7 @@
             background-color:#000000;
         }
 
-        /* 우측 상단: 종료 버튼 위 / 공유 버튼 아래 */
+        /* 우측 상단: 종료 버튼 > 공유 버튼 > 예약 버튼 순서 정렬 */
         #panoramaActionButtons {
             position:fixed;
             top:18px;
@@ -195,13 +191,14 @@
             pointer-events:none;
         }
 
-        #panoramaActionButtons button {
+        /* 모든 파노라마 액션 버튼의 공통 원형 스타일 */
+        #panoramaActionButtons button,
+        #panoramaActionButtons a {
             pointer-events:auto;
             font-family:Arial, Helvetica, sans-serif;
             -webkit-tap-highlight-color:transparent;
-        }
+            box-sizing:border-box;
 
-        #close-btn {
             width:44px;
             height:44px;
             padding:0;
@@ -209,27 +206,36 @@
             border-radius:50%;
             background:rgba(0,0,0,0.55);
             color:#FFFFFF;
-            font-size:32px;
-            line-height:40px;
-            text-align:center;
             cursor:pointer;
+
+            /* 정중앙 정렬 */
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            text-decoration:none;
         }
 
-        #panoramaShareBtn {
-            min-width:68px;
-            height:36px;
-            padding:0 14px;
-            border:1px solid rgba(51,65,85,0.8);
-            border-radius:20px;
-            background:rgba(30,41,59,0.85);
-            color:#FFFFFF;
-            font-size:13px;
-            font-weight:bold;
-            cursor:pointer;
+        /* 버튼 개별 폰트/아이콘 크기 설정 */
+        #close-btn {
+            font-size:28px;
+            line-height:1;
         }
 
+        #panoramaShareBtn,
+        #panoramaReserveBtn {
+            font-size:18px;
+            line-height:1;
+        }
+
+        /* 예약 버튼 기본 숨김 처리 (JS에서 조건에 따라 flex로 전환) */
+        #panoramaReserveBtn {
+            display:none; 
+        }
+
+        /* 마우스 호버 시 동일한 어두운 효과 */
         #close-btn:hover,
-        #panoramaShareBtn:hover {
+        #panoramaShareBtn:hover,
+        #panoramaReserveBtn:hover {
             background:rgba(0,0,0,0.82);
         }
 
@@ -341,6 +347,7 @@
 
         #shareToast.is-visible { display:block; }
 
+        /* 모바일용 동일 반응형 크기 조절 */
         @media screen and (max-width:768px) {
             #panoramaActionButtons {
                 top:12px;
@@ -348,17 +355,19 @@
                 gap:7px;
             }
 
-            #close-btn {
+            #panoramaActionButtons button,
+            #panoramaActionButtons a {
                 width:40px;
                 height:40px;
-                font-size:28px;
-                line-height:36px;
             }
 
-            #panoramaShareBtn {
-                height:34px;
-                padding:0 12px;
-                font-size:12px;
+            #close-btn {
+                font-size:24px;
+            }
+
+            #panoramaShareBtn,
+            #panoramaReserveBtn {
+                font-size:16px;
             }
         }
     </style>
@@ -403,10 +412,12 @@
 })();
 </script>
 
-<!-- 우측 상단 기능 버튼: 종료 버튼은 기존 viewer.html과 동일한 close-btn 사용 -->
+<!-- 우측 상단 기능 버튼: 종료 버튼 > 공유 버튼 > 예약 버튼 -->
 <div id="panoramaActionButtons">
     <button type="button" id="close-btn" title="종료" aria-label="파노라마 종료">&times;</button>
-    <button type="button" id="panoramaShareBtn" title="공유" aria-label="파노라마 공유">🔗공유</button>
+    <button type="button" id="panoramaShareBtn" title="공유" aria-label="파노라마 공유">🔗</button>
+    <!-- 예약 버튼 (공유 버튼 아래에 위치) -->
+    <a id="panoramaReserveBtn" title="예약" aria-label="투어 예약하기" target="_blank">🌐</a>
 </div>
 
 <!-- 공유 팝업 -->
@@ -431,7 +442,6 @@
 
 <div id="shareToast" role="status" aria-live="polite">주소가 복사되었습니다!</div>
 
-
 <script>
 (function () {
     'use strict';
@@ -447,6 +457,32 @@
     var shareQrImage = document.getElementById('shareQrImage');
     var shareToast = document.getElementById('shareToast');
     var toastTimer = null;
+
+    // --- XML에서 예약 정보 읽어오기 ---
+    var tourInfo = getTourInfo();
+    fetch(tourInfo.xmlFile)
+        .then(function(response) { return response.text(); })
+        .then(function(str) {
+            return new DOMParser().parseFromString(str, "text/xml");
+        })
+        .then(function(xml) {
+            var reservationNode = xml.querySelector('reservation');
+            if (reservationNode) {
+                var enable = (reservationNode.getAttribute('enable') || '').toLowerCase().trim();
+                var linkUrl = reservationNode.getAttribute('url');
+                var reserveBtn = document.getElementById('panoramaReserveBtn');
+
+                if (enable === 'yes' && linkUrl) {
+                    reserveBtn.href = linkUrl;
+                    reserveBtn.style.display = 'inline-flex'; // 예약 가능한 경우 수직중앙 정렬을 포함해 표시
+                } else {
+                    reserveBtn.style.display = 'none'; // 비활성화인 경우 숨김
+                }
+            }
+        })
+        .catch(function(error) {
+            console.error('투어 XML 예약 정보 로드 실패:', error);
+        });
 
     function openModal(modal) {
         if (modal) modal.classList.add('is-open');
@@ -470,16 +506,15 @@
             shareToast.classList.remove('is-visible');
         }, 2000);
     }
+
     function closeTour(event) {
         const closeButton = event?.currentTarget || document.getElementById("close-btn");
 
-        // 모바일에서 종료 버튼을 누른 뒤 선택 상태가 남지 않도록 즉시 해제
         closeButton?.blur();
         if (document.activeElement === closeButton) {
             document.activeElement.blur();
         }
 
-        // 생활지리정보 메인의 iframe 안에서 실행 중이면 부모 페이지에 종료 요청
         if (window.parent !== window) {
             window.parent.postMessage(
                 {
@@ -492,7 +527,6 @@
             return;
         }
 
-        // QR·외부 링크 등 일반 페이지로 직접 들어온 경우
         if (window.history.length > 1) {
             window.history.back();
             return;
@@ -507,7 +541,8 @@
         window.setTimeout(() => {
             if (!document.hidden) window.location.href = "./";
         }, 250);
-    }// 업체 연계 시 기존과 동일한 함수명으로 호출할 수 있도록 전역 공개
+    }
+
     window.closeTour = closeTour;
 
     if (closeBtn) {
@@ -566,6 +601,10 @@
         if (event.key === 'Escape') closeAllModals();
     });
 })();
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
 </script>
 </body>
 </html>

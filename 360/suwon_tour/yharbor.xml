@@ -1,5 +1,5 @@
-﻿<krpano version="1.22" title="Suwon Tour">
-
+﻿<krpano version="1.22" title="영흥수목원">
+<reservation enable="yes" url="https://www.suwon.go.kr/web/yharbor/index.do" />
 	<include url="skin/vtourskin.xml" />.
 <plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
 
@@ -17,7 +17,6 @@
            handcursor="true"
            edge="bottom"
            oy="-35" />
-
 <action name="add_permanent_title">
     <!-- 텍스트 박스 고유 이름 생성 및 핫스팟 추가 -->
     txtadd(txt_name, 'txt_', get(name));
