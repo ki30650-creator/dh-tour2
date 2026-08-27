@@ -1,0 +1,379 @@
+﻿<krpano version="1.22" >
+
+	<include url="skin/vtourskin.xml" />
+
+<plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
+
+    <layer name="skin_control_bar" visible="false" />
+
+    <style name="hs_title_box"
+           type="text"
+           bg="true"
+           bgcolor="0x000000"
+           bgalpha="0.65"
+           bgborder="false"
+           roundedge="6"
+           css="text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; padding:4px 8px;"
+           vcenter="true"
+           enabled="true"
+           handcursor="true"
+           edge="bottom"
+           oy="-35" />
+
+<action name="add_permanent_title">
+    <!-- title 속성이 존재하고, 빈 값이 아닐 때만 텍스트 핫스팟 생성 -->
+    if(title !== null AND title != '',
+        <!-- 텍스트 박스 고유 이름 생성 및 핫스팟 추가 -->
+        txtadd(txt_name, 'txt_', get(name));
+        addhotspot(get(txt_name));
+        hotspot[get(txt_name)].loadstyle(hs_title_box);
+        
+        <!-- 위치 좌표(ath, atv) 동기화 -->
+        set(hotspot[get(txt_name)].ath, get(ath));
+        set(hotspot[get(txt_name)].atv, get(atv));
+        
+        <!-- 현재 핫스팟의 title 속성값 적용 -->
+        set(hotspot[get(txt_name)].html, get(title));
+        
+        <!-- 텍스트 박스 클릭 시 linkedscene 이동 및 동작 설정 -->
+        set(hotspot[get(txt_name)].linkedscene, get(linkedscene));
+        set(hotspot[get(txt_name)].onclick, 
+            loadscene(get(linkedscene), null, MERGE, BLEND(0.7)); 
+        );
+    );
+</action>
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+	
+   <hotspot name="suwon"
+             url="skin/수원이.png"
+             ath="0"
+             atv="88"
+             rx="90"
+             scale="0.3"
+             keep="true"
+             zoom="true" />
+
+	
+	<scene name="scene_Hibiscus_1" title="무궁화원_1" onstart="" thumburl="panos/Hibiscus_1.tiles/thumb.jpg" lat="37.25761944" lng="126.98395278" alt="63.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="174.086" vlookat="14.333" fovtype="MFOV" fov="140.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094128083" title="무궁화원" style="skin_hotspotstyle" ath="112.017" atv="22.31" depth="1000.0" linkedscene="scene_Hibiscus_2" linkedscene_lookat="-161.15,-3.17,131.53" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_2" title="무궁화원_2" onstart="" thumburl="panos/Hibiscus_2.tiles/thumb.jpg" lat="37.25761944" lng="126.98395278" alt="63.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094128511" title="주차장" style="skin_hotspotstyle" ath="-115.65" atv="13.96" depth="1000.0" linkedscene="scene_Hibiscus_3" linkedscene_lookat="-343.12,-8.61,127.86" />
+		<hotspot name="spot2097254453" title="나가는 길" style="skin_hotspotstyle" ath="63.245" atv="25.454" depth="1000.0" linkedscene="scene_Hibiscus_1" linkedscene_lookat="176.33,5.26,136.86" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_3" title="무궁화원_3" onstart="" thumburl="panos/Hibiscus_3.tiles/thumb.jpg" lat="37.25761944" lng="126.98395278" alt="63.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_3.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094128793" style="skin_hotspotstyle"  title="관람동선" ath="31.304" atv="22.208" depth="1000.0" linkedscene="scene_Hibiscus_4" linkedscene_lookat="48.81,-10.89,120.0" />
+		<hotspot name="spot2097254905" title="나가는 길" style="skin_hotspotstyle" ath="155.685" atv="17.984" depth="1000.0" linkedscene="scene_Hibiscus_2" linkedscene_lookat="67.16,7.33,120.0" />
+		<hotspot name="spot2097265098" title="화장실" style="skin_hotspotstyle" ath="75.67" atv="19.714" depth="1000.0" linkedscene="scene_Hibiscus_17" linkedscene_lookat="-1.04,-0.35,120.0" />
+		<hotspot name="spot2099938725" title="무궁화동산" style="skin_hotspotstyle" ath="-78.906" atv="42.609" depth="1000.0" linkedscene="scene_Hibiscus_10" linkedscene_lookat="-236.08,10.33,120.0" />
+		<hotspot name="spot2099941490" style="skin_hotspotstyle" ath="-27.959" atv="43.394" depth="1000.0" linkedscene="scene_Hibiscus_18" linkedscene_lookat="-33.58,12.0,124.2" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_4" title="무궁화원_4" onstart="" thumburl="panos/Hibiscus_4.tiles/thumb.jpg" lat="37.25761944" lng="126.98395278" alt="63.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_4.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_4.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094128990" title="관람동선" style="skin_hotspotstyle" ath="48.228" atv="12.783" depth="1000.0" linkedscene="scene_Hibiscus_5" linkedscene_lookat="17.33,1.63,120.0" />
+		<hotspot name="spot2097255184" title="주차장" style="skin_hotspotstyle" ath="-136.958" atv="25.041" depth="1000.0" linkedscene="scene_Hibiscus_3" linkedscene_lookat="-182.63,1.43,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_5" title="무궁화원_5" onstart="" thumburl="panos/Hibiscus_5.tiles/thumb.jpg" lat="37.25761944" lng="126.98395278" alt="63.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_5.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_5.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094129132" title="관람동선" style="skin_hotspotstyle" ath="10.25" atv="17.582" depth="1000.0" linkedscene="scene_Hibiscus_6" linkedscene_lookat="-258.89,-7.04,120.0" />
+		<hotspot name="spot2097255531" style="skin_hotspotstyle" ath="-171.144" atv="17.249" depth="1000.0" linkedscene="scene_Hibiscus_4" linkedscene_lookat="-136.1,-3.79,120.0" />
+		<hotspot name="spot2097257768" title="연인의 길" style="skin_hotspotstyle" ath="-71.85" atv="42.614" depth="1000.0" linkedscene="scene_Hibiscus_9" linkedscene_lookat="89.05,9.27,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_6" title="무궁화원_6" onstart="" thumburl="panos/Hibiscus_6.tiles/thumb.jpg" lat="37.25761944" lng="126.98395278" alt="63.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_6.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_6.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094129315" title="관람동선" style="skin_hotspotstyle" ath="2.805" atv="19.828" depth="1000.0" linkedscene="scene_Hibiscus_7" linkedscene_lookat="9.52,-0.68,120.0" />
+		<hotspot name="spot2097255744" style="skin_hotspotstyle" ath="-91.421" atv="37.113" depth="1000.0" linkedscene="scene_Hibiscus_5" linkedscene_lookat="-157.5,2.66,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_7" title="무궁화원_7" onstart="" thumburl="panos/Hibiscus_7.tiles/thumb.jpg" lat="37.25761944" lng="126.98395278" alt="63.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_7.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_7.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094129515" title="관람동선" style="skin_hotspotstyle" ath="-0.188" atv="23.328" depth="1000.0" linkedscene="scene_Hibiscus_8" linkedscene_lookat="-279.65,-16.59,120.0" />
+		<hotspot name="spot2097256254" style="skin_hotspotstyle" ath="-91.043" atv="39.976" depth="1000.0" linkedscene="scene_Hibiscus_6" linkedscene_lookat="-84.47,17.08,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_8" title="무궁화원_8" onstart="" thumburl="panos/Hibiscus_8.tiles/thumb.jpg" lat="37.25761944" lng="126.98395278" alt="63.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_8.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_8.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094129698" title="관람동선" style="skin_hotspotstyle" ath="74.155" atv="17.644" depth="1000.0" linkedscene="scene_Hibiscus_9" linkedscene_lookat="106.64,14.46,127.89" />
+		<hotspot name="spot2097256477" style="skin_hotspotstyle" ath="-102.531" atv="36.2" depth="1000.0" linkedscene="scene_Hibiscus_7" linkedscene_lookat="-89.16,15.61,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_9" title="무궁화원_9" onstart="" thumburl="panos/Hibiscus_9.tiles/thumb.jpg" lat="37.25718056" lng="126.98475833" alt="62.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_9.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_9.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094130532" title="주차장" style="skin_hotspotstyle" ath="106.784" atv="14.073" depth="1000.0" linkedscene="scene_Hibiscus_3" linkedscene_lookat="-52.9,-10.25,120.0" />
+		<hotspot name="spot2094130936" title="관람동선" style="skin_hotspotstyle" ath="-178.606" atv="22.384" depth="1000.0" linkedscene="scene_Hibiscus_11" linkedscene_lookat="-23.89,-1.36,120.0" />
+		<hotspot name="spot2097257977" title="연인의 길" style="skin_hotspotstyle" ath="32.1" atv="30.504" depth="1000.0" linkedscene="scene_Hibiscus_5" linkedscene_lookat="24.3,12.96,120.0" />
+		<hotspot name="spot2097258501" style="skin_hotspotstyle" ath="-55.813" atv="42.276" depth="1000.0" linkedscene="scene_Hibiscus_8" linkedscene_lookat="-95.64,1.63,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_10" title="무궁화원_10" onstart="" thumburl="panos/Hibiscus_10.tiles/thumb.jpg" lat="37.25745833" lng="126.98458889" alt="63.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_10.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_10.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		
+		<hotspot name="spot2097264536" title="주차장" style="skin_hotspotstyle" ath="2.592" atv="46.101" depth="1000.0" linkedscene="scene_Hibiscus_3" linkedscene_lookat="14.12,4.71,120.0" />
+		<hotspot name="spot2099939853" style="skin_hotspotstyle" ath="90.349" atv="19.889" depth="1000.0" linkedscene="scene_Hibiscus_14" linkedscene_lookat="-129.63,9.02,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_11" title="무궁화원_11" onstart="" thumburl="panos/Hibiscus_11.tiles/thumb.jpg" lat="37.25743333" lng="126.98470833" alt="59.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_11.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_11.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094131135" title="관람동선" style="skin_hotspotstyle" ath="-28.09" atv="18.988" depth="1000.0" linkedscene="scene_Hibiscus_12" linkedscene_lookat="-223.88,2.46,120.0" />
+		<hotspot name="spot2097256972" style="skin_hotspotstyle" ath="154.744" atv="27.893" depth="1000.0" linkedscene="scene_Hibiscus_9" linkedscene_lookat="26.6,19.01,120.0" />
+		
+
+	</scene>
+
+	<scene name="scene_Hibiscus_12" title="무궁화원_12" onstart="" thumburl="panos/Hibiscus_12.tiles/thumb.jpg" lat="37.25758611" lng="126.98475000" alt="60.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_12.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_12.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		
+		<hotspot name="spot2097259608" title="관람동선" style="skin_hotspotstyle" ath="133.929" atv="35.74" depth="1000.0" linkedscene="scene_Hibiscus_14" linkedscene_lookat="110.76,2.49,120.0" />
+		<hotspot name="spot2097262822" style="skin_hotspotstyle" ath="-38.304" atv="35.186" depth="1000.0" linkedscene="scene_Hibiscus_11" linkedscene_lookat="-187.86,8.57,120.0" />
+		
+
+	</scene>
+
+	<scene name="scene_Hibiscus_13" title="무궁화원_13" onstart="" thumburl="panos/Hibiscus_13.tiles/thumb.jpg" lat="37.25769722" lng="126.98436944" alt="55.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_13.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_13.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094131780" style="skin_hotspotstyle" ath="140.201" atv="22.954" depth="1000.0" linkedscene="scene_Hibiscus_14" linkedscene_lookat="6.81,-8.78,120.0" />
+		<hotspot name="spot2097259365" style="skin_hotspotstyle" ath="-12.414" atv="19.359" depth="1000.0" linkedscene="scene_Hibiscus_12" linkedscene_lookat="-38.02,12.58,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_14" title="무궁화원_14" onstart="" thumburl="panos/Hibiscus_14.tiles/thumb.jpg" lat="37.25770833" lng="126.98435833" alt="59.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_14.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_14.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2094131993" title="관람동선" style="skin_hotspotstyle" ath="-27.4" atv="7.228" depth="1000.0" linkedscene="scene_Hibiscus_10" linkedscene_lookat="251.12,-2.46,127.85" />
+		<hotspot name="spot2097260296" style="skin_hotspotstyle" ath="-125.772" atv="14.72" depth="1000.0" linkedscene="scene_Hibiscus_13" linkedscene_lookat="-16.41,16.8,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_15" title="무궁화원_15" onstart="" thumburl="panos/Hibiscus_15.tiles/thumb.jpg" lat="37.25739722" lng="126.98465833" alt="61.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_15.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_15.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2099940600" style="skin_hotspotstyle" ath="92.019" atv="27.31" depth="1000.0" linkedscene="scene_Hibiscus_18" linkedscene_hoffset="0.0" use3dtransition="true" />
+		<hotspot name="spot2099942392" style="skin_hotspotstyle" ath="-96.963" atv="34.769" depth="1000.0" linkedscene="scene_Hibiscus_9" linkedscene_lookat="-99.6,13.65,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_16" title="무궁화원_16" onstart="" thumburl="panos/Hibiscus_16.tiles/thumb.jpg" lat="37.25711944" lng="126.98466389" alt="61.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_16.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_16.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_Hibiscus_17" title="무궁화원_17" onstart="" thumburl="panos/Hibiscus_17.tiles/thumb.jpg" lat="37.25727222" lng="126.98420833" alt="61.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_17.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_17.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2097265263" title="주차장" style="skin_hotspotstyle" ath="-174.312" atv="31.028" depth="1000.0" linkedscene="scene_Hibiscus_3" linkedscene_lookat="16.15,-2.54,120.0" />
+
+	</scene>
+
+	<scene name="scene_Hibiscus_18" title="무궁화원_18" onstart="" thumburl="panos/Hibiscus_18.tiles/thumb.jpg" lat="37.25743889" lng="126.98458889" alt="62.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Hibiscus_18.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Hibiscus_18.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2099942080" style="skin_hotspotstyle" ath="48.348" atv="9.62" depth="1000.0" linkedscene="scene_Hibiscus_15" linkedscene_lookat="-82.89,12.69,120.0" />
+		<hotspot name="spot2099942976" title="주차장" style="skin_hotspotstyle" ath="-175.026" atv="23.841" depth="1000.0" linkedscene="scene_Hibiscus_3" linkedscene_lookat="183.63,9.01,120.0" />
+
+	</scene>
+
+
+</krpano>
