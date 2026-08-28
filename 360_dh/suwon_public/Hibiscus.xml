@@ -5,7 +5,7 @@
 
 	<plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
 
-	<!-- 무궁화원 전용 버튼 기본 스타일 정의 (콤팩트 사이즈) -->
+	<!-- 1. 공통 스타일 정의 -->
 	<style name="mugunghwa_btn" 
 	       type="text" 
 	       width="95" 
@@ -18,110 +18,65 @@
 	       vcenter="true" 
 	       handcursor="true" />
 
-	<!-- 버튼 활성화/비활성화 상태 제어 액션 -->
+	<!-- 모바일 전용 버튼 스타일 -->
+	<style name="mugunghwa_btn_mobile" 
+	       type="text" 
+	       width="75" 
+	       height="26" 
+	       bgcolor="0xFFFFFF" 
+	       bgalpha="0.35" 
+	       border="false" 
+	       roundedge="6" 
+	       css="text-align:center; color:#FFFFFF; font-size:11px; font-weight:bold; line-height:26px;" 
+	       vcenter="true" 
+	       handcursor="true" />
+
+	<!-- 2. 액션 정의 -->
+	<action name="toggle_mobile_menu">
+		if(layer[topmenu_mobile].state == 'open',
+			<!-- 메뉴 접기 (▼ 모양으로 변경) -->
+			set(layer[topmenu_mobile].state, 'closed');
+			set(layer[btn_toggle_mobile].html, '▼');
+			tween(layer[topmenu_mobile].height, 32, 0.3);
+			set(layer[mobile_menu_content].visible, false);
+		  ,
+			<!-- 메뉴 펼치기 (▲ 모양으로 변경) -->
+			set(layer[topmenu_mobile].state, 'open');
+			set(layer[btn_toggle_mobile].html, '▲');
+			tween(layer[topmenu_mobile].height, 75, 0.3);
+			set(layer[mobile_menu_content].visible, true);
+		);
+	</action>
+
 	<action name="select_mugunghwa_btn">
-		<!-- 전체 버튼 초기화 -->
+		<!-- 데스크톱 버튼 초기화 -->
 		set(layer[btn_mgh_main].bgcolor, 0xFFFFFF); set(layer[btn_mgh_main].bgalpha, 0.35);
 		set(layer[btn_mgh_parking].bgcolor, 0xFFFFFF); set(layer[btn_mgh_parking].bgalpha, 0.35);
 		set(layer[btn_mgh_route].bgcolor, 0xFFFFFF); set(layer[btn_mgh_route].bgalpha, 0.35);
 		set(layer[btn_mgh_lovers].bgcolor, 0xFFFFFF); set(layer[btn_mgh_lovers].bgalpha, 0.35);
 
-		<!-- 선택한 버튼만 포인트 컬러 설정 -->
+		<!-- 모바일 버튼 초기화 -->
+		set(layer[m_btn_mgh_main].bgcolor, 0xFFFFFF); set(layer[m_btn_mgh_main].bgalpha, 0.35);
+		set(layer[m_btn_mgh_parking].bgcolor, 0xFFFFFF); set(layer[m_btn_mgh_parking].bgalpha, 0.35);
+		set(layer[m_btn_mgh_route].bgcolor, 0xFFFFFF); set(layer[m_btn_mgh_route].bgalpha, 0.35);
+		set(layer[m_btn_mgh_lovers].bgcolor, 0xFFFFFF); set(layer[m_btn_mgh_lovers].bgalpha, 0.35);
+
+		<!-- 데스크톱 선택 버튼 포인트 컬러 -->
 		if(layer[%1],
 			set(layer[%1].bgcolor, 0x2E8B57);
 			set(layer[%1].bgalpha, 1.0);
 		);
-	</action>
 
-	<!-- 모바일 / 데스크톱 반응형 처리 액션 (상단 공유 버튼 회피 및 콤팩트 중앙 배치) -->
-	<action name="update_mobile_menu_layout">
-		if(stagewidth LT 540,
-			<!-- 모바일 화면 (공유버튼 아래로 y축 내려 겹침 방지 + 박스 크기 소형화) -->
-			set(layer[topmenu_mugunghwa].y, 60);
-			set(layer[topmenu_mugunghwa].height, 68);
-			
-			<!-- 컨테이너 전체 너비 소형화 -->
-			def(menu_total_w, number, calc(stagewidth - 24));
-			if(menu_total_w GT 400, set(menu_total_w, 400));
-			set(layer[topmenu_mugunghwa].width, get(menu_total_w));
-
-			<!-- 타이틀 소형화 -->
-			set(layer[title].y, 6);
-			set(layer[title].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; letter-spacing:0.5px;");
-			
-			<!-- 버튼 4개 자동 계산 및 중앙 정렬 배치 -->
-			def(btn_margin, number, 4);
-			def(btn_w, number, calc((menu_total_w - 16 - (btn_margin * 3)) / 4));
-			
-			set(layer[btn_mgh_main].width, get(btn_w));
-			set(layer[btn_mgh_parking].width, get(btn_w));
-			set(layer[btn_mgh_route].width, get(btn_w));
-			set(layer[btn_mgh_lovers].width, get(btn_w));
-
-			set(layer[btn_mgh_main].y, 34);
-			set(layer[btn_mgh_parking].y, 34);
-			set(layer[btn_mgh_route].y, 34);
-			set(layer[btn_mgh_lovers].y, 34);
-
-			set(layer[btn_mgh_main].height, 24);
-			set(layer[btn_mgh_parking].height, 24);
-			set(layer[btn_mgh_route].height, 24);
-			set(layer[btn_mgh_lovers].height, 24);
-			
-			set(layer[btn_mgh_main].x, 8);
-			set(layer[btn_mgh_parking].x, calc(8 + btn_w + btn_margin));
-			set(layer[btn_mgh_route].x, calc(8 + (btn_w + btn_margin) * 2));
-			set(layer[btn_mgh_lovers].x, calc(8 + (btn_w + btn_margin) * 3));
-
-			<!-- 모바일 폰트 소형화 -->
-			set(layer[btn_mgh_main].css, "text-align:center; color:#FFFFFF; font-size:10px; font-weight:bold; line-height:24px;");
-			set(layer[btn_mgh_parking].css, "text-align:center; color:#FFFFFF; font-size:10px; font-weight:bold; line-height:24px;");
-			set(layer[btn_mgh_route].css, "text-align:center; color:#FFFFFF; font-size:10px; font-weight:bold; line-height:24px;");
-			set(layer[btn_mgh_lovers].css, "text-align:center; color:#FFFFFF; font-size:10px; font-weight:bold; line-height:24px;");
-		,
-			<!-- 데스크톱 / 태블릿 화면 -->
-			set(layer[topmenu_mugunghwa].y, 20);
-			set(layer[topmenu_mugunghwa].width, 440);
-			set(layer[topmenu_mugunghwa].height, 75);
-
-			set(layer[title].y, 8);
-			set(layer[title].css, "text-align:center; color:#FFFFFF; font-size:14px; font-weight:bold; letter-spacing:1px;");
-
-			set(layer[btn_mgh_main].width, 95);
-			set(layer[btn_mgh_parking].width, 95);
-			set(layer[btn_mgh_route].width, 95);
-			set(layer[btn_mgh_lovers].width, 95);
-
-			set(layer[btn_mgh_main].y, 38);
-			set(layer[btn_mgh_parking].y, 38);
-			set(layer[btn_mgh_route].y, 38);
-			set(layer[btn_mgh_lovers].y, 38);
-
-			set(layer[btn_mgh_main].height, 26);
-			set(layer[btn_mgh_parking].height, 26);
-			set(layer[btn_mgh_route].height, 26);
-			set(layer[btn_mgh_lovers].height, 26);
-
-			set(layer[btn_mgh_main].x, 12);
-			set(layer[btn_mgh_parking].x, 117);
-			set(layer[btn_mgh_route].x, 222);
-			set(layer[btn_mgh_lovers].x, 327);
-
-			set(layer[btn_mgh_main].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:26px;");
-			set(layer[btn_mgh_parking].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:26px;");
-			set(layer[btn_mgh_route].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:26px;");
-			set(layer[btn_mgh_lovers].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:26px;");
+		<!-- 모바일 대응 ID 매칭 및 포인트 컬러 -->
+		txtadd(m_btn_name, 'm_', %1);
+		if(layer[get(m_btn_name)],
+			set(layer[get(m_btn_name)].bgcolor, 0x2E8B57);
+			set(layer[get(m_btn_name)].bgalpha, 1.0);
 		);
 	</action>
 
-	<!-- 화면 크기 변경 시 및 로드 시 레이아웃 자동 업데이트 이벤트 -->
-	<events name="mugunghwa_resize_events" 
-	        keep="true" 
-	        onresize="update_mobile_menu_layout();" 
-	        onloadcomplete="update_mobile_menu_layout();" />
-
-	<!-- Top 메뉴 컨테이너 (무궁화원용) -->
-	<layer name="topmenu_mugunghwa" type="container" keep="true" align="centertop" x="0" y="20" width="440" height="75" bgcolor="0x000000" bgalpha="0.45" roundedge="12" >
+	<!-- [데스크톱 전용] 상단 메뉴 -->
+	<layer name="topmenu_mugunghwa" type="container" keep="true" align="centertop" x="0" y="20" width="440" height="75" bgcolor="0x000000" bgalpha="0.45" roundedge="12" devices="desktop">
 		<layer name="title" 
 		       type="text" 
 		       align="top" 
@@ -133,7 +88,6 @@
 		       handcursor="true" 
 		       onclick="select_mugunghwa_btn('none'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
 
-		<!-- 메뉴 버튼 모음 -->
 		<layer name="btn_mgh_main" style="mugunghwa_btn" x="12" y="38" html="무궁화원"  
 		       onclick="select_mugunghwa_btn('btn_mgh_main'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
 
@@ -145,6 +99,27 @@
 
 		<layer name="btn_mgh_lovers" style="mugunghwa_btn" x="327" y="38" html="연인의 길" 
 		       onclick="select_mugunghwa_btn('btn_mgh_lovers'); loadscene(scene_Hibiscus_5,null,MERGE,BLEND(0.7));"/>
+	</layer>
+
+	<!-- [모바일 전용] 하단 토글 메뉴 -->
+	<layer name="topmenu_mobile" type="container" keep="true" align="bottom" x="0" y="10" width="340" height="75" bgcolor="0x000000" bgalpha="0.65" roundedge="12" devices="mobile" state="open">
+		
+		<!-- 상단 헤더 영역 -->
+		<layer name="mobile_header" type="container" align="top" width="100%" height="32" x="0" y="0">
+			<!-- 좌측 무궁화원 타이틀 -->
+			<layer name="m_title" style="mugunghwa_btn_mobile" align="left" x="10" y="4" width="90" bgcolor="0x000000" bgalpha="0.0" html="수원 무궁화원" onclick="select_mugunghwa_btn('none'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
+			
+			<!-- 중앙 ▼ / ▲ 토글 버튼 -->
+			<layer name="btn_toggle_mobile" style="mugunghwa_btn_mobile" align="center" x="0" y="0" width="40" height="24" bgcolor="0x000000" bgalpha="0.3" html="▲" css="text-align:center; color:#FFFFFF; font-size:12px; line-height:24px;" onclick="toggle_mobile_menu();" />
+		</layer>
+
+		<!-- 메뉴 컨텐츠 컨테이너 (1줄 4개 버튼) -->
+		<layer name="mobile_menu_content" type="container" align="top" width="100%" height="40" x="0" y="32">
+			<layer name="m_btn_mgh_main"    style="mugunghwa_btn_mobile" x="10"  y="4" html="무궁화원" onclick="select_mugunghwa_btn('btn_mgh_main'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
+			<layer name="m_btn_mgh_parking" style="mugunghwa_btn_mobile" x="90"  y="4" html="주차장"   onclick="select_mugunghwa_btn('btn_mgh_parking'); loadscene(scene_Hibiscus_3,null,MERGE,BLEND(0.7));"/>
+			<layer name="m_btn_mgh_route"   style="mugunghwa_btn_mobile" x="170" y="4" html="관람동선" onclick="select_mugunghwa_btn('btn_mgh_route'); loadscene(scene_Hibiscus_4,null,MERGE,BLEND(0.7));"/>
+			<layer name="m_btn_mgh_lovers"  style="mugunghwa_btn_mobile" x="250" y="4" html="연인의 길" onclick="select_mugunghwa_btn('btn_mgh_lovers'); loadscene(scene_Hibiscus_5,null,MERGE,BLEND(0.7));"/>
+		</layer>
 	</layer>
 
 	<layer name="skin_control_bar" visible="false" />
