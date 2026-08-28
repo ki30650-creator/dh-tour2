@@ -3,6 +3,60 @@
 	<include url="skin/vtourskin.xml" />
 
 <plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
+<!-- 무궁화원 전용 버튼 스타일 정의 -->
+    <style name="mugunghwa_btn" 
+           type="text" 
+           width="110" 
+           height="32" 
+           bgcolor="0xFFFFFF" 
+           bgalpha="0.35" 
+           border="false" 
+           roundedge="8" 
+           css="text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; line-height:32px;" 
+           vcenter="true" 
+           handcursor="true" />
+
+    <!-- 버튼 활성화/비활성화 상태 제어 액션 -->
+    <action name="select_mugunghwa_btn">
+        <!-- 전체 버튼 초기화 -->
+        set(layer[btn_mgh_main].bgcolor, 0xFFFFFF); set(layer[btn_mgh_main].bgalpha, 0.35);
+        set(layer[btn_mgh_parking].bgcolor, 0xFFFFFF); set(layer[btn_mgh_parking].bgalpha, 0.35);
+        set(layer[btn_mgh_route].bgcolor, 0xFFFFFF); set(layer[btn_mgh_route].bgalpha, 0.35);
+        set(layer[btn_mgh_lovers].bgcolor, 0xFFFFFF); set(layer[btn_mgh_lovers].bgalpha, 0.35);
+
+        <!-- 선택한 버튼만 포인트 컬러(예: 포인트 다크 그린 또는 원하는 칼라) 설정 -->
+        if(layer[%1],
+            set(layer[%1].bgcolor, 0x2E8B57);
+            set(layer[%1].bgalpha, 1.0);
+        );
+    </action>
+
+    <!-- Top 메뉴 컨테이너 (무궁화원용) -->
+    <layer name="topmenu_mugunghwa" type="container" keep="true" align="centertop" x="0" y="20" width="520" height="95" bgcolor="0x000000" bgalpha="0.35" roundedge="18" devices="desktop">
+<layer name="title" 
+               type="text" 
+               align="top" 
+               y="12" 
+               html="수원 무궁화원" 
+               css="text-align:center; color:#FFFFFF; font-size:16px; font-weight:bold; letter-spacing:1px;" 
+               bg="false" 
+               vcenter="true" 
+               handcursor="true" 
+               devices="desktop" 
+onclick="select_mugunghwa_btn('none'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
+        <!-- 메뉴 버튼 모음 (1줄 배치) -->
+        <layer name="btn_mgh_main" style="mugunghwa_btn" x="15" y="48" html="무궁화원" devices="desktop" 
+               onclick="select_mugunghwa_btn('btn_mgh_main'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
+
+        <layer name="btn_mgh_parking" style="mugunghwa_btn" x="140" y="48" html="주차장" devices="desktop" 
+               onclick="select_mugunghwa_btn('btn_mgh_parking'); loadscene(scene_Hibiscus_3,null,MERGE,BLEND(0.7));"/>
+
+        <layer name="btn_mgh_route" style="mugunghwa_btn" x="265" y="48" html="관람동선" devices="desktop" 
+               onclick="select_mugunghwa_btn('btn_mgh_route'); loadscene(scene_Hibiscus_4,null,MERGE,BLEND(0.7));"/>
+
+        <layer name="btn_mgh_lovers" style="mugunghwa_btn" x="390" y="48" html="연인의 길" devices="desktop" 
+               onclick="select_mugunghwa_btn('btn_mgh_lovers'); loadscene(scene_Hibiscus_5,null,MERGE,BLEND(0.7));"/>
+    </layer>
 
     <layer name="skin_control_bar" visible="false" />
 
@@ -113,7 +167,7 @@
 		<hotspot name="spot2097254905" title="나가는 길" style="skin_hotspotstyle" ath="155.685" atv="17.984" depth="1000.0" linkedscene="scene_Hibiscus_2" linkedscene_lookat="67.16,7.33,120.0" />
 		<hotspot name="spot2097265098" title="화장실" style="skin_hotspotstyle" ath="75.67" atv="19.714" depth="1000.0" linkedscene="scene_Hibiscus_17" linkedscene_lookat="-1.04,-0.35,120.0" />
 		<hotspot name="spot2099938725" title="무궁화동산" style="skin_hotspotstyle" ath="-78.906" atv="42.609" depth="1000.0" linkedscene="scene_Hibiscus_10" linkedscene_lookat="-236.08,10.33,120.0" />
-		<hotspot name="spot2099941490" title="무궁화를 든 뚜니" style="skin_hotspotstyle" ath="-27.959" atv="43.394" depth="1000.0" linkedscene="scene_Hibiscus_18" linkedscene_lookat="-33.58,12.0,124.2" />
+		<hotspot name="spot2099941490" title="무궁화를 든 뚜니" style="skin_hotspotstyle" ath="-27.959" atv="43.394" depth="1000.0" linkedscene="scene_hibiscus_18" linkedscene_lookat="-24.55,5.45,97.77" />
 
 	</scene>
 
@@ -121,7 +175,7 @@
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="141.001" vlookat="8.712" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
 		<preview url="panos/Hibiscus_4.tiles/preview.jpg" />
 
@@ -138,7 +192,7 @@
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="-72.102" vlookat="10.116" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
 		<preview url="panos/Hibiscus_5.tiles/preview.jpg" />
 
