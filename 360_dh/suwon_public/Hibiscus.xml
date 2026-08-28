@@ -5,16 +5,16 @@
 
 	<plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
 
-	<!-- 무궁화원 전용 버튼 기본 스타일 정의 -->
+	<!-- 무궁화원 전용 버튼 기본 스타일 정의 (콤팩트 사이즈) -->
 	<style name="mugunghwa_btn" 
 	       type="text" 
-	       width="110" 
-	       height="32" 
+	       width="95" 
+	       height="26" 
 	       bgcolor="0xFFFFFF" 
 	       bgalpha="0.35" 
 	       border="false" 
-	       roundedge="8" 
-	       css="text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; line-height:32px;" 
+	       roundedge="6" 
+	       css="text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:26px;" 
 	       vcenter="true" 
 	       handcursor="true" />
 
@@ -33,49 +33,84 @@
 		);
 	</action>
 
-	<!-- 모바일 / 데스크톱 반응형 처리 액션 -->
+	<!-- 모바일 / 데스크톱 반응형 처리 액션 (상단 공유 버튼 회피 및 콤팩트 중앙 배치) -->
 	<action name="update_mobile_menu_layout">
 		if(stagewidth LT 540,
-			<!-- 모바일 화면 (화면 폭 540px 미만) -->
-			set(layer[topmenu_mugunghwa].width, calc(stagewidth - 20));
+			<!-- 모바일 화면 (공유버튼 아래로 y축 내려 겹침 방지 + 박스 크기 소형화) -->
+			set(layer[topmenu_mugunghwa].y, 60);
+			set(layer[topmenu_mugunghwa].height, 68);
 			
-			<!-- 버튼 너비 및 위치 자동 계산 (4개 버튼 균등 배치) -->
-			def(btn_w, number, calc((stagewidth - 50) / 4));
-			if(btn_w LT 65, set(btn_w, 65));
+			<!-- 컨테이너 전체 너비 소형화 -->
+			def(menu_total_w, number, calc(stagewidth - 24));
+			if(menu_total_w GT 400, set(menu_total_w, 400));
+			set(layer[topmenu_mugunghwa].width, get(menu_total_w));
+
+			<!-- 타이틀 소형화 -->
+			set(layer[title].y, 6);
+			set(layer[title].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; letter-spacing:0.5px;");
+			
+			<!-- 버튼 4개 자동 계산 및 중앙 정렬 배치 -->
+			def(btn_margin, number, 4);
+			def(btn_w, number, calc((menu_total_w - 16 - (btn_margin * 3)) / 4));
 			
 			set(layer[btn_mgh_main].width, get(btn_w));
 			set(layer[btn_mgh_parking].width, get(btn_w));
 			set(layer[btn_mgh_route].width, get(btn_w));
 			set(layer[btn_mgh_lovers].width, get(btn_w));
-			
-			set(layer[btn_mgh_main].x, 10);
-			set(layer[btn_mgh_parking].x, calc(10 + btn_w + 5));
-			set(layer[btn_mgh_route].x, calc(10 + (btn_w + 5) * 2));
-			set(layer[btn_mgh_lovers].x, calc(10 + (btn_w + 5) * 3));
 
-			<!-- 폰트 크기 및 줄높이 모바일 맞춤 조정 -->
-			set(layer[btn_mgh_main].css, "text-align:center; color:#FFFFFF; font-size:11px; font-weight:bold; line-height:32px;");
-			set(layer[btn_mgh_parking].css, "text-align:center; color:#FFFFFF; font-size:11px; font-weight:bold; line-height:32px;");
-			set(layer[btn_mgh_route].css, "text-align:center; color:#FFFFFF; font-size:11px; font-weight:bold; line-height:32px;");
-			set(layer[btn_mgh_lovers].css, "text-align:center; color:#FFFFFF; font-size:11px; font-weight:bold; line-height:32px;");
+			set(layer[btn_mgh_main].y, 34);
+			set(layer[btn_mgh_parking].y, 34);
+			set(layer[btn_mgh_route].y, 34);
+			set(layer[btn_mgh_lovers].y, 34);
+
+			set(layer[btn_mgh_main].height, 24);
+			set(layer[btn_mgh_parking].height, 24);
+			set(layer[btn_mgh_route].height, 24);
+			set(layer[btn_mgh_lovers].height, 24);
+			
+			set(layer[btn_mgh_main].x, 8);
+			set(layer[btn_mgh_parking].x, calc(8 + btn_w + btn_margin));
+			set(layer[btn_mgh_route].x, calc(8 + (btn_w + btn_margin) * 2));
+			set(layer[btn_mgh_lovers].x, calc(8 + (btn_w + btn_margin) * 3));
+
+			<!-- 모바일 폰트 소형화 -->
+			set(layer[btn_mgh_main].css, "text-align:center; color:#FFFFFF; font-size:10px; font-weight:bold; line-height:24px;");
+			set(layer[btn_mgh_parking].css, "text-align:center; color:#FFFFFF; font-size:10px; font-weight:bold; line-height:24px;");
+			set(layer[btn_mgh_route].css, "text-align:center; color:#FFFFFF; font-size:10px; font-weight:bold; line-height:24px;");
+			set(layer[btn_mgh_lovers].css, "text-align:center; color:#FFFFFF; font-size:10px; font-weight:bold; line-height:24px;");
 		,
 			<!-- 데스크톱 / 태블릿 화면 -->
-			set(layer[topmenu_mugunghwa].width, 520);
-			
-			set(layer[btn_mgh_main].width, 110);
-			set(layer[btn_mgh_parking].width, 110);
-			set(layer[btn_mgh_route].width, 110);
-			set(layer[btn_mgh_lovers].width, 110);
+			set(layer[topmenu_mugunghwa].y, 20);
+			set(layer[topmenu_mugunghwa].width, 440);
+			set(layer[topmenu_mugunghwa].height, 75);
 
-			set(layer[btn_mgh_main].x, 15);
-			set(layer[btn_mgh_parking].x, 140);
-			set(layer[btn_mgh_route].x, 265);
-			set(layer[btn_mgh_lovers].x, 390);
+			set(layer[title].y, 8);
+			set(layer[title].css, "text-align:center; color:#FFFFFF; font-size:14px; font-weight:bold; letter-spacing:1px;");
 
-			set(layer[btn_mgh_main].css, "text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; line-height:32px;");
-			set(layer[btn_mgh_parking].css, "text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; line-height:32px;");
-			set(layer[btn_mgh_route].css, "text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; line-height:32px;");
-			set(layer[btn_mgh_lovers].css, "text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; line-height:32px;");
+			set(layer[btn_mgh_main].width, 95);
+			set(layer[btn_mgh_parking].width, 95);
+			set(layer[btn_mgh_route].width, 95);
+			set(layer[btn_mgh_lovers].width, 95);
+
+			set(layer[btn_mgh_main].y, 38);
+			set(layer[btn_mgh_parking].y, 38);
+			set(layer[btn_mgh_route].y, 38);
+			set(layer[btn_mgh_lovers].y, 38);
+
+			set(layer[btn_mgh_main].height, 26);
+			set(layer[btn_mgh_parking].height, 26);
+			set(layer[btn_mgh_route].height, 26);
+			set(layer[btn_mgh_lovers].height, 26);
+
+			set(layer[btn_mgh_main].x, 12);
+			set(layer[btn_mgh_parking].x, 117);
+			set(layer[btn_mgh_route].x, 222);
+			set(layer[btn_mgh_lovers].x, 327);
+
+			set(layer[btn_mgh_main].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:26px;");
+			set(layer[btn_mgh_parking].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:26px;");
+			set(layer[btn_mgh_route].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:26px;");
+			set(layer[btn_mgh_lovers].css, "text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold; line-height:26px;");
 		);
 	</action>
 
@@ -86,29 +121,29 @@
 	        onloadcomplete="update_mobile_menu_layout();" />
 
 	<!-- Top 메뉴 컨테이너 (무궁화원용) -->
-	<layer name="topmenu_mugunghwa" type="container" keep="true" align="centertop" x="0" y="20" width="520" height="95" bgcolor="0x000000" bgalpha="0.35" roundedge="18" >
+	<layer name="topmenu_mugunghwa" type="container" keep="true" align="centertop" x="0" y="20" width="440" height="75" bgcolor="0x000000" bgalpha="0.45" roundedge="12" >
 		<layer name="title" 
 		       type="text" 
 		       align="top" 
-		       y="12" 
+		       y="8" 
 		       html="수원 무궁화원" 
-		       css="text-align:center; color:#FFFFFF; font-size:16px; font-weight:bold; letter-spacing:1px;" 
+		       css="text-align:center; color:#FFFFFF; font-size:14px; font-weight:bold; letter-spacing:1px;" 
 		       bg="false" 
 		       vcenter="true" 
 		       handcursor="true" 
 		       onclick="select_mugunghwa_btn('none'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
 
 		<!-- 메뉴 버튼 모음 -->
-		<layer name="btn_mgh_main" style="mugunghwa_btn" x="15" y="48" html="무궁화원"  
+		<layer name="btn_mgh_main" style="mugunghwa_btn" x="12" y="38" html="무궁화원"  
 		       onclick="select_mugunghwa_btn('btn_mgh_main'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
 
-		<layer name="btn_mgh_parking" style="mugunghwa_btn" x="140" y="48" html="주차장" 
+		<layer name="btn_mgh_parking" style="mugunghwa_btn" x="117" y="38" html="주차장" 
 		       onclick="select_mugunghwa_btn('btn_mgh_parking'); loadscene(scene_Hibiscus_3,null,MERGE,BLEND(0.7));"/>
 
-		<layer name="btn_mgh_route" style="mugunghwa_btn" x="265" y="48" html="관람동선" 
+		<layer name="btn_mgh_route" style="mugunghwa_btn" x="222" y="38" html="관람동선" 
 		       onclick="select_mugunghwa_btn('btn_mgh_route'); loadscene(scene_Hibiscus_4,null,MERGE,BLEND(0.7));"/>
 
-		<layer name="btn_mgh_lovers" style="mugunghwa_btn" x="390" y="48" html="연인의 길" 
+		<layer name="btn_mgh_lovers" style="mugunghwa_btn" x="327" y="38" html="연인의 길" 
 		       onclick="select_mugunghwa_btn('btn_mgh_lovers'); loadscene(scene_Hibiscus_5,null,MERGE,BLEND(0.7));"/>
 	</layer>
 
@@ -184,10 +219,10 @@
 			<cube url="panos/Hibiscus_3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
 		</image>
 		<hotspot name="spot2094128793" style="skin_hotspotstyle"  title="관람동선" ath="31.304" atv="22.208" depth="1000.0" linkedscene="scene_Hibiscus_4" linkedscene_lookat="48.81,-10.89,120.0" />
-		<hotspot name="spot2097254905" title="나가는 길" style="skin_hotspotstyle" ath="159.514" atv="26.835" depth="1000.0" linkedscene="scene_Hibiscus_2" linkedscene_lookat="67.16,7.33,120.0" />
-		<hotspot name="spot2097265098" title="화장실" style="skin_hotspotstyle" ath="81.732" atv="25.244" depth="1000.0" linkedscene="scene_Hibiscus_17" linkedscene_lookat="-1.04,-0.35,120.0" />
-		<hotspot name="spot2099938725" title="무궁화동산" style="skin_hotspotstyle" ath="-81.306" atv="35.077" depth="1000.0" linkedscene="scene_Hibiscus_10" linkedscene_lookat="-236.08,10.33,120.0" />
-		<hotspot name="spot2099941490" title="무궁화를 든 뚜니" style="skin_hotspotstyle" ath="-25.434" atv="26.742" depth="1000.0" linkedscene="scene_hibiscus_18" linkedscene_lookat="-24.55,5.45,97.77" />
+		<hotspot name="spot2097254905" title="나가는 길" style="skin_hotspotstyle" ath="155.685" atv="17.984" depth="1000.0" linkedscene="scene_Hibiscus_2" linkedscene_lookat="67.16,7.33,120.0" />
+		<hotspot name="spot2097265098" title="화장실" style="skin_hotspotstyle" ath="75.67" atv="19.714" depth="1000.0" linkedscene="scene_Hibiscus_17" linkedscene_lookat="-1.04,-0.35,120.0" />
+		<hotspot name="spot2099938725" title="무궁화동산" style="skin_hotspotstyle" ath="-78.906" atv="42.609" depth="1000.0" linkedscene="scene_Hibiscus_10" linkedscene_lookat="-236.08,10.33,120.0" />
+		<hotspot name="spot2099941490" title="무궁화를 든 뚜니" style="skin_hotspotstyle" ath="-27.959" atv="43.394" depth="1000.0" linkedscene="scene_hibiscus_18" linkedscene_lookat="-24.55,5.45,97.77" />
 	</scene>
 
 	<scene name="scene_Hibiscus_4" title="무궁화원_4" onstart="" thumburl="panos/Hibiscus_4.tiles/thumb.jpg" lat="37.25761944" lng="126.98395278" alt="63.00" heading="0.0">
