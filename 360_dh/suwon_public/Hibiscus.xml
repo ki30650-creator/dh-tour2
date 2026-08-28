@@ -1,6 +1,7 @@
 ﻿<krpano version="1.22" >
 
 	<include url="skin/vtourskin.xml" />
+<reservation enable="no" />
 
 <plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
 <!-- 무궁화원 전용 버튼 스타일 정의 -->
