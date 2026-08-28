@@ -32,7 +32,7 @@
     </action>
 
     <!-- Top 메뉴 컨테이너 (무궁화원용) -->
-    <layer name="topmenu_mugunghwa" type="container" keep="true" align="centertop" x="0" y="20" width="520" height="95" bgcolor="0x000000" bgalpha="0.35" roundedge="18" devices="desktop">
+    <layer name="topmenu_mugunghwa" type="container" keep="true" align="centertop" x="0" y="20" width="520" height="95" bgcolor="0x000000" bgalpha="0.35" roundedge="18" >
 <layer name="title" 
                type="text" 
                align="top" 
@@ -42,19 +42,18 @@
                bg="false" 
                vcenter="true" 
                handcursor="true" 
-               devices="desktop" 
 onclick="select_mugunghwa_btn('none'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
         <!-- 메뉴 버튼 모음 (1줄 배치) -->
-        <layer name="btn_mgh_main" style="mugunghwa_btn" x="15" y="48" html="무궁화원" devices="desktop" 
+        <layer name="btn_mgh_main" style="mugunghwa_btn" x="15" y="48" html="무궁화원"  
                onclick="select_mugunghwa_btn('btn_mgh_main'); loadscene(scene_Hibiscus_1,null,MERGE,BLEND(0.7));"/>
 
-        <layer name="btn_mgh_parking" style="mugunghwa_btn" x="140" y="48" html="주차장" devices="desktop" 
+        <layer name="btn_mgh_parking" style="mugunghwa_btn" x="140" y="48" html="주차장" 
                onclick="select_mugunghwa_btn('btn_mgh_parking'); loadscene(scene_Hibiscus_3,null,MERGE,BLEND(0.7));"/>
 
-        <layer name="btn_mgh_route" style="mugunghwa_btn" x="265" y="48" html="관람동선" devices="desktop" 
+        <layer name="btn_mgh_route" style="mugunghwa_btn" x="265" y="48" html="관람동선" 
                onclick="select_mugunghwa_btn('btn_mgh_route'); loadscene(scene_Hibiscus_4,null,MERGE,BLEND(0.7));"/>
 
-        <layer name="btn_mgh_lovers" style="mugunghwa_btn" x="390" y="48" html="연인의 길" devices="desktop" 
+        <layer name="btn_mgh_lovers" style="mugunghwa_btn" x="390" y="48" html="연인의 길" 
                onclick="select_mugunghwa_btn('btn_mgh_lovers'); loadscene(scene_Hibiscus_5,null,MERGE,BLEND(0.7));"/>
     </layer>
 
