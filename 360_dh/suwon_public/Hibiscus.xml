@@ -1,7 +1,6 @@
 ﻿<krpano version="1.22" >
 
 	<include url="skin/vtourskin.xml" />
-<reservation enable="no" url="https://www.namsuheon.kr/main/" />
 
 <plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
 
@@ -114,7 +113,7 @@
 		<hotspot name="spot2097254905" title="나가는 길" style="skin_hotspotstyle" ath="155.685" atv="17.984" depth="1000.0" linkedscene="scene_Hibiscus_2" linkedscene_lookat="67.16,7.33,120.0" />
 		<hotspot name="spot2097265098" title="화장실" style="skin_hotspotstyle" ath="75.67" atv="19.714" depth="1000.0" linkedscene="scene_Hibiscus_17" linkedscene_lookat="-1.04,-0.35,120.0" />
 		<hotspot name="spot2099938725" title="무궁화동산" style="skin_hotspotstyle" ath="-78.906" atv="42.609" depth="1000.0" linkedscene="scene_Hibiscus_10" linkedscene_lookat="-236.08,10.33,120.0" />
-		<hotspot name="spot2099941490" style="skin_hotspotstyle" ath="-27.959" atv="43.394" depth="1000.0" linkedscene="scene_Hibiscus_18" linkedscene_lookat="-33.58,12.0,124.2" />
+		<hotspot name="spot2099941490" title="무궁화를 든 뚜니" style="skin_hotspotstyle" ath="-27.959" atv="43.394" depth="1000.0" linkedscene="scene_Hibiscus_18" linkedscene_lookat="-33.58,12.0,124.2" />
 
 	</scene>
 
