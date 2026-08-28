@@ -5,6 +5,52 @@
 <plugin name="scrollarea" url="%SWFPATH%/plugins/scrollarea.js" keep="true" />
 
     <layer name="skin_control_bar" visible="false" />
+<!-- 무궁화원 전용 버튼 스타일 정의 -->
+    <style name="mugunghwa_btn" 
+           type="text" 
+           width="110" 
+           height="32" 
+           bgcolor="0xFFFFFF" 
+           bgalpha="0.35" 
+           border="false" 
+           roundedge="8" 
+           css="text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; line-height:32px;" 
+           vcenter="true" 
+           handcursor="true" />
+
+    <!-- 버튼 활성화/비활성화 상태 제어 액션 -->
+    <action name="select_mugunghwa_btn">
+        <!-- 전체 버튼 초기화 -->
+        set(layer[btn_mgh_main].bgcolor, 0xFFFFFF); set(layer[btn_mgh_main].bgalpha, 0.35);
+        set(layer[btn_mgh_parking].bgcolor, 0xFFFFFF); set(layer[btn_mgh_parking].bgalpha, 0.35);
+        set(layer[btn_mgh_route].bgcolor, 0xFFFFFF); set(layer[btn_mgh_route].bgalpha, 0.35);
+        set(layer[btn_mgh_lovers].bgcolor, 0xFFFFFF); set(layer[btn_mgh_lovers].bgalpha, 0.35);
+
+        <!-- 선택한 버튼만 포인트 컬러(예: 포인트 다크 그린 또는 원하는 칼라) 설정 -->
+        if(layer[%1],
+            set(layer[%1].bgcolor, 0x2E8B57);
+            set(layer[%1].bgalpha, 1.0);
+        );
+    </action>
+
+    <!-- Top 메뉴 컨테이너 (무궁화원용) -->
+    <layer name="topmenu_mugunghwa" type="container" keep="true" align="centertop" x="0" y="20" width="520" height="95" bgcolor="0x000000" bgalpha="0.35" roundedge="18" devices="desktop">
+        <!-- 메인 타이틀/로고 -->
+        <layer name="title" url="skin/title.png" align="top" y="8" scale="0.7" devices="desktop" onclick="select_mugunghwa_btn('none'); loadscene(scene_mugunghwa_main,null,MERGE,BLEND(0.7));"/>
+
+        <!-- 메뉴 버튼 모음 (1줄 배치) -->
+        <layer name="btn_mgh_main" style="mugunghwa_btn" x="15" y="48" html="무궁화원" devices="desktop" 
+               onclick="select_mugunghwa_btn('btn_mgh_main'); loadscene(scene_mugunghwa_main,null,MERGE,BLEND(0.7));"/>
+
+        <layer name="btn_mgh_parking" style="mugunghwa_btn" x="140" y="48" html="주차장" devices="desktop" 
+               onclick="select_mugunghwa_btn('btn_mgh_parking'); loadscene(scene_mugunghwa_parking,null,MERGE,BLEND(0.7));"/>
+
+        <layer name="btn_mgh_route" style="mugunghwa_btn" x="265" y="48" html="관람동선" devices="desktop" 
+               onclick="select_mugunghwa_btn('btn_mgh_route'); loadscene(scene_mugunghwa_route,null,MERGE,BLEND(0.7));"/>
+
+        <layer name="btn_mgh_lovers" style="mugunghwa_btn" x="390" y="48" html="연인의 길" devices="desktop" 
+               onclick="select_mugunghwa_btn('btn_mgh_lovers'); loadscene(scene_mugunghwa_lovers,null,MERGE,BLEND(0.7));"/>
+    </layer>
 
     <style name="hs_title_box"
            type="text"
