@@ -184,28 +184,39 @@ set(layer[get(m_btn_name)].bgalpha, 1.0);
        onclick="loadscene(scene_wedding_j_10, null, MERGE, BLEND(0.7));"/>
 </layer>
 
-<!-- 5. [모바일] 하단 메뉴 BAR -->
-<layer name="menu_mobile_wedding" type="container" keep="true" align="bottom" x="0" y="10" width="300" height="52" bgcolor="0x000000" bgalpha="0.75" roundedge="10" devices="mobile" state="open">
-<layer name="mobile_toggle_btn" type="text" keep="true"
-       align="top" edge="bottom" x="0" y="0" width="60" height="22" zorder="1002"
-       bg="true" bgcolor="0x000000" bgalpha="0.85" bgroundedge="8 8 0 0" bgborder="1 0x334155 0.8"
-       html="▼" css="color:#FFFFFF; font-size:11px; text-align:center; line-height:20px; cursor:pointer;"
-       onclick="toggle_wedding_mobile_menu();" />
+<!-- 5. [모바일] 하단 메뉴 BAR (타이틀 추가 및 액션 연동) -->
+	<layer name="menu_mobile_wedding" type="container" keep="true" align="bottom" x="0" y="10" width="300" height="74" bgcolor="0x000000" bgalpha="0.75" roundedge="10" devices="mobile" state="open">
+		
+		<!-- 토글 버튼 -->
+		<layer name="mobile_toggle_btn" type="text" keep="true"
+		       align="top" edge="bottom" x="0" y="0" width="60" height="22" zorder="1002"
+		       bg="true" bgcolor="0x000000" bgalpha="0.85" bgroundedge="8 8 0 0" bgborder="1 0x334155 0.8"
+		       html="▼" css="color:#FFFFFF; font-size:11px; text-align:center; line-line-height:20px; cursor:pointer;"
+		       onclick="toggle_wedding_mobile_menu();" />
 
-<layer name="wedding_mobile_content" type="container" align="center" width="100%" height="32" x="0" y="0" visible="true">
-<layer name="m_btn_parking" style="wedding_btn_mobile" x="8" y="3" html="주차장" 
-       onclick="loadscene(scene_wedding_j_1, null, MERGE, BLEND(0.7));"/>
+		<!-- 모바일 메인 콘텐츠 영역 -->
+		<layer name="wedding_mobile_content" type="container" align="center" width="100%" height="100%" x="0" y="0" visible="true">
+			
+			<!-- 모바일 수원새빛뜰·행궁 타이틀 (클릭 시 씬 이동 및 웰컴 자막 재생) -->
+			<layer name="m_wedding_title" type="text" align="top" y="6" html="수원새빛뜰·행궁" 
+			       css="text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; letter-spacing:1px;" 
+			       bg="false" vcenter="true" handcursor="true" 
+			       onclick="loadscene(scene_wedding_j_6, null, MERGE, BLEND(0.7)); set(layer[intro_text].visible, true); set(layer[intro_text].alpha, 1.0); delayedcall(2.0, tween(layer[intro_text].alpha, 0.0, 0.5, easeOutQuad, set(layer[intro_text].visible, false)));" />
 
-<layer name="m_btn_culture" style="wedding_btn_mobile" x="80" y="3" html="전통문화관" 
-       onclick="loadscene(scene_wedding_j_6, null, MERGE, BLEND(0.7));"/>
+			<!-- 모바일 버튼 목록 -->
+			<layer name="m_btn_parking" style="wedding_btn_mobile" x="8" y="36" html="주차장" 
+			       onclick="loadscene(scene_wedding_j_1, null, MERGE, BLEND(0.7));"/>
 
-<layer name="m_btn_exit" style="wedding_btn_mobile" x="152" y="3" html="안마당" 
-       onclick="loadscene(scene_wedding_j_8, null, MERGE, BLEND(0.7));"/>
+			<layer name="m_btn_culture" style="wedding_btn_mobile" x="80" y="36" html="전통문화관" 
+			       onclick="loadscene(scene_wedding_j_6, null, MERGE, BLEND(0.7));"/>
 
-<layer name="m_btn_banquet" style="wedding_btn_mobile" x="224" y="3" html="연회장" 
-       onclick="loadscene(scene_wedding_j_10, null, MERGE, BLEND(0.7));"/>
-</layer>
-</layer>
+			<layer name="m_btn_exit" style="wedding_btn_mobile" x="152" y="36" html="안마당" 
+			       onclick="loadscene(scene_wedding_j_8, null, MERGE, BLEND(0.7));"/>
+
+			<layer name="m_btn_banquet" style="wedding_btn_mobile" x="224" y="36" html="연회장" 
+			       onclick="loadscene(scene_wedding_j_10, null, MERGE, BLEND(0.7));"/>
+		</layer>
+	</layer>
 
 <!-- 전통문화관 (scene 6) -->
 <scene name="scene_wedding_j_6" title="wedding_j_6" onstart="select_wedding_btn('btn_culture');" thumburl="panos/wedding_j_6.tiles/thumb.jpg" lat="37.28706389" lng="127.01462500" alt="75.09" heading="283.4">
