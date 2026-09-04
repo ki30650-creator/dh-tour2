@@ -56,9 +56,15 @@ set(hotspot[get(txt_name)].onclick,
 				font-weight: bold !important;
 				letter-spacing: -1px !important;
 				white-space: nowrap !important;
-				text-shadow: none !important; /* 빛나는 글로우/그림자 효과 제거 */
+				text-shadow: none !important;
 				display: inline-flex !important;
 				align-items: center !important;
+			}
+			.intro-text-box .big-char {
+				font-size: 48px !important;
+			}
+			.intro-text-box .sub-char {
+				font-size: 33px !important;
 			}
 			.c-bar-box { 
 				display: inline-block !important;
@@ -68,19 +74,37 @@ set(hotspot[get(txt_name)].onclick,
 				margin: 0 16px !important;
 				vertical-align: middle !important;
 			}
+
+			/* 모바일 화면 대응 (화면 폭이 768px 이하일 때 비율에 맞게 축소) */
+			@media screen and (max-width: 768px) {
+				.intro-text-box {
+					font-size: 22px !important;
+				}
+				.intro-text-box .big-char {
+					font-size: 26px !important;
+				}
+				.intro-text-box .sub-char {
+					font-size: 18px !important;
+				}
+				.c-bar-box {
+					width: 3px !important;
+					height: 18px !important;
+					margin: 0 8px !important;
+				}
+			}
 		`;
 		document.head.appendChild(style);
 	]]></action>
 
 <layer name="intro_text" 
-       type="text" 
-       keep="true" 
-       align="center" 
-       x="0" y="0" 
-       bg="false" 
-       html="[p class='intro-text-box'][span style='color:#003896;']「[/span][span style='color:#003896; font-size:48px;']W[/span][span style='color:#003896;' font-size:33px;']edding&amp;nbsp;for&amp;nbsp;[/span][span style='color:#003896; font-size:48px;']Y[/span][span style='color:#003896;']ou[/span][span class='c-bar-box'][/span][span style='color:#00A3E0;']수원[/span][span style='color:#003896;']새빛뜰」[/span][/p]" 
-       alpha="1.0" 
-       zorder="2000" />
+	       type="text" 
+	       keep="true" 
+	       align="center" 
+	       x="0" y="0" 
+	       bg="false" 
+	       html="[p class='intro-text-box'][span style='color:#003896;']「[/span][span class='big-char' style='color:#003896;']W[/span][span class='sub-char' style='color:#003896;']edding&amp;nbsp;for&amp;nbsp;[/span][span class='big-char' style='color:#003896;']Y[/span][span style='color:#003896;']ou[/span][span class='c-bar-box'][/span][span style='color:#00A3E0;']수원[/span][span style='color:#003896;']새빛뜰」[/span][/p]" 
+	       alpha="1.0" 
+	       zorder="2000" />
 <events name="intro_events" 
         keep="true" 
         onxmlcomplete="load_custom_intro_css(); delayedcall(2.0, tween(layer[intro_text].alpha, 0.0, 0.5, easeOutQuad, set(layer[intro_text].visible, false)));" />
