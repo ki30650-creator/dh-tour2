@@ -1,7 +1,11 @@
-﻿<krpano version="1.22" title="Virtual Tour">
+﻿<krpano version="1.22" >
 
 	<include url="skin/vtourskin.xml" />
 <reservation enable="yes" url="https://www.suwon.go.kr/web/board/BD_board.view.do?bbsCd=1042&amp;seq=20260527170319548"/>	
+set(hotspot[get(txt_name)].onclick, 
+    loadscene(get(linkedscene), null, MERGE, BLEND(0.7)); 
+    js(krpano_scene_changed(get(linkedscene))); 
+);
 	<hotspot name="suwon"
 	         url="skin/수원이.png"
 	         ath="0"
@@ -10,19 +14,50 @@
 	         scale="0.3"
 	         keep="true"
 	         zoom="true" />
+	<style name="hs_title_box"
+	       type="text"
+	       bg="true"
+	       bgcolor="0x000000"
+	       bgalpha="0.65"
+	       bgborder="false"
+	       roundedge="6"
+	       css="text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; padding:4px 8px;"
+	       vcenter="true"
+	       enabled="true"
+	       handcursor="true"
+	       edge="bottom"
+	       oy="-35" />
+
+	<action name="add_permanent_title">
+		if(title !== null AND title != '',
+			txtadd(txt_name, 'txt_', get(name));
+			addhotspot(get(txt_name));
+			hotspot[get(txt_name)].loadstyle(hs_title_box);
+			
+			set(hotspot[get(txt_name)].ath, get(ath));
+			set(hotspot[get(txt_name)].atv, get(atv));
+			
+			set(hotspot[get(txt_name)].html, get(title));
+			
+			set(hotspot[get(txt_name)].linkedscene, get(linkedscene));
+			set(hotspot[get(txt_name)].onclick, 
+				loadscene(get(linkedscene), null, MERGE, BLEND(0.7)); 
+			);
+		);
+	</action>
 
 	<layer name="skin_control_bar" visible="false" />
 
 	<!-- 1. 스타일 설정 -->
 	<style name="wedding_btn" 
 	       type="text" width="115" height="34" 
-	       bgcolor="0xFFFFFF" bgalpha="0.35" border="false" roundedge="6" 
+	       bgcolor="0xFFFFFF" bgalpha="0.35" bgborder="false" roundedge="6" 
 	       css="text-align:center; color:#FFFFFF; font-size:14px; font-weight:bold; line-height:34px;" 
 	       vcenter="true" handcursor="true" />
 
 	<style name="wedding_btn_mobile" 
 	       type="text" width="65" height="26" 
-	       bgcolor="0xFFFFFF" bgalpha="0.35" border="false" roundedge="6" 
+	       bgcolor="0xFFFFFF" bgalpha="0.35" bgborder="false" roundedge="6" 
 	       css="text-align:center; color:#FFFFFF; font-size:11px; font-weight:bold; line-height:26px;" 
 	       vcenter="true" handcursor="true" />
 
@@ -120,8 +155,8 @@
 		<image prealign="0|283.4|0">
 			<cube url="panos/wedding_j_6.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
 		</image>
-		<hotspot name="spot2103600272" style="skin_hotspotstyle" ath="-80.623" atv="23.264" depth="1000.0" linkedscene="scene_wedding_j_7" linkedscene_lookat="194.79,3.17,120.0" />
-		<hotspot name="spot2107062431" style="skin_hotspotstyle" ath="98.309" atv="49.548" depth="1000.0" linkedscene="scene_wedding_j_12" linkedscene_lookat="-540.08,8.67,120.0" />
+		<hotspot name="spot2103600272" title="안마당 가는 길" style="skin_hotspotstyle" ath="-80.623" atv="23.264" depth="1000.0" linkedscene="scene_wedding_j_7" linkedscene_lookat="194.79,3.17,120.0" />
+		<hotspot name="spot2107062431" style="skin_hotspotstyle" ath="98.309" atv="49.548" depth="1000.0" linkedscene="scene_wedding_j_12" linkedscene_lookat="-542.71,12.79,120.0" />
 	</scene>
 
 	<!-- 주차장 (scene 1) -->
@@ -187,8 +222,8 @@
 		<image prealign="0|278.2|0">
 			<cube url="panos/wedding_j_7.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
 		</image>
-		<hotspot name="spot2103600504" style="skin_hotspotstyle" ath="169.577" atv="20.751" depth="1000.0" linkedscene="scene_wedding_j_8" linkedscene_lookat="-107.03,0.18,127.9" />
-		<hotspot name="spot2105081558" style="skin_hotspotstyle" ath="14.144" atv="12.331" depth="1000.0" linkedscene="scene_wedding_j_12" linkedscene_lookat="-177.92,18.81,120.0" />
+		<hotspot name="spot2103600504" title="안마당" style="skin_hotspotstyle" ath="169.577" atv="20.751" depth="1000.0" linkedscene="scene_wedding_j_8" linkedscene_lookat="-107.03,0.18,127.9" />
+		<hotspot name="spot2105081558" style="skin_hotspotstyle" ath="14.144" atv="12.331" depth="1000.0" linkedscene="scene_wedding_j_6" linkedscene_lookat="-258.22,18.74,120.0" />
 	</scene>
 
 	<scene name="scene_wedding_j_8" title="wedding_j_8" onstart="select_wedding_btn('btn_exit');" thumburl="panos/wedding_j_8.tiles/thumb.jpg" lat="37.28708889" lng="127.01456944" alt="77.94" heading="35.3">
@@ -198,7 +233,7 @@
 		<image prealign="0|35.3|0">
 			<cube url="panos/wedding_j_8.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
 		</image>
-		<hotspot name="spot2103600638" style="skin_hotspotstyle" ath="-108.065" atv="35.405" depth="1000.0" linkedscene="scene_wedding_j_9" linkedscene_lookat="419.14,10.82,135.03" />
+		<hotspot name="spot2103600638" title="연회장 가는 길" style="skin_hotspotstyle" ath="-108.065" atv="35.405" depth="1000.0" linkedscene="scene_wedding_j_9" linkedscene_lookat="419.14,10.82,135.03" />
 		<hotspot name="spot2105081273" style="skin_hotspotstyle" ath="74.338" atv="18.528" depth="1000.0" linkedscene="scene_wedding_j_7" linkedscene_lookat="369.69,2.51,115.73" />
 	</scene>
 
@@ -209,7 +244,7 @@
 		<image prealign="0|353.7|0">
 			<cube url="panos/wedding_j_9.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
 		</image>
-		<hotspot name="spot2103607752" style="skin_hotspotstyle" ath="64.579" atv="45.705" depth="1000.0" linkedscene="scene_wedding_j_10" linkedscene_lookat="-29.84,16.38,138.2" />
+		<hotspot name="spot2103607752" title="연회장" style="skin_hotspotstyle" ath="64.579" atv="45.705" depth="1000.0" linkedscene="scene_wedding_j_10" linkedscene_lookat="-29.84,16.38,138.2" />
 		<hotspot name="spot2103608663" style="skin_hotspotstyle" ath="-148.291" atv="34.732" depth="1000.0" linkedscene="scene_wedding_j_8" linkedscene_lookat="-473.74,5.81,120.0" />
 	</scene>
 
@@ -244,7 +279,7 @@
 		</image>
 		<hotspot name="spot2103612810" style="skin_hotspotstyle" ath="80.902" atv="24.532" depth="1000.0" linkedscene="scene_wedding_j_5" linkedscene_lookat="-438.08,4.75,120.0" />
 		<hotspot name="spot2103613157" style="skin_hotspotstyle" ath="-91.233" atv="34.615" depth="1000.0" linkedscene="scene_wedding_j_13" linkedscene_lookat="-145.87,-6.6,120.0" />
-		<hotspot name="spot2104483365" style="skin_hotspotstyle" ath="-0.747" atv="29.846" depth="1000.0" linkedscene="scene_wedding_j_6" linkedscene_lookat="286.46,3.5,120.0" />
+		<hotspot name="spot2104483365" style="skin_hotspotstyle" ath="-1.006" atv="29.844" depth="1000.0" linkedscene="scene_wedding_j_6" linkedscene_lookat="286.46,3.5,120.0" />
 	</scene>
 
 	<scene name="scene_wedding_j_13" title="wedding_j_13" onstart="" thumburl="panos/wedding_j_13.tiles/thumb.jpg" lat="37.28690278" lng="127.01475278" alt="73.00" heading="0.0">
