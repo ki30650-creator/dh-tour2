@@ -217,7 +217,7 @@ set(hotspot[get(txt_name)].onclick,
 
 	<scene name="scene_wedding_j_7" title="wedding_j_7" onstart="select_wedding_btn('none');" thumburl="panos/wedding_j_7.tiles/thumb.jpg" lat="37.28710833" lng="127.01454722" alt="77.05" heading="278.2">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="278.2" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="194.703" vlookat="2.656" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/wedding_j_7.tiles/preview.jpg" />
 		<image prealign="0|278.2|0">
 			<cube url="panos/wedding_j_7.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
@@ -228,7 +228,7 @@ set(hotspot[get(txt_name)].onclick,
 
 	<scene name="scene_wedding_j_8" title="wedding_j_8" onstart="select_wedding_btn('btn_exit');" thumburl="panos/wedding_j_8.tiles/thumb.jpg" lat="37.28708889" lng="127.01456944" alt="77.94" heading="35.3">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="35.3" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="-116.869" vlookat="6.928" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/wedding_j_8.tiles/preview.jpg" />
 		<image prealign="0|35.3|0">
 			<cube url="panos/wedding_j_8.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
@@ -239,19 +239,19 @@ set(hotspot[get(txt_name)].onclick,
 
 	<scene name="scene_wedding_j_9" title="wedding_j_9" onstart="" thumburl="panos/wedding_j_9.tiles/thumb.jpg" lat="37.28697778" lng="127.01446944" alt="72.37" heading="353.7">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="353.7" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="416.583" vlookat="20.126" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/wedding_j_9.tiles/preview.jpg" />
 		<image prealign="0|353.7|0">
 			<cube url="panos/wedding_j_9.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
 		</image>
 		<hotspot name="spot2103607752" title="연회장" style="skin_hotspotstyle" ath="64.579" atv="45.705" depth="1000.0" linkedscene="scene_wedding_j_10" linkedscene_lookat="-29.84,16.38,138.2" />
-		<hotspot name="spot2103608663" style="skin_hotspotstyle" ath="-148.291" atv="34.732" depth="1000.0" linkedscene="scene_wedding_j_8" linkedscene_lookat="-473.74,5.81,120.0" />
+		<hotspot name="spot2103608663" style="skin_hotspotstyle" ath="-148.436" atv="34.837" depth="1000.0" linkedscene="scene_wedding_j_8" linkedscene_lookat="-650.46,1.5,120.0" />
 	</scene>
 
 	<!-- 연회장 구역 (scene 10, scene 11) -->
 	<scene name="scene_wedding_j_10" title="wedding_j_10" onstart="select_wedding_btn('btn_banquet');" thumburl="panos/wedding_j_10.tiles/thumb.jpg" lat="37.28700278" lng="127.01433889" alt="74.34" heading="319.8">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="319.8" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="320.372" vlookat="16.130" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/wedding_j_10.tiles/preview.jpg" />
 		<image prealign="0|319.8|0">
 			<cube url="panos/wedding_j_10.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
