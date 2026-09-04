@@ -32,7 +32,7 @@
 			<!-- 메뉴 닫기 -->
 			set(layer[menu_mobile_wedding].state, 'closed');
 			set(layer[mobile_toggle_btn].html, '▲');
-			tween(layer[menu_mobile_wedding].y, -65, 0.3);
+			tween(layer[menu_mobile_wedding].y, -52, 0.3);
 			set(layer[wedding_mobile_content].visible, false);
 		  ,
 			<!-- 메뉴 열기 -->
