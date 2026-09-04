@@ -1,0 +1,280 @@
+﻿<krpano version="1.22" title="Virtual Tour">
+
+	<include url="skin/vtourskin.xml" />
+	<reservation enable="yes" url="https://www.suwon.go.kr/web/board/BD_board.view.do?bbsCd=1042&seq=20260527170319548" />
+	
+	<hotspot name="suwon"
+	         url="skin/수원이.png"
+	         ath="0"
+	         atv="88"
+	         rx="90"
+	         scale="0.3"
+	         keep="true"
+	         zoom="true" />
+
+	<layer name="skin_control_bar" visible="false" />
+
+	<!-- 1. 스타일 설정 -->
+	<style name="wedding_btn" 
+	       type="text" width="115" height="34" 
+	       bgcolor="0xFFFFFF" bgalpha="0.35" border="false" roundedge="6" 
+	       css="text-align:center; color:#FFFFFF; font-size:14px; font-weight:bold; line-height:34px;" 
+	       vcenter="true" handcursor="true" />
+
+	<style name="wedding_btn_mobile" 
+	       type="text" width="65" height="26" 
+	       bgcolor="0xFFFFFF" bgalpha="0.35" border="false" roundedge="6" 
+	       css="text-align:center; color:#FFFFFF; font-size:11px; font-weight:bold; line-height:26px;" 
+	       vcenter="true" handcursor="true" />
+
+	<!-- 2. 모바일 토글 동작 액션 -->
+	<action name="toggle_wedding_mobile_menu">
+		if(layer[menu_mobile_wedding].state == 'open',
+			<!-- 메뉴 닫기 -->
+			set(layer[menu_mobile_wedding].state, 'closed');
+			set(layer[mobile_toggle_btn].html, '▲');
+			tween(layer[menu_mobile_wedding].y, -65, 0.3);
+			set(layer[wedding_mobile_content].visible, false);
+		  ,
+			<!-- 메뉴 열기 -->
+			set(layer[menu_mobile_wedding].state, 'open');
+			set(layer[mobile_toggle_btn].html, '▼');
+			tween(layer[menu_mobile_wedding].y, 10, 0.3);
+			set(layer[wedding_mobile_content].visible, true);
+		);
+	</action>
+
+	<!-- 3. 버튼 선택 및 색상 변경 액션 -->
+	<action name="select_wedding_btn">
+		<!-- 데스크톱 버튼 초기화 -->
+		set(layer[btn_parking].bgcolor, 0xFFFFFF); set(layer[btn_parking].bgalpha, 0.35);
+		set(layer[btn_culture].bgcolor, 0xFFFFFF); set(layer[btn_culture].bgalpha, 0.35);
+		set(layer[btn_exit].bgcolor, 0xFFFFFF);    set(layer[btn_exit].bgalpha, 0.35);
+		set(layer[btn_banquet].bgcolor, 0xFFFFFF); set(layer[btn_banquet].bgalpha, 0.35);
+
+		<!-- 모바일 버튼 초기화 -->
+		set(layer[m_btn_parking].bgcolor, 0xFFFFFF); set(layer[m_btn_parking].bgalpha, 0.35);
+		set(layer[m_btn_culture].bgcolor, 0xFFFFFF); set(layer[m_btn_culture].bgalpha, 0.35);
+		set(layer[m_btn_exit].bgcolor, 0xFFFFFF);    set(layer[m_btn_exit].bgalpha, 0.35);
+		set(layer[m_btn_banquet].bgcolor, 0xFFFFFF); set(layer[m_btn_banquet].bgalpha, 0.35);
+
+		<!-- 선택된 버튼 활성화 -->
+		if(layer[%1],
+			set(layer[%1].bgcolor, 0x8B5A2B);
+			set(layer[%1].bgalpha, 1.0);
+		);
+
+		txtadd(m_btn_name, 'm_', %1);
+		if(layer[get(m_btn_name)],
+			set(layer[get(m_btn_name)].bgcolor, 0x8B5A2B);
+			set(layer[get(m_btn_name)].bgalpha, 1.0);
+		);
+	</action>
+
+	<!-- 4. [데스크톱] 상단 메뉴 BAR -->
+	<layer name="topmenu_wedding" type="container" keep="true" align="centertop" x="0" y="20" width="520" height="88" bgcolor="0x000000" bgalpha="0.45" roundedge="12" devices="desktop">
+		<layer name="wedding_title" type="text" align="top" y="10" html="전통혼례체험관" css="text-align:center; color:#FFFFFF; font-size:16px; font-weight:bold; letter-spacing:1px;" bg="false" vcenter="true" handcursor="true" 
+		       onclick="loadscene(scene_wedding_j_6, null, MERGE, BLEND(0.7));"/>
+
+		<layer name="btn_parking" style="wedding_btn" x="12" y="42" html="주차장" 
+		       onclick="loadscene(scene_wedding_j_1, null, MERGE, BLEND(0.7));"/>
+
+		<layer name="btn_culture" style="wedding_btn" x="139" y="42" html="전통문화관" 
+		       onclick="loadscene(scene_wedding_j_6, null, MERGE, BLEND(0.7));"/>
+
+		<layer name="btn_exit" style="wedding_btn" x="266" y="42" html="안마당" 
+		       onclick="loadscene(scene_wedding_j_8, null, MERGE, BLEND(0.7));"/>
+
+		<layer name="btn_banquet" style="wedding_btn" x="393" y="42" html="연회장" 
+		       onclick="loadscene(scene_wedding_j_10, null, MERGE, BLEND(0.7));"/>
+	</layer>
+
+	<!-- 5. [모바일] 하단 메뉴 BAR -->
+	<layer name="menu_mobile_wedding" type="container" keep="true" align="bottom" x="0" y="10" width="300" height="52" bgcolor="0x000000" bgalpha="0.75" roundedge="10" devices="mobile" state="open">
+		
+		<layer name="mobile_toggle_btn" type="text" keep="true"
+		       align="top" edge="bottom" x="0" y="0" width="60" height="22" zorder="1002"
+		       bg="true" bgcolor="0x000000" bgalpha="0.85" bgroundedge="8 8 0 0" bgborder="1 0x334155 0.8"
+		       html="▼" css="color:#FFFFFF; font-size:11px; text-align:center; line-height:20px; cursor:pointer;"
+		       onclick="toggle_wedding_mobile_menu();" />
+
+		<layer name="wedding_mobile_content" type="container" align="center" width="100%" height="32" x="0" y="0" visible="true">
+			<layer name="m_btn_parking" style="wedding_btn_mobile" x="8" y="3" html="주차장" 
+			       onclick="loadscene(scene_wedding_j_1, null, MERGE, BLEND(0.7));"/>
+
+			<layer name="m_btn_culture" style="wedding_btn_mobile" x="80" y="3" html="전통문화관" 
+			       onclick="loadscene(scene_wedding_j_6, null, MERGE, BLEND(0.7));"/>
+
+			<layer name="m_btn_exit" style="wedding_btn_mobile" x="152" y="3" html="안마당" 
+			       onclick="loadscene(scene_wedding_j_8, null, MERGE, BLEND(0.7));"/>
+
+			<layer name="m_btn_banquet" style="wedding_btn_mobile" x="224" y="3" html="연회장" 
+			       onclick="loadscene(scene_wedding_j_10, null, MERGE, BLEND(0.7));"/>
+		</layer>
+	</layer>
+
+	<!-- 전통문화관 (scene 6) -->
+	<scene name="scene_wedding_j_6" title="wedding_j_6" onstart="select_wedding_btn('btn_culture');" thumburl="panos/wedding_j_6.tiles/thumb.jpg" lat="37.28706389" lng="127.01462500" alt="75.09" heading="283.4">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="283.4" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_6.tiles/preview.jpg" />
+		<image prealign="0|283.4|0">
+			<cube url="panos/wedding_j_6.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103600272" style="skin_hotspotstyle" ath="-80.623" atv="23.264" depth="1000.0" linkedscene="scene_wedding_j_7" linkedscene_lookat="194.79,3.17,120.0" />
+		<hotspot name="spot2107062431" style="skin_hotspotstyle" ath="98.309" atv="49.548" depth="1000.0" linkedscene="scene_wedding_j_12" linkedscene_lookat="-540.08,8.67,120.0" />
+	</scene>
+
+	<!-- 주차장 (scene 1) -->
+	<scene name="scene_wedding_j_1" title="wedding_j_1" onstart="select_wedding_btn('btn_parking');" thumburl="panos/wedding_j_1.tiles/thumb.jpg" lat="37.28690833" lng="127.01407778" alt="79.28" heading="341.9">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="511.941" vlookat="13.554" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_1.tiles/preview.jpg" />
+		<image prealign="0|342.0|0">
+			<cube url="panos/wedding_j_1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103597986" style="skin_hotspotstyle" ath="165.153" atv="12.455" depth="1000.0" linkedscene="scene_wedding_j_2" linkedscene_lookat="0.0,0.0,120.0" />
+	</scene>
+
+	<scene name="scene_wedding_j_2" title="wedding_j_2" onstart="" thumburl="panos/wedding_j_2.tiles/thumb.jpg" lat="37.28719444" lng="127.01416944" alt="80.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_2.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/wedding_j_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103598078" style="skin_hotspotstyle" ath="-5.468" atv="32.951" depth="1000.0" linkedscene="scene_wedding_j_3" linkedscene_lookat="-184.07,2.9,120.0" />
+		<hotspot name="spot2103611355" style="skin_hotspotstyle" ath="155.055" atv="15.988" depth="1000.0" linkedscene="scene_wedding_j_1" linkedscene_lookat="242.51,-0.2,131.49" />
+	</scene>
+
+	<scene name="scene_wedding_j_3" title="wedding_j_3" onstart="" thumburl="panos/wedding_j_3.tiles/thumb.jpg" lat="37.28716944" lng="127.01427778" alt="85.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_3.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/wedding_j_3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103598191" style="skin_hotspotstyle" ath="170.018" atv="25.569" depth="1000.0" linkedscene="scene_wedding_j_4" linkedscene_lookat="1.28,3.39,120.0" />
+		<hotspot name="spot2103611172" style="skin_hotspotstyle" ath="-10.215" atv="24.307" depth="1000.0" linkedscene="scene_wedding_j_2" linkedscene_lookat="171.26,13.88,120.0" />
+	</scene>
+
+	<scene name="scene_wedding_j_4" title="wedding_j_4" onstart="" thumburl="panos/wedding_j_4.tiles/thumb.jpg" lat="37.28731944" lng="127.01443333" alt="71.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_4.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/wedding_j_4.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103598343" style="skin_hotspotstyle" ath="0.152" atv="28.727" depth="1000.0" linkedscene="scene_wedding_j_5" linkedscene_lookat="-267.69,21.34,120.0" />
+		<hotspot name="spot2103611630" style="skin_hotspotstyle" ath="-175.862" atv="28.942" depth="1000.0" linkedscene="scene_wedding_j_3" linkedscene_lookat="-6.21,-1.33,120.0" />
+	</scene>
+
+	<scene name="scene_wedding_j_5" title="wedding_j_5" onstart="" thumburl="panos/wedding_j_5.tiles/thumb.jpg" lat="37.28739444" lng="127.01470833" alt="76.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_5.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/wedding_j_5.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103598621" style="skin_hotspotstyle" ath="-8.241" atv="28.293" depth="1000.0" linkedscene="scene_wedding_j_15" linkedscene_lookat="174.03,6.8,107.07" />
+		<hotspot name="spot2103599534" style="skin_hotspotstyle" ath="96.3" atv="36.218" depth="1000.0" linkedscene="scene_wedding_j_12" linkedscene_lookat="358.37,0.6,120.0" />
+		<hotspot name="spot2103611797" style="skin_hotspotstyle" ath="-171.182" atv="25.332" depth="1000.0" linkedscene="scene_wedding_j_4" linkedscene_lookat="-170.61,5.67,120.0" />
+	</scene>
+
+	<scene name="scene_wedding_j_7" title="wedding_j_7" onstart="select_wedding_btn('none');" thumburl="panos/wedding_j_7.tiles/thumb.jpg" lat="37.28710833" lng="127.01454722" alt="77.05" heading="278.2">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="278.2" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_7.tiles/preview.jpg" />
+		<image prealign="0|278.2|0">
+			<cube url="panos/wedding_j_7.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103600504" style="skin_hotspotstyle" ath="169.577" atv="20.751" depth="1000.0" linkedscene="scene_wedding_j_8" linkedscene_lookat="-107.03,0.18,127.9" />
+		<hotspot name="spot2105081558" style="skin_hotspotstyle" ath="14.144" atv="12.331" depth="1000.0" linkedscene="scene_wedding_j_12" linkedscene_lookat="-177.92,18.81,120.0" />
+	</scene>
+
+	<scene name="scene_wedding_j_8" title="wedding_j_8" onstart="select_wedding_btn('btn_exit');" thumburl="panos/wedding_j_8.tiles/thumb.jpg" lat="37.28708889" lng="127.01456944" alt="77.94" heading="35.3">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="35.3" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_8.tiles/preview.jpg" />
+		<image prealign="0|35.3|0">
+			<cube url="panos/wedding_j_8.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103600638" style="skin_hotspotstyle" ath="-108.065" atv="35.405" depth="1000.0" linkedscene="scene_wedding_j_9" linkedscene_lookat="419.14,10.82,135.03" />
+		<hotspot name="spot2105081273" style="skin_hotspotstyle" ath="74.338" atv="18.528" depth="1000.0" linkedscene="scene_wedding_j_7" linkedscene_lookat="369.69,2.51,115.73" />
+	</scene>
+
+	<scene name="scene_wedding_j_9" title="wedding_j_9" onstart="" thumburl="panos/wedding_j_9.tiles/thumb.jpg" lat="37.28697778" lng="127.01446944" alt="72.37" heading="353.7">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="353.7" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_9.tiles/preview.jpg" />
+		<image prealign="0|353.7|0">
+			<cube url="panos/wedding_j_9.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103607752" style="skin_hotspotstyle" ath="64.579" atv="45.705" depth="1000.0" linkedscene="scene_wedding_j_10" linkedscene_lookat="-29.84,16.38,138.2" />
+		<hotspot name="spot2103608663" style="skin_hotspotstyle" ath="-148.291" atv="34.732" depth="1000.0" linkedscene="scene_wedding_j_8" linkedscene_lookat="-473.74,5.81,120.0" />
+	</scene>
+
+	<!-- 연회장 구역 (scene 10, scene 11) -->
+	<scene name="scene_wedding_j_10" title="wedding_j_10" onstart="select_wedding_btn('btn_banquet');" thumburl="panos/wedding_j_10.tiles/thumb.jpg" lat="37.28700278" lng="127.01433889" alt="74.34" heading="319.8">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="319.8" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_10.tiles/preview.jpg" />
+		<image prealign="0|319.8|0">
+			<cube url="panos/wedding_j_10.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103601017" style="skin_hotspotstyle" ath="-37.112" atv="26.328" depth="1000.0" linkedscene="scene_wedding_j_11" linkedscene_lookat="-90.06,10.48,135.03" />
+		<hotspot name="spot2103693006" style="skin_hotspotstyle" ath="60.04" atv="29.748" depth="1000.0" linkedscene="scene_wedding_j_9" linkedscene_lookat="214.84,8.27,141.35" />
+	</scene>
+
+	<scene name="scene_wedding_j_11" title="wedding_j_11" onstart="select_wedding_btn('btn_banquet');" thumburl="panos/wedding_j_11.tiles/thumb.jpg" lat="37.28705000" lng="127.01420833" alt="66.87" heading="264.6">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="264.6" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_11.tiles/preview.jpg" />
+		<image prealign="0|264.6|0">
+			<cube url="panos/wedding_j_11.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103601230" style="skin_hotspotstyle" ath="53.552" atv="24.217" depth="1000.0" linkedscene="scene_wedding_j_10" linkedscene_lookat="19.47,4.09,135.16" />
+	</scene>
+
+	<scene name="scene_wedding_j_12" title="wedding_j_12" onstart="select_wedding_btn('none');" thumburl="panos/wedding_j_12.tiles/thumb.jpg" lat="37.28717778" lng="127.01481944" alt="72.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="-329.624" vlookat="27.544" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_12.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/wedding_j_12.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103612810" style="skin_hotspotstyle" ath="80.902" atv="24.532" depth="1000.0" linkedscene="scene_wedding_j_5" linkedscene_lookat="-438.08,4.75,120.0" />
+		<hotspot name="spot2103613157" style="skin_hotspotstyle" ath="-91.233" atv="34.615" depth="1000.0" linkedscene="scene_wedding_j_13" linkedscene_lookat="-145.87,-6.6,120.0" />
+		<hotspot name="spot2104483365" style="skin_hotspotstyle" ath="-0.747" atv="29.846" depth="1000.0" linkedscene="scene_wedding_j_6" linkedscene_lookat="286.46,3.5,120.0" />
+	</scene>
+
+	<scene name="scene_wedding_j_13" title="wedding_j_13" onstart="" thumburl="panos/wedding_j_13.tiles/thumb.jpg" lat="37.28690278" lng="127.01475278" alt="73.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_13.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/wedding_j_13.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103613308" style="skin_hotspotstyle" ath="-147.9" atv="8.261" depth="1000.0" linkedscene="scene_wedding_j_12" linkedscene_lookat="88.34,-8.74,120.0" />
+	</scene>
+
+	<scene name="scene_wedding_j_14" title="wedding_j_14" onstart="" thumburl="panos/wedding_j_14.tiles/thumb.jpg" lat="37.28705833" lng="127.01480833" alt="70.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_14.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/wedding_j_14.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+	</scene>
+
+	<scene name="scene_wedding_j_15" title="wedding_j_15" onstart="" thumburl="panos/wedding_j_15.tiles/thumb.jpg" lat="37.28746944" lng="127.01479722" alt="72.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/wedding_j_15.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/wedding_j_15.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+		<hotspot name="spot2103599378" style="skin_hotspotstyle" ath="173.128" atv="27.924" depth="1000.0" linkedscene="scene_wedding_j_5" linkedscene_lookat="-193.48,3.42,124.0" />
+	</scene>
+
+</krpano>
