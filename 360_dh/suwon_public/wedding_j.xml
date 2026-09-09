@@ -100,7 +100,7 @@ set(hotspot[get(txt_name)].onclick,
 	       type="text" 
 	       keep="true" 
 	       align="top" 
-	       x="0" y="150" 
+	       x="0" y="180" 
 	       bg="false" 
 	       html="[p class='intro-text-box'][span style='color:#003896;']「[/span][span class='big-char' style='color:#003896;']W[/span][span class='sub-char' style='color:#003896;']edding&amp;nbsp;for&amp;nbsp;[/span][span class='big-char' style='color:#003896;']Y[/span][span style='color:#003896;']ou[/span][span class='c-bar-box'][/span][span style='color:#00A3E0;']수원[/span][span style='color:#003896;']새빛뜰」[/span][/p]" 
 	       alpha="1.0" 
@@ -221,12 +221,12 @@ set(layer[get(m_btn_name)].bgalpha, 1.0);
 <!-- 전통문화관 (scene 6) -->
 <scene name="scene_wedding_j_6" title="wedding_j_6" onstart="select_wedding_btn('btn_culture');" thumburl="panos/wedding_j_6.tiles/thumb.jpg" lat="37.28706389" lng="127.01462500" alt="75.09" heading="283.4">
 <control bouncinglimits="calc:image.cube ? true : false" />
-<view hlookat="283.4" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+<view hlookat="-78.285" vlookat="-5.260" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 <preview url="panos/wedding_j_6.tiles/preview.jpg" />
 <image prealign="0|283.4|0">
 <cube url="panos/wedding_j_6.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
 </image>
-<hotspot name="spot2103600272" title="안마당 가는 길" style="skin_hotspotstyle" ath="-80.623" atv="23.264" depth="1000.0" linkedscene="scene_wedding_j_7" linkedscene_lookat="194.79,3.17,120.0" />
+<hotspot name="spot2103600272" title="안마당 가는 길" style="skin_hotspotstyle" ath="-80.623" atv="23.264" depth="1000.0" linkedscene="scene_wedding_j_7" linkedscene_lookat="278.09,-0.38,138.36" />
 <hotspot name="spot2107062431" style="skin_hotspotstyle" ath="98.309" atv="49.548" depth="1000.0" linkedscene="scene_wedding_j_12" linkedscene_lookat="-542.71,12.79,120.0" />
 </scene>
 
@@ -293,8 +293,8 @@ set(layer[get(m_btn_name)].bgalpha, 1.0);
 <image prealign="0|278.2|0">
 <cube url="panos/wedding_j_7.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
 </image>
-<hotspot name="spot2103600504" title="안마당" style="skin_hotspotstyle" ath="169.577" atv="20.751" depth="1000.0" linkedscene="scene_wedding_j_8" linkedscene_lookat="-107.03,0.18,127.9" />
-<hotspot name="spot2105081558" style="skin_hotspotstyle" ath="14.144" atv="12.331" depth="1000.0" linkedscene="scene_wedding_j_6" linkedscene_lookat="-258.22,18.74,120.0" />
+<hotspot name="spot2103600504" title="안마당" style="skin_hotspotstyle" ath="-85.567" atv="47.596" depth="1000.0" linkedscene="scene_wedding_j_8" linkedscene_lookat="-107.03,0.18,127.9" />
+<hotspot name="spot2105081558" style="skin_hotspotstyle" ath="96.502" atv="35.563" depth="1000.0" linkedscene="scene_wedding_j_6" linkedscene_lookat="-258.22,18.74,120.0" />
 </scene>
 
 <scene name="scene_wedding_j_8" title="wedding_j_8" onstart="select_wedding_btn('btn_exit');" thumburl="panos/wedding_j_8.tiles/thumb.jpg" lat="37.28708889" lng="127.01456944" alt="77.94" heading="35.3">
@@ -305,7 +305,7 @@ set(layer[get(m_btn_name)].bgalpha, 1.0);
 <cube url="panos/wedding_j_8.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
 </image>
 <hotspot name="spot2103600638" title="연회장 가는 길" style="skin_hotspotstyle" ath="-108.065" atv="35.405" depth="1000.0" linkedscene="scene_wedding_j_9" linkedscene_lookat="419.14,10.82,135.03" />
-<hotspot name="spot2105081273" style="skin_hotspotstyle" ath="74.338" atv="18.528" depth="1000.0" linkedscene="scene_wedding_j_7" linkedscene_lookat="369.69,2.51,115.73" />
+<hotspot name="spot2105081273" style="skin_hotspotstyle" ath="74.338" atv="18.528" depth="1000.0" linkedscene="scene_wedding_j_7" linkedscene_lookat="459.36,10.75,115.73" />
 </scene>
 
 <scene name="scene_wedding_j_9" title="wedding_j_9" onstart="" thumburl="panos/wedding_j_9.tiles/thumb.jpg" lat="37.28697778" lng="127.01446944" alt="72.37" heading="353.7">
