@@ -1,0 +1,599 @@
+﻿<krpano version="1.22" title="">
+
+	<include url="skin/vtourskin.xml" />
+	<reservation enable="yes" url="https://www.suwonlib.go.kr/ct/"/>
+	<layer name="skin_control_bar" visible="false" />
+	<hotspot name="suwon"
+	         url="skin/수원이.png"
+	         ath="0"
+	         atv="88"
+	         rx="90"
+	         scale="0.3"
+	         keep="true"
+	         zoom="true" />
+
+<style name="hs_title_box"
+       type="text"
+       bg="true"
+       bgcolor="0x000000"
+       bgalpha="0.65"
+       bgborder="false"
+       roundedge="6"
+       css="text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; padding:4px 8px;"
+       vcenter="true"
+       enabled="true"
+       handcursor="true"
+       edge="bottom"
+       oy="-35" />
+	<action name="add_permanent_title">
+		if(title !== null AND title != '',
+			txtadd(txt_name, 'txt_', get(name));
+			addhotspot(get(txt_name));
+			hotspot[get(txt_name)].loadstyle(hs_title_box);
+			
+			set(hotspot[get(txt_name)].ath, get(ath));
+			set(hotspot[get(txt_name)].atv, get(atv));
+			
+			set(hotspot[get(txt_name)].html, get(title));
+			
+			set(hotspot[get(txt_name)].linkedscene, get(linkedscene));
+			set(hotspot[get(txt_name)].onclick, 
+				loadscene(get(linkedscene), null, MERGE, BLEND(0.7)); 
+			);
+		);
+	</action>
+<style name="menu_btn_style"
+	       type="text"
+	       bg="true"
+	       bgcolor="0x111111"
+	       bgalpha="0.80"
+	       bgborder="1 0xFFFFFF 0.3"
+	       roundedge="5"
+	       css="color:#FFFFFF; font-size:14px; font-weight:bold; text-align:center; line-height:36px; cursor:pointer;"
+	       height="36"
+	       align="lefttop" />
+
+	<style name="menu_item_style"
+	       type="text"
+	       bg="true"
+	       bgcolor="0x222222"
+	       bgalpha="0.90"
+	       bgborder="1 0x444444 0.5"
+	       roundedge="4"
+	       css="color:#E0E0E0; font-size:13px; text-align:center; line-height:32px; cursor:pointer;"
+	       height="32"
+	       align="lefttop"
+	       onover="set(bgcolor, 0x007ACC); set(css, 'color:#FFFFFF; font-size:13px; text-align:center; line-height:32px; cursor:pointer;');"
+	       onout="set(bgcolor, 0x222222); set(css, 'color:#E0E0E0; font-size:13px; text-align:center; line-height:32px; cursor:pointer;');" />
+
+	<!-- =================================================================== -->
+	<!-- [PC 전용 메뉴] - 상단 좌측 2단 드롭다운 UI                          -->
+	<!-- =================================================================== -->
+	<layer name="btn_home" style="menu_btn_style" html="📖 중앙도서관" x="20" y="20" width="100" keep="true" devices="desktop"
+	       onclick="set(layer[menu_f1_box].visible, false); set(layer[menu_f2_box].visible, false); loadscene(scene_libjw_1, null, MERGE, BLEND(0.7));" />
+	<!-- 1층 메인 버튼 -->
+	<layer name="btn_f1" style="menu_btn_style" html="1층 ▼" x="130" y="20" width="140" keep="true" devices="desktop"
+	       onclick="menu_toggle_f1();" />
+	
+	<!-- 1층 하위 메뉴 컨테이너 -->
+	<layer name="menu_f1_box" type="container" align="lefttop" x="130" y="60" width="140" height="144" visible="false" keep="true" devices="desktop">
+		<layer name="m_f1_1" style="menu_item_style" html="어린이자료실" x="0" y="0"   width="140" onclick="loadscene(scene_libjw_5, null, MERGE, BLEND(0.7));" />
+		<layer name="m_f1_2" style="menu_item_style" html="종합자료실"   x="0" y="36"  width="140" onclick="loadscene(scene_libjw_4, null, MERGE, BLEND(0.7));" />
+		<layer name="m_f1_3" style="menu_item_style" html="사회복지특화자료" x="0" y="72" width="140" onclick="loadscene(scene_libjw_9, null, MERGE, BLEND(0.7));" />
+		<layer name="m_f1_4" style="menu_item_style" html="주차장"       x="0" y="108" width="140" onclick="loadscene(scene_libjw_27, null, MERGE, BLEND(0.7));" />
+	</layer>
+
+	<!-- 2층 메인 버튼 -->
+	<layer name="btn_f2" style="menu_btn_style" html="2층 ▼" x="280" y="20" width="140" keep="true" devices="desktop"
+	       onclick="menu_toggle_f2();" />
+
+	<!-- 2층 하위 메뉴 컨테이너 -->
+	<layer name="menu_f2_box" type="container" align="lefttop" x="280" y="60" width="160" height="216" visible="false" keep="true" devices="desktop">
+		<layer name="m_f2_1" style="menu_item_style" html="제1열람실"          x="0" y="0"   width="140" onclick="loadscene(scene_libjw_17, null, MERGE, BLEND(0.7));" />
+		<layer name="m_f2_2" style="menu_item_style" html="제2열람실"          x="0" y="36"  width="140" onclick="loadscene(scene_libjw_16, null, MERGE, BLEND(0.7));" />
+		<layer name="m_f2_3" style="menu_item_style" html="정보자료실/동아리실" x="0" y="72"  width="140" onclick="loadscene(scene_libjw_19, null, MERGE, BLEND(0.7));" />
+		<layer name="m_f2_4" style="menu_item_style" html="휴게실"              x="0" y="108" width="140" onclick="loadscene(scene_libjw_25, null, MERGE, BLEND(0.7));" />
+		<layer name="m_f2_5" style="menu_item_style" html="강의실"              x="0" y="144" width="140" onclick="loadscene(scene_libjw_22, null, MERGE, BLEND(0.7));" />
+		<layer name="m_f2_6" style="menu_item_style" html="물품보관함"          x="0" y="180" width="140" onclick="loadscene(scene_libjw_26, null, MERGE, BLEND(0.7));" />
+	</layer>
+
+
+<!-- =================================================================== -->
+	<!-- [모바일 전용 메뉴] - 화면 하단 메인/1층/2층 토글식 메뉴 UI          -->
+	<!-- =================================================================== -->
+
+	<!-- 1. 모바일 하단 고정 메뉴바 (전체 너비 310px, 하단 15px 배치) -->
+	
+	<!-- 📖 중앙도서관 이동 버튼 (X: 15px / W: 90px) -->
+	<layer name="m_btn_home" style="menu_btn_style" html="📖 중앙도서관" align="leftbottom" x="15" y="15" width="110" height="38" keep="true" devices="mobile|tablet"
+	       onclick="menu_mobile_close_all(); loadscene(scene_libjw_1, null, MERGE, BLEND(0.7));" />
+
+	<!-- 1층 메뉴 토글 버튼 (X: 110px / W: 100px) -->
+	<layer name="m_btn_f1" style="menu_btn_style" html="1층 ▲" align="leftbottom" x="130" y="15" width="100" height="38" keep="true" devices="mobile|tablet"
+	       onclick="menu_mobile_toggle_f1();" />
+
+	<!-- 2층 메뉴 토글 버튼 (X: 215px / W: 100px) -->
+	<layer name="m_btn_f2" style="menu_btn_style" html="2층 ▲" align="leftbottom" x="235" y="15" width="100" height="38" keep="true" devices="mobile|tablet"
+	       onclick="menu_mobile_toggle_f2();" />
+
+
+	<!-- 2. 모바일 위쪽 팝업 메뉴 컨테이너 (하단 메뉴바 바로 위에 노출: y="58") -->
+
+	<!-- [모바일] 1층 하위 메뉴 패널 (위쪽 노출) -->
+	<layer name="m_menu_f1_panel" type="container" align="leftbottom" x="130" y="58" width="150" height="152" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" devices="mobile|tablet">
+		<layer name="m_f1_1" style="menu_item_style" html="어린이자료실"     align="lefttop" x="5" y="6"   width="140" onclick="loadscene(scene_libjw_5, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="m_f1_2" style="menu_item_style" html="종합자료실"       align="lefttop" x="5" y="42"  width="140" onclick="loadscene(scene_libjw_4, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="m_f1_3" style="menu_item_style" html="사회복지특화자료" align="lefttop" x="5" y="78"  width="140" onclick="loadscene(scene_libjw_9, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="m_f1_4" style="menu_item_style" html="주차장"           align="lefttop" x="5" y="114" width="140" onclick="loadscene(scene_libjw_27, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+	</layer>
+
+	<!-- [모바일] 2층 하위 메뉴 패널 (위쪽 노출) -->
+	<layer name="m_menu_f2_panel" type="container" align="leftbottom" x="205" y="58" width="150" height="224" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" devices="mobile|tablet">
+		<layer name="m_f2_1" style="menu_item_style" html="제1열람실"          align="lefttop" x="5" y="6"   width="140" onclick="loadscene(scene_libjw_17, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="m_f2_2" style="menu_item_style" html="제2열람실"          align="lefttop" x="5" y="42"  width="140" onclick="loadscene(scene_libjw_16, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="m_f2_3" style="menu_item_style" html="정보자료실/동아리실" align="lefttop" x="5" y="78"  width="140" onclick="loadscene(scene_libjw_18, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="m_f2_4" style="menu_item_style" html="휴게실"              align="lefttop" x="5" y="114" width="140" onclick="loadscene(scene_libjw_25, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="m_f2_5" style="menu_item_style" html="강의실"              align="lefttop" x="5" y="150" width="140" onclick="loadscene(scene_libjw_22, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="m_f2_6" style="menu_item_style" html="물품보관함"          align="lefttop" x="5" y="186" width="140" onclick="loadscene(scene_libjw_26, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+	</layer>
+
+
+	<!-- =================================================================== -->
+	<!-- 메뉴 제어 액션 (동작 로직)                                           -->
+	<!-- =================================================================== -->
+	
+	<!-- PC용 메뉴 액션 -->
+	<action name="menu_toggle_f1">
+		set(layer[menu_f2_box].visible, false);
+		switch(layer[menu_f1_box].visible);
+	</action>
+
+	<action name="menu_toggle_f2">
+		set(layer[menu_f1_box].visible, false);
+		switch(layer[menu_f2_box].visible);
+	</action>
+
+	<!-- 모바일용 메뉴 액션 (위쪽 팝업 제어) -->
+	<action name="menu_mobile_toggle_f1">
+		set(layer[m_menu_f2_panel].visible, false);
+		switch(layer[m_menu_f1_panel].visible);
+	</action>
+
+	<action name="menu_mobile_toggle_f2">
+		set(layer[m_menu_f1_panel].visible, false);
+		switch(layer[m_menu_f2_panel].visible);
+	</action>
+
+	<action name="menu_mobile_close_all">
+		set(layer[m_menu_f1_panel].visible, false);
+		set(layer[m_menu_f2_panel].visible, false);
+	</action>
+
+	<scene name="scene_libjw_1" title="libjw_1" onstart="" thumburl="panos/libjw_1.tiles/thumb.jpg" lat="37.27322222" lng="127.01222778" alt="102.11" heading="242.2">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="284.429" vlookat="2.660" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_1.tiles/preview.jpg" />
+
+		<image prealign="0|242.2|0">
+			<cube url="panos/libjw_1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107197501" title="중앙도서관" style="skin_hotspotstyle" ath="-75.571" atv="2.66" depth="1000.0" linkedscene="scene_libjw_2" linkedscene_lookat="316.18,3.74,131.54" />
+
+	</scene>
+
+	<scene name="scene_libjw_2" title="libjw_2" onstart="" thumburl="panos/libjw_2.tiles/thumb.jpg" lat="37.27350000" lng="127.01220833" alt="101.85" heading="339.1">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="314.884" vlookat="7.054" fovtype="MFOV" fov="131.540" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_2.tiles/preview.jpg" />
+
+		<image prealign="0|339.1|0">
+			<cube url="panos/libjw_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107197755" title="중앙도서관" style="skin_hotspotstyle" ath="-41.886" atv="34.608" depth="1000.0" linkedscene="scene_libjw_3" linkedscene_lookat="304.9,11.42,134.98" />
+		<hotspot name="spot2109320848" style="skin_hotspotstyle" ath="137.81" atv="30.21" depth="1000.0" linkedscene="scene_libjw_1" linkedscene_lookat="288.12,2.78,120.0" />
+		<hotspot name="spot2110490666"  title="주차장" style="skin_hotspotstyle" ath="-136.417" atv="19.855" depth="1000.0" linkedscene="scene_libjw_27" linkedscene_lookat="38.01,4.64,134.98" />
+
+	</scene>
+
+	<scene name="scene_libjw_3" title="libjw_3" onstart="" thumburl="panos/libjw_3.tiles/thumb.jpg" lat="37.27350556" lng="127.01218333" alt="101.34" heading="337.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="304.900" vlookat="11.420" fovtype="MFOV" fov="134.980" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_3.tiles/preview.jpg" />
+
+		<image prealign="0|337.0|0">
+			<cube url="panos/libjw_3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107200665" title="자료실" style="skin_hotspotstyle" ath="-53.655" atv="39.307" depth="1000.0" linkedscene="scene_libjw_4" linkedscene_lookat="291.4,8.81,131.59" />
+		<hotspot name="spot2107203503" title="2층 가는길" style="skin_hotspotstyle" ath="-125.416" atv="28.038" depth="1000.0" linkedscene="scene_libjw_12" linkedscene_lookat="42.99,8.63,120.0" />
+		<hotspot name="spot2109321097" style="skin_hotspotstyle" ath="100.268" atv="40.361" depth="1000.0" linkedscene="scene_libjw_2" linkedscene_lookat="497.23,7.93,131.54" />
+
+	</scene>
+
+	<scene name="scene_libjw_4" title="libjw_4" onstart="" thumburl="panos/libjw_4.tiles/thumb.jpg" lat="37.27349722" lng="127.01214444" alt="113.32" heading="325.4">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="383.060" vlookat="10.305" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_4.tiles/preview.jpg" />
+
+		<image prealign="0|325.4|0">
+			<cube url="panos/libjw_4.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107201078" title="어린이자료실" style="skin_hotspotstyle" ath="-155.573" atv="29.781" depth="1000.0" linkedscene="scene_libjw_5" linkedscene_lookat="292.22,6.76,127.87" />
+		<hotspot name="spot2107202434" title="안내데스크" style="skin_hotspotstyle" ath="20.799" atv="25.908" depth="1000.0" linkedscene="scene_libjw_8" linkedscene_lookat="42.84,-3.72,124.03" />
+		<hotspot name="spot2109321332" style="skin_hotspotstyle" ath="113.496" atv="33.218" depth="1000.0" linkedscene="scene_libjw_3" linkedscene_lookat="130.28,8.63,127.76" />
+
+	</scene>
+
+	<scene name="scene_libjw_5" title="libjw_5" onstart="" thumburl="panos/libjw_5.tiles/thumb.jpg" lat="37.27349722" lng="127.01214444" alt="113.32" heading="238.4">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="292.441" vlookat="6.234" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_5.tiles/preview.jpg" />
+
+		<image prealign="0|238.4|0">
+			<cube url="panos/libjw_5.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107201648" style="skin_hotspotstyle" ath="-69.163" atv="36.444" depth="1000.0" linkedscene="scene_libjw_6" linkedscene_lookat="82.97,0.73,138.22" />
+		<hotspot name="spot2109321834" style="skin_hotspotstyle" ath="19.21" atv="36.724" depth="1000.0" linkedscene="scene_libjw_4" linkedscene_lookat="298.38,0.11,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_6" title="libjw_6" onstart="" thumburl="panos/libjw_6.tiles/thumb.jpg" lat="37.27349722" lng="127.01214444" alt="113.32" heading="84.6">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="80.038" vlookat="3.626" fovtype="MFOV" fov="134.994" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_6.tiles/preview.jpg" />
+
+		<image prealign="0|84.6|0">
+			<cube url="panos/libjw_6.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107201974" style="skin_hotspotstyle" ath="166.373" atv="34.636" depth="1000.0" linkedscene="scene_libjw_7" linkedscene_lookat="165.54,0.85,115.85" />
+		<hotspot name="spot2109322172" style="skin_hotspotstyle" ath="-87.614" atv="53.481" depth="1000.0" linkedscene="scene_libjw_5" linkedscene_lookat="473.87,16.53,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_7" title="libjw_7" onstart="" thumburl="panos/libjw_7.tiles/thumb.jpg" lat="37.27349722" lng="127.01214444" alt="113.32" heading="85.5">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="85.5" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_7.tiles/preview.jpg" />
+
+		<image prealign="0|85.5|0">
+			<cube url="panos/libjw_7.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107202280" style="skin_hotspotstyle" ath="-101.781" atv="31.027" depth="1000.0" linkedscene="scene_libjw_4" linkedscene_lookat="299.42,-1.5,120.0" />
+		<hotspot name="spot2109322467" style="skin_hotspotstyle" ath="-30.903" atv="32.934" depth="1000.0" linkedscene="scene_libjw_6" linkedscene_lookat="-85.85,-5.93,134.99" />
+
+	</scene>
+
+	<scene name="scene_libjw_8" title="libjw_8" onstart="" thumburl="panos/libjw_8.tiles/thumb.jpg" lat="37.27349722" lng="127.01214444" alt="113.32" heading="229.8">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="229.9" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_8.tiles/preview.jpg" />
+
+		<image prealign="0|229.9|0">
+			<cube url="panos/libjw_8.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107202805" title="사회복지특화자료" style="skin_hotspotstyle" ath="30.739" atv="31.394" depth="1000.0" linkedscene="scene_libjw_9" linkedscene_lookat="26.41,-3.07,120.0" />
+		<hotspot name="spot2109323381" title="자료실 입구" style="skin_hotspotstyle" ath="-153.223" atv="32.169" depth="1000.0" linkedscene="scene_libjw_4" linkedscene_lookat="472.93,2.63,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_9" title="libjw_9" onstart="" thumburl="panos/libjw_9.tiles/thumb.jpg" lat="37.27349722" lng="127.01214444" alt="113.32" heading="50.2">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="95.278" vlookat="6.431" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_9.tiles/preview.jpg" />
+
+		<image prealign="0|50.2|0">
+			<cube url="panos/libjw_9.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107203028" title="디지털코너" style="skin_hotspotstyle" ath="9.488" atv="30.722" depth="1000.0" linkedscene="scene_libjw_10" linkedscene_lookat="-76.6,7.48,127.88" />
+		<hotspot name="spot2109323703" title="안내데스크" style="skin_hotspotstyle" ath="-83.429" atv="35.412" depth="1000.0" linkedscene="scene_libjw_8" linkedscene_lookat="205.44,-3.37,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_10" title="libjw_10" onstart="" thumburl="panos/libjw_10.tiles/thumb.jpg" lat="37.27349722" lng="127.01214444" alt="113.32" heading="1.4">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="1.4" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_10.tiles/preview.jpg" />
+
+		<image prealign="0|1.4|0">
+			<cube url="panos/libjw_10.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2109325901" title="사회복지특화자료" style="skin_hotspotstyle" ath="93.774" atv="30.233" depth="1000.0" linkedscene="scene_libjw_9" linkedscene_lookat="192.72,5.0,127.86" />
+
+	</scene>
+
+	<scene name="scene_libjw_12" title="libjw_12" onstart="" thumburl="panos/libjw_12.tiles/thumb.jpg" lat="37.27345278" lng="127.01205833" alt="106.57" heading="176.7">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="176.7" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_12.tiles/preview.jpg" />
+
+		<image prealign="0|176.7|0">
+			<cube url="panos/libjw_12.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107203682" title="2층" style="skin_hotspotstyle" ath="15.357" atv="2.669" depth="1000.0" linkedscene="scene_libjw_13" linkedscene_lookat="366.08,-0.39,127.9" />
+		<hotspot name="spot2109327567" title="1층" style="skin_hotspotstyle" ath="-32.007" atv="46.825" depth="1000.0" linkedscene="scene_libjw_3" linkedscene_lookat="281.09,8.04,134.98" />
+
+	</scene>
+
+	<scene name="scene_libjw_13" title="libjw_13" onstart="" thumburl="panos/libjw_13.tiles/thumb.jpg" lat="37.27346944" lng="127.01218889" alt="105.55" heading="289.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="289.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_13.tiles/preview.jpg" />
+
+		<image prealign="0|289.0|0">
+			<cube url="panos/libjw_13.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107204063" style="skin_hotspotstyle" ath="9.598" atv="17.361" depth="1000.0" linkedscene="scene_libjw_14" linkedscene_lookat="333.52,16.51,127.85" />
+		<hotspot name="spot2109327788" style="skin_hotspotstyle" ath="-135.369" atv="31.515" depth="1000.0" linkedscene="scene_libjw_12" linkedscene_lookat="-32.49,22.6,135.01" />
+
+	</scene>
+
+	<scene name="scene_libjw_14" title="libjw_14" onstart="" thumburl="panos/libjw_14.tiles/thumb.jpg" lat="37.27346944" lng="127.01218889" alt="105.55" heading="323.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="323.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_14.tiles/preview.jpg" />
+
+		<image prealign="0|323.0|0">
+			<cube url="panos/libjw_14.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107204187" title="열람실 가는길" style="skin_hotspotstyle" ath="-59.202" atv="34.903" depth="1000.0" linkedscene="scene_libjw_15" linkedscene_lookat="164.91,9.56,127.91" />
+		<hotspot name="spot2109328047" title="1층 가는길" style="skin_hotspotstyle" ath="-162.382" atv="28.747" depth="1000.0" linkedscene="scene_libjw_13" linkedscene_lookat="223.46,7.43,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_15" title="libjw_15" onstart="" thumburl="panos/libjw_15.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="184.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="162.060" vlookat="4.109" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_15.tiles/preview.jpg" />
+
+		<image prealign="0|184.0|0">
+			<cube url="panos/libjw_15.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107204393" title="제2열람실" style="skin_hotspotstyle" ath="167.46" atv="21.585" depth="1000.0" linkedscene="scene_libjw_16" linkedscene_lookat="244.44,9.14,120.0" />
+		<hotspot name="spot2107207251" title="제1열람실" style="skin_hotspotstyle" ath="-165.736" atv="19.837" depth="1000.0" linkedscene="scene_libjw_17" linkedscene_lookat="-19.49,5.11,135.02" />
+		<hotspot name="spot2109328271" style="skin_hotspotstyle" ath="80.72" atv="35.179" depth="1000.0" linkedscene="scene_libjw_14" linkedscene_lookat="218.05,-2.42,120.0" />
+		<hotspot name="spot2109328948" title="정보자료실/동아리실" style="skin_hotspotstyle" ath="-121.02" atv="25.905" depth="1000.0" linkedscene="scene_libjw_18" linkedscene_lookat="303.55,-1.39,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_16" title="libjw_16" onstart="" thumburl="panos/libjw_16.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="15.6">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="234.079" vlookat="20.922" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_16.tiles/preview.jpg" />
+
+		<image prealign="0|15.6|0">
+			<cube url="panos/libjw_16.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2109328527" style="skin_hotspotstyle" ath="-25.03" atv="41.012" depth="1000.0" linkedscene="scene_libjw_15" linkedscene_lookat="171.18,3.53,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_17" title="libjw_17" onstart="" thumburl="panos/libjw_17.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="80.9">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="-19.322" vlookat="17.070" fovtype="MFOV" fov="127.858" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_17.tiles/preview.jpg" />
+
+		<image prealign="0|80.9|0">
+			<cube url="panos/libjw_17.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2107207570" style="skin_hotspotstyle" ath="-165.896" atv="21.7" depth="1000.0" linkedscene="scene_libjw_15" linkedscene_lookat="164.49,3.19,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_18" title="libjw_18" onstart="" thumburl="panos/libjw_18.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="283.8">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="380.277" vlookat="4.795" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_18.tiles/preview.jpg" />
+
+		<image prealign="0|283.8|0">
+			<cube url="panos/libjw_18.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2109329148" style="skin_hotspotstyle" ath="106.746" atv="32.545" depth="1000.0" linkedscene="scene_libjw_15" linkedscene_lookat="76.5,-0.09,120.0" />
+		<hotspot name="spot2109329682" style="skin_hotspotstyle" ath="23.121" atv="35.459" depth="1000.0" linkedscene="scene_libjw_19" linkedscene_lookat="332.29,-1.89,120.0" />
+		
+		<hotspot name="spot2109330937" style="skin_hotspotstyle" ath="-68.65" atv="26.728" depth="1000.0" linkedscene="scene_libjw_24" linkedscene_lookat="286.92,7.97,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_19" title="libjw_19" onstart="" thumburl="panos/libjw_19.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="283.6">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="389.131" vlookat="9.892" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_19.tiles/preview.jpg" />
+
+		<image prealign="0|283.7|0">
+			<cube url="panos/libjw_19.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2109330544" style="skin_hotspotstyle" ath="-93.249" atv="25.471" depth="1000.0" linkedscene="scene_libjw_18" linkedscene_lookat="326.02,5.83,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_22" title="libjw_22" onstart="" thumburl="panos/libjw_22.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="28.2">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="47.348" vlookat="3.411" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_22.tiles/preview.jpg" />
+
+		<image prealign="0|28.2|0">
+			<cube url="panos/libjw_22.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		
+		<hotspot name="spot2109332910" style="skin_hotspotstyle" ath="-158.414" atv="21.729" depth="1000.0" linkedscene="scene_libjw_24" linkedscene_lookat="15.44,-3.27,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_24" title="libjw_24" onstart="" thumburl="panos/libjw_24.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="232.3">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="285.170" vlookat="7.674" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_24.tiles/preview.jpg" />
+
+		<image prealign="0|232.3|0">
+			<cube url="panos/libjw_24.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2109334186" title="물품보관함" style="skin_hotspotstyle" ath="-149.259" atv="32.878" depth="1000.0" linkedscene="scene_libjw_26" linkedscene_lookat="488.9,6.04,127.87" />
+		<hotspot name="spot2109334911" title="휴게실" style="skin_hotspotstyle" ath="-79.178" atv="37.467" depth="1000.0" linkedscene="scene_libjw_25" linkedscene_lookat="197.91,2.05,120.0" />
+		<hotspot name="spot2109335090" title="강의실" style="skin_hotspotstyle" ath="4.42" atv="24.933" depth="1000.0" linkedscene="scene_libjw_22" linkedscene_lookat="390.88,2.47,120.0" />
+		<hotspot name="spot2109335370" title="정보자료실/동아리실" style="skin_hotspotstyle" ath="85.405" atv="39.883" depth="1000.0" linkedscene="scene_libjw_18" linkedscene_lookat="389.89,4.64,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_25" title="libjw_25" onstart="" thumburl="panos/libjw_25.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="232.5">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="284.483" vlookat="16.276" fovtype="MFOV" fov="134.992" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_25.tiles/preview.jpg" />
+
+		<image prealign="0|232.5|0">
+			<cube url="panos/libjw_25.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2109333858" style="skin_hotspotstyle" ath="99.729" atv="36.392" depth="1000.0" linkedscene="scene_libjw_24" linkedscene_lookat="-84.55,13.93,123.98" />
+
+	</scene>
+
+	<scene name="scene_libjw_26" title="libjw_26" onstart="" thumburl="panos/libjw_26.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="330.3">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="383.043" vlookat="14.652" fovtype="MFOV" fov="138.220" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_26.tiles/preview.jpg" />
+
+		<image prealign="0|330.3|0">
+			<cube url="panos/libjw_26.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2109334453" style="skin_hotspotstyle" ath="-61.991" atv="40.689" depth="1000.0" linkedscene="scene_libjw_24" linkedscene_lookat="380.39,7.25,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_27" title="libjw_27" onstart="" thumburl="panos/libjw_27.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="110.4">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="23.940" vlookat="4.952" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_27.tiles/preview.jpg" />
+
+		<image prealign="0|110.4|0">
+			<cube url="panos/libjw_27.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2110490968" style="skin_hotspotstyle" ath="-152.347" atv="45.311" depth="1000.0" linkedscene="scene_libjw_2" linkedscene_lookat="316.33,6.74,131.54" />
+		<hotspot name="spot2110491157" style="skin_hotspotstyle" ath="38.197" atv="36.502" depth="1000.0" linkedscene="scene_libjw_28" linkedscene_lookat="231.83,4.24,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_28" title="libjw_28" onstart="" thumburl="panos/libjw_28.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="338.8">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="220.466" vlookat="5.378" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_28.tiles/preview.jpg" />
+
+		<image prealign="0|338.8|0">
+			<cube url="panos/libjw_28.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2110491355" style="skin_hotspotstyle" ath="44.319" atv="27.644" depth="1000.0" linkedscene="scene_libjw_27" linkedscene_lookat="206.47,18.42,120.0" />
+		<hotspot name="spot2110491788" style="skin_hotspotstyle" ath="-149.266" atv="20.107" depth="1000.0" linkedscene="scene_libjw_29" linkedscene_lookat="232.85,3.03,120.0" />
+
+	</scene>
+
+	<scene name="scene_libjw_29" title="libjw_29" onstart="" thumburl="panos/libjw_29.tiles/thumb.jpg" lat="37.27351944" lng="127.01215833" alt="109.97" heading="332.2">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="232.846" vlookat="3.027" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/libjw_29.tiles/preview.jpg" />
+
+		<image prealign="0|332.2|0">
+			<cube url="panos/libjw_29.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,768,1536" />
+		</image>
+
+		<hotspot name="spot2110491932" style="skin_hotspotstyle" ath="47.41" atv="26.53" depth="1000.0" linkedscene="scene_libjw_28" linkedscene_lookat="45.62,4.43,120.0" />
+
+	</scene>
+
+
+</krpano>
