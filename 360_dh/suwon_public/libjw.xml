@@ -69,8 +69,67 @@
 	<!-- =================================================================== -->
 	<!-- [PC 전용 메뉴] - 상단 좌측 2단 드롭다운 UI                          -->
 	<!-- =================================================================== -->
-	<layer name="btn_home" style="menu_btn_style" html="📖 중앙도서관" x="20" y="20" width="100" keep="true" devices="desktop"
-	       onclick="set(layer[menu_f1_box].visible, false); set(layer[menu_f2_box].visible, false); loadscene(scene_libjw_1, null, MERGE, BLEND(0.7));" />
+<!-- 1. 메인 버튼: 클릭 시 씬 이동 대신 안내 팝업을 열도록 변경 -->
+<layer name="btn_home" style="menu_btn_style" html="📖 중앙도서관" x="20" y="20" width="100" keep="true" devices="desktop"
+       onclick="set(layer[menu_f1_box].visible, false); set(layer[menu_f2_box].visible, false); set(layer[lib_info_box].visible, true);" />
+
+
+<!-- 2. 중앙도서관 이용안내 팝업 레이어 (배경 박스) -->
+<layer name="lib_info_box" type="container" keep="true" visible="false"
+       align="center" x="0" y="0" width="460" height="320"
+       bgcolor="0x111111" bgalpha="0.85" bgborder="1 0xFFFFFF 0.3" bgshadow="0 10 20 0x000000 0.5"
+       zorder="100">
+
+    <!-- 닫기 버튼 (X) -->
+    <layer name="lib_info_close" type="text"
+           align="righttop" x="15" y="15"
+           html="✕" css="color:#ffffff; font-size:16px; font-weight:bold; cursor:pointer;"
+           bg="false"
+           onclick="set(layer[lib_info_box].visible, false);" />
+
+    <!-- 타이틀 및 텍스트 내용 -->
+    <layer name="lib_info_text" type="text"
+           align="topleft" x="25" y="25" width="410"
+           bg="false" selectable="false"
+           html="data:html_lib_info"
+           css="color:#ffffff; font-family:sans-serif; line-height:1.6;" />
+
+    <!-- 바로 씬으로 이동하는 버튼 (선택 사항) -->
+<layer name="lib_info_web_btn" type="text"
+           align="bottom" x="0" y="20" width="180" height="36"
+           vcenter="true" aligntext="center"
+           bg="true" bgcolor="0x2196F3" bgalpha="1.0" bgborder="0"
+           html="🌐 홈페이지 바로가기" css="color:#ffffff; font-size:14px; font-weight:bold; line-height:36px; text-align:center; cursor:pointer;"
+           onclick="openurl('https://www.suwonlib.go.kr/ct/', _blank);" />
+</layer>
+
+
+<!-- 3. HTML 텍스트 데이터 정의 (CSS 스타일 적용으로 깔끔한 정렬) -->
+<data name="html_lib_info"><![CDATA[
+    <div style="font-size:20px; font-weight:bold; color:#64B5F6; margin-bottom:10px;">📖 중앙도서관 이용 안내</div>
+    
+    <div style="font-size:18px; color:#FF8A80; margin-bottom:10px;">
+        <b>🗓️ 휴관일:</b> 매주 금요일 및 법정공휴일
+    </div>
+    
+    <div style="font-size:16px; color:#E0E0E0; background:rgba(255,255,255,0.08); padding:10px; border-radius:4px;">
+        <div style="font-weight:bold; color:#FFF; margin-bottom:6px;">⏰ 이용시간 안내</div>
+        <table style="width:100%; font-size:16px; color:#DDD; border-collapse:collapse;">
+            <tr>
+                <td style="padding:3px 0; font-weight:bold; width:100px;">일반열람실</td>
+                <td style="padding:3px 0;">07:00 ~ 23:00 <span style="color:#AAA;">(토·일 07:00~22:00)</span></td>
+            </tr>
+            <tr>
+                <td style="padding:3px 0; font-weight:bold;">종합자료실</td>
+                <td style="padding:3px 0;">09:00 ~ 22:00 <span style="color:#AAA;">(토·일 09:00~18:00)</span></td>
+            </tr>
+            <tr>
+                <td style="padding:3px 0; font-weight:bold;">어린이자료실</td>
+                <td style="padding:3px 0;">09:00 ~ 18:00 <span style="color:#AAA;">(토·일 09:00~18:00)</span></td>
+            </tr>
+        </table>
+    </div>
+]]></data>
 	<!-- 1층 메인 버튼 -->
 	<layer name="btn_f1" style="menu_btn_style" html="1층 ▼" x="130" y="20" width="140" keep="true" devices="desktop"
 	       onclick="menu_toggle_f1();" />
