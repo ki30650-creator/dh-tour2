@@ -1,5 +1,8 @@
-﻿<krpano version="1.22" title="">
+<krpano version="1.22" title="">
 
+<include url="skin/vtourskin.xml" />
+<reservation enable="yes" url="https://www.suwonlib.go.kr/sk/"/>
+	<layer name="skin_control_bar" visible="false" />
 <include url="skin/vtourskin.xml" />
 	<reservation enable="yes" url="https://www.suwonlib.go.kr/sk/"/>
 	<layer name="skin_control_bar" visible="false" />
@@ -148,6 +151,20 @@
 	<layer name="mb_btn_f3" style="menu_btn_style" html="3층 ▲" align="leftbottom" x="280" y="15" width="75" height="38" keep="true" zorder="1000" devices="mobile|tablet"
 	       onclick="mb_toggle_f3();" />
 
+	<!-- 모바일 지도 버튼 : 3층 버튼 위쪽 -->
+	<layer name="mb_btn_map"
+	       style="menu_btn_style"
+	       html="지도 🗺️"
+	       align="leftbottom"
+	       x="280"
+	       y="58"
+	       width="75"
+	       height="38"
+	       keep="true"
+	       zorder="1100"
+	       devices="mobile|tablet"
+	       onclick="mb_toggle_map();" />
+
 	<!-- 2. 위쪽 팝업 패널 컨테이너 (y=58) -->
 	<!-- 1층 패널 (항목 4개 / 높이 152) -->
 	<layer name="mb_menu_f1_panel" type="container" align="leftbottom" x="120" y="58" width="100" height="152" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" zorder="1001" devices="mobile|tablet">
@@ -165,13 +182,184 @@
 	</layer>
 
 	<!-- 3층 패널 (항목 5개 / 높이 188, 버튼 위치와 맞추어 x=280 수정) -->
-	<layer name="mb_menu_f3_panel" type="container" align="leftbottom" x="250" y="58" width="103" height="188" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" zorder="1001" devices="mobile|tablet">
-	    <layer name="mb_f3_1" style="menu_item_style" html="열람실"       align="lefttop" x="5" y="6"   width="93" onclick="loadscene(scene_libsk_53, null, MERGE, BLEND(0.7)); mb_close_all();" />
+	<layer name="mb_menu_f3_panel" type="container" align="leftbottom" x="250" y="58" width="103" height="230" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" zorder="1001" devices="mobile|tablet">
+	    <layer name="mb_f3_1" style="menu_item_style" html="열람실"       align="lefttop" x="5" y="5"   width="93" onclick="loadscene(scene_libsk_53, null, MERGE, BLEND(0.7)); mb_close_all();" />
 	    <layer name="mb_f3_2" style="menu_item_style" html="휴게실"       align="lefttop" x="5" y="42"  width="93" onclick="loadscene(scene_libsk_55, null, MERGE, BLEND(0.7)); mb_close_all();" />
-<layer name="mb_f3_3" style="menu_item_style" css="font-size:11px; line-height:12px; color:#ffffff; text-align:center;" html="휴게실&lt;br/&gt;(도시락전용)" align="lefttop" x="5" y="80" width="90" onclick="loadscene(scene_libsk_65, null, MERGE, BLEND(0.7)); mb_close_all();" />
-	    <layer name="mb_f3_4" style="menu_item_style" html="수원학자료실"     align="lefttop" x="5" y="114" width="93" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7)); mb_close_all();" />
-	    <layer name="mb_f3_5" style="menu_item_style" html="물품보관함"       align="lefttop" x="5" y="150" width="93" onclick="loadscene(scene_libsk_60, null, MERGE, BLEND(0.7)); mb_close_all();" />
+<layer name="mb_f3_3" style="menu_item_style" css="font-size:11px; line-height:12px; color:#ffffff; text-align:center;" html="휴게실&lt;br/&gt;(도시락전용)" align="lefttop" x="5" y="79" width="90" onclick="loadscene(scene_libsk_65, null, MERGE, BLEND(0.7)); mb_close_all();" />
+	    <layer name="mb_f3_4" style="menu_item_style" html="수원학자료실"     align="lefttop" x="5" y="116" width="93" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7)); mb_close_all();" />
+	    <layer name="mb_f3_5" style="menu_item_style" html="물품보관함"       align="lefttop" x="5" y="154" width="93" onclick="loadscene(scene_libsk_60, null, MERGE, BLEND(0.7)); mb_close_all();" />
 	</layer>
+
+
+	<!-- ========================================================= -->
+	<!-- 모바일 전용 미니맵 : PC 미니맵과 동일한 도면/씬 데이터 사용 -->
+	<!-- ========================================================= -->
+	<layer name="mb_map_panel"
+	       type="container"
+	       align="leftbottom"
+	       x="10%"
+	       y="480"
+	       width="80%"
+	       height="calc(width*0.75 + 55)"
+	       bg="true"
+	       bgcolor="0x111111"
+	       bgalpha="0.95"
+	       roundedge="10"
+	       bgborder="1 0xFFFFFF 0.25"
+	       keep="true"
+	       zorder="2000"
+	       visible="false"
+	       devices="mobile|tablet">
+
+		<layer name="mb_map_tab_1f" style="menu_btn_style" align="lefttop" x="3%" y="10" width="30%" height="32" html="1층" zorder="2100" onclick="mb_show_map_floor(1);" />
+		<layer name="mb_map_tab_2f" style="menu_btn_style" align="lefttop" x="35%" y="10" width="30%" height="32" html="2층" zorder="2100" onclick="mb_show_map_floor(2);" />
+		<layer name="mb_map_tab_3f" style="menu_btn_style" align="lefttop" x="67%" y="10" width="30%" height="32" html="3층" zorder="2100" onclick="mb_show_map_floor(3);" />
+
+		<layer name="mb_map_close" type="text" align="righttop" x="8" y="8" width="25" height="30"
+		       html="✕" zorder="2200" bg="false"
+		       css="color:#AAAAAA; font-size:18px; font-weight:bold; text-align:center; cursor:pointer;"
+		       onclick="set(layer[mb_map_panel].visible, false);" />
+
+		<!-- 1층 -->
+<layer name="mmap_1f_layer" url="skin/map_1f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="true" zorder="10" keep="true" devices="mobile|tablet">
+			
+			<!-- 시설 터치 영역 (대표 씬 연동) -->
+			<layer name="m_area_1f_child" style="map_facility_area" x="8.333333%" y="52.380952%" width="26.190476%" height="31.746032%" onclick="loadscene(scene_libsk_13, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_1f_return" style="map_facility_area" x="26.190476%" y="84.126984%" width="26.190476%" height="12.698413%" onclick="loadscene(scene_libsk_4, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_1f_class" style="map_facility_area" x="54.761905%" y="7.936508%" width="19.047619%" height="15.873016%" onclick="loadscene(scene_libsk_23, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_1f_hall" style="map_facility_area" x="75.000000%" y="36.507937%" width="16.666667%" height="49.206349%" onclick="loadscene(scene_libsk_12, null, MERGE, BLEND(0.7));" />
+
+			<!-- 세부 씬 마커 스팟 -->
+			<layer name="m_spot_scene_libsk_1" style="map_spot_base" x="50.000000%" y="95.238095%" onclick="loadscene(scene_libsk_1, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_2" style="map_spot_base" x="50.000000%" y="88.888889%" onclick="loadscene(scene_libsk_2, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_3" style="map_spot_base" x="50.000000%" y="82.539683%" onclick="loadscene(scene_libsk_3, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_4" style="map_spot_base" x="41.666667%" y="88.888889%" onclick="loadscene(scene_libsk_4, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_5" style="map_spot_base" x="36.904762%" y="88.888889%" onclick="loadscene(scene_libsk_5, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_6" style="map_spot_base" x="50.000000%" y="71.428571%" onclick="loadscene(scene_libsk_6, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_7" style="map_spot_base" x="50.000000%" y="60.317460%" onclick="loadscene(scene_libsk_7, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_8" style="map_spot_base" x="50.000000%" y="52.380952%" onclick="loadscene(scene_libsk_8, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_9" style="map_spot_base" x="59.523810%" y="53.015873%" onclick="loadscene(scene_libsk_9, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_10" style="map_spot_base" x="64.285714%" y="53.015873%" onclick="loadscene(scene_libsk_10, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_11" style="map_spot_base" x="69.047619%" y="53.015873%" onclick="loadscene(scene_libsk_11, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_12" style="map_spot_base" x="80.952381%" y="49.841270%" onclick="loadscene(scene_libsk_12, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_13" style="map_spot_base" x="36.904762%" y="68.253968%" onclick="loadscene(scene_libsk_13, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_14" style="map_spot_base" x="21.428571%" y="61.904762%" onclick="loadscene(scene_libsk_14, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_15" style="map_spot_base" x="21.428571%" y="61.904762%" onclick="loadscene(scene_libsk_15, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_16" style="map_spot_base" x="21.428571%" y="61.904762%" onclick="loadscene(scene_libsk_16, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_17" style="map_spot_base" x="21.428571%" y="61.904762%" onclick="loadscene(scene_libsk_17, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_18" style="map_spot_base" x="21.428571%" y="61.904762%" onclick="loadscene(scene_libsk_18, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_19" style="map_spot_base" x="21.428571%" y="61.904762%" onclick="loadscene(scene_libsk_19, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_20" style="map_spot_base" x="21.428571%" y="61.904762%" onclick="loadscene(scene_libsk_20, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_21" style="map_spot_base" x="50.000000%" y="31.746032%" onclick="loadscene(scene_libsk_21, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_23" style="map_spot_base" x="65.476190%" y="20.000000%" onclick="loadscene(scene_libsk_23, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_24" style="map_spot_base" x="65.476190%" y="20.000000%" onclick="loadscene(scene_libsk_24, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_26" style="map_spot_base" x="50.952381%" y="43.492063%" onclick="loadscene(scene_libsk_26, null, MERGE, BLEND(0.7));" />
+		</layer>
+		<!-- 2층 -->
+<layer name="mmap_2f_layer" url="skin/map_2f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="false" zorder="10" keep="true" devices="mobile|tablet">
+			
+			<!-- 종합자료실 시설 클릭 이동 영역 (대표 씬: scene_libsk_31) -->
+			<layer name="m_area_2f_main" style="map_facility_area" x="8.333333%" y="50.793651%" width="78.571429%" height="36.507937%" onclick="loadscene(scene_libsk_49, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_2f_main2" style="map_facility_area" x="1.333333%" y="19.047619%" width="88.571429%" height="36.507937%" onclick="loadscene(scene_libsk_31, null, MERGE, BLEND(0.7));" />
+
+			<!-- 세부 씬 마커 스팟 -->
+			<layer name="m_spot_scene_libsk_27" style="map_spot_base" x="58.333333%" y="42.857143%" onclick="loadscene(scene_libsk_27, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_28" style="map_spot_base" x="58.333333%" y="31.746032%" onclick="loadscene(scene_libsk_28, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_29" style="map_spot_base" x="44.047619%" y="31.746032%" onclick="loadscene(scene_libsk_29, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_30" style="map_spot_base" x="38.095238%" y="31.746032%" onclick="loadscene(scene_libsk_30, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_31" style="map_spot_base" x="44.047619%" y="31.746032%" onclick="loadscene(scene_libsk_31, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_32" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_32, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_33" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_33, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_34" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_34, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_35" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_35, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_36" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_36, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_37" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_37, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_38" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_38, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_39" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_39, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_40" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_40, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_41" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_41, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_42" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_42, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_43" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_43, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_44" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_44, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_45" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_45, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_46" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_46, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_47" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_47, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_48" style="map_spot_base" x="44.047619%" y="20.634921%" onclick="loadscene(scene_libsk_48, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_49" style="map_spot_base" x="73.809524%" y="60.317460%" onclick="loadscene(scene_libsk_49, null, MERGE, BLEND(0.7));" />
+		</layer>
+		<!-- 3층 -->
+<layer name="mmap_3f_layer" url="skin/map_3f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="false" zorder="10" keep="true" devices="mobile|tablet">
+			
+			<!-- 시설 클릭 이동 영역 -->
+			<layer name="m_area_3f_suwon" style="map_facility_area" x="29.761905%" y="7.936508%" width="54.761905%" height="25.396825%" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_3f_locker" style="map_facility_area" x="8.333333%" y="34.920635%" width="13.095238%" height="12.698413%" onclick="loadscene(scene_libsk_60, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_3f_lunch" style="map_facility_area" x="65.476190%" y="34.920635%" width="21.428571%" height="12.698413%" onclick="loadscene(scene_libsk_65, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_3f_study" style="map_facility_area" x="53.571429%" y="50.793651%" width="33.333333%" height="34.920635%" onclick="loadscene(scene_libsk_53, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_3f_rest" style="map_facility_area" x="32.142857%" y="71.428571%" width="28.571429%" height="15.873016%" onclick="loadscene(scene_libsk_55, null, MERGE, BLEND(0.7));" />
+
+			<!-- 세부 씬 마커 스팟 -->
+			<layer name="m_spot_scene_libsk_50" style="map_spot_base" x="55.952381%" y="41.269841%" onclick="loadscene(scene_libsk_50, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_51" style="map_spot_base" x="50.000000%" y="41.269841%" onclick="loadscene(scene_libsk_51, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_52" style="map_spot_base" x="53.571429%" y="66.666667%" onclick="loadscene(scene_libsk_52, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_53" style="map_spot_base" x="64.285714%" y="66.666667%" onclick="loadscene(scene_libsk_53, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_54" style="map_spot_base" x="65.476190%" y="66.666667%" onclick="loadscene(scene_libsk_54, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_55" style="map_spot_base" x="51.190476%" y="74.603175%" onclick="loadscene(scene_libsk_55, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_56" style="map_spot_base" x="46.428571%" y="74.603175%" onclick="loadscene(scene_libsk_56, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_57" style="map_spot_base" x="44.047619%" y="66.666667%" onclick="loadscene(scene_libsk_57, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_58" style="map_spot_base" x="39.285714%" y="38.095238%" onclick="loadscene(scene_libsk_58, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_59" style="map_spot_base" x="15.476190%" y="36.507937%" onclick="loadscene(scene_libsk_59, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_60" style="map_spot_base" x="11.904762%" y="36.507937%" onclick="loadscene(scene_libsk_60, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_61" style="map_spot_base" x="54.761905%" y="33.333333%" onclick="loadscene(scene_libsk_61, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_62" style="map_spot_base" x="65.476190%" y="33.333333%" onclick="loadscene(scene_libsk_62, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_63" style="map_spot_base" x="65.476190%" y="23.809524%" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_64" style="map_spot_base" x="65.476190%" y="23.809524%" onclick="loadscene(scene_libsk_64, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_65" style="map_spot_base" x="76.190476%" y="39.682540%" onclick="loadscene(scene_libsk_65, null, MERGE, BLEND(0.7));" />
+			<layer name="m_spot_scene_libsk_66" style="map_spot_base" x="82.142857%" y="39.682540%" onclick="loadscene(scene_libsk_66, null, MERGE, BLEND(0.7));" />
+		</layer>
+
+		<layer name="m_user_blue_circle" type="container" align="lefttop" width="10" height="10"
+		       bg="true" bgcolor="0x0088FF" bgalpha="1.0" bgborder="1.5 0xFFFFFF 1.0"
+		       roundedge="100" zorder="1000" keep="true" visible="false" />
+	</layer>
+
+	<action name="mb_toggle_map">
+		if(layer[mb_map_panel].visible,
+			set(layer[mb_map_panel].visible, false);
+		,
+			mb_close_all();
+			set(layer[mb_map_panel].visible, true);
+			update_mobile_minimap_location();
+		);
+	</action>
+
+	<action name="mb_show_map_floor" scope="local" args="floor_num">
+		set(layer[mmap_1f_layer].visible, false);
+		set(layer[mmap_2f_layer].visible, false);
+		set(layer[mmap_3f_layer].visible, false);
+		if(args[0] == 1, set(layer[mmap_1f_layer].visible, true); );
+		if(args[0] == 2, set(layer[mmap_2f_layer].visible, true); );
+		if(args[0] == 3, set(layer[mmap_3f_layer].visible, true); );
+	</action>
+
+	<action name="update_mobile_minimap_location" scope="local">
+		txtadd(m_target_spot, 'm_spot_', get(xml.scene));
+		if(layer[get(m_target_spot)],
+			set(layer[m_user_blue_circle].parent, get(layer[get(m_target_spot)].parent));
+			set(layer[m_user_blue_circle].x, get(layer[get(m_target_spot)].x));
+			set(layer[m_user_blue_circle].y, get(layer[get(m_target_spot)].y));
+			set(layer[m_user_blue_circle].visible, true);
+			set(m_parent_map, get(layer[get(m_target_spot)].parent));
+			set(layer[mmap_1f_layer].visible, false);
+			set(layer[mmap_2f_layer].visible, false);
+			set(layer[mmap_3f_layer].visible, false);
+			set(layer[get(m_parent_map)].visible, true);
+		,
+			set(layer[m_user_blue_circle].visible, false);
+		);
+	</action>
+
+	<events name="mobile_minimap_track_events" keep="true"
+	        onnewscene="update_mobile_minimap_location();" />
 
 	<!-- [액션] 패널 제어 및 토글 액션 -->
 <action name="mb_close_all">
