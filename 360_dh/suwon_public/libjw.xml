@@ -12,19 +12,21 @@
 	         keep="true"
 	         zoom="true" />
 
-<style name="hs_title_box"
-       type="text"
-       bg="true"
-       bgcolor="0x000000"
-       bgalpha="0.65"
-       bgborder="false"
-       roundedge="6"
-       css="text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; padding:4px 8px;"
-       vcenter="true"
-       enabled="true"
-       handcursor="true"
-       edge="bottom"
-       oy="-35" />
+	<style name="hs_title_box"
+	       type="text"
+	       bg="true"
+	       bgcolor="0x000000"
+	       bgalpha="0.65"
+	       bgborder="false"
+	       roundedge="6"
+	       css="text-align:center; color:#FFFFFF; font-size:13px; font-weight:bold; padding:4px 8px;"
+	       css.mobile="text-align:center; color:#FFFFFF; font-size:11px; font-weight:bold; padding:2px 4px;"
+	       vcenter="true"
+	       enabled="true"
+	       handcursor="true"
+	       edge="bottom"
+	       oy="-35" />
+
 	<action name="add_permanent_title">
 		if(title !== null AND title != '',
 			txtadd(txt_name, 'txt_', get(name));
@@ -42,7 +44,8 @@
 			);
 		);
 	</action>
-<style name="menu_btn_style"
+
+	<style name="menu_btn_style"
 	       type="text"
 	       bg="true"
 	       bgcolor="0x111111"
@@ -50,6 +53,7 @@
 	       bgborder="1 0xFFFFFF 0.3"
 	       roundedge="5"
 	       css="color:#FFFFFF; font-size:14px; font-weight:bold; text-align:center; line-height:36px; cursor:pointer;"
+	       css.mobile="color:#FFFFFF; font-size:12px; font-weight:bold; text-align:center; line-height:36px;"
 	       height="36"
 	       align="lefttop" />
 
@@ -61,20 +65,21 @@
 	       bgborder="1 0x444444 0.5"
 	       roundedge="4"
 	       css="color:#E0E0E0; font-size:13px; text-align:center; line-height:32px; cursor:pointer;"
+	       css.mobile="color:#FFFFFF; font-size:12px; text-align:center; line-height:32px;"
 	       height="32"
 	       align="lefttop"
 	       onover="set(bgcolor, 0x007ACC); set(css, 'color:#FFFFFF; font-size:13px; text-align:center; line-height:32px; cursor:pointer;');"
 	       onout="set(bgcolor, 0x222222); set(css, 'color:#E0E0E0; font-size:13px; text-align:center; line-height:32px; cursor:pointer;');" />
 
-	<!-- [PC 전용 메뉴] - 상단 좌측 2단 드롭다운 UI                          -->
+	<!-- ========================================================= -->
+	<!-- [PC 전용 메뉴] - 상단 좌측 2단 드롭다운 UI                 -->
+	<!-- ========================================================= -->
 	<layer name="btn_home" style="menu_btn_style" html="📖 중앙도서관" x="20" y="20" width="140" keep="true" devices="desktop"
 	       onclick="set(layer[menu_f1_box].visible, false); set(layer[menu_f2_box].visible, false); loadscene(scene_libjw_1, null, MERGE, BLEND(0.7));" />
 
-<!-- 1층 메인 버튼 -->
 	<layer name="btn_f1" style="menu_btn_style" html="1층 ▼" x="170" y="20" width="140" keep="true" devices="desktop"
 	       onclick="menu_toggle_f1();" />
 	
-	<!-- 1층 하위 메뉴 컨테이너 -->
 	<layer name="menu_f1_box" type="container" align="lefttop" x="170" y="60" width="140" height="144" visible="false" keep="true" devices="desktop">
 		<layer name="m_f1_1" style="menu_item_style" html="어린이자료실" x="0" y="0"   width="140" onclick="loadscene(scene_libjw_5, null, MERGE, BLEND(0.7));" />
 		<layer name="m_f1_2" style="menu_item_style" html="종합자료실"   x="0" y="36"  width="140" onclick="loadscene(scene_libjw_4, null, MERGE, BLEND(0.7));" />
@@ -82,11 +87,9 @@
 		<layer name="m_f1_4" style="menu_item_style" html="주차장"       x="0" y="108" width="140" onclick="loadscene(scene_libjw_27, null, MERGE, BLEND(0.7));" />
 	</layer>
 
-	<!-- 2층 메인 버튼 -->
 	<layer name="btn_f2" style="menu_btn_style" html="2층 ▼" x="320" y="20" width="140" keep="true" devices="desktop"
 	       onclick="menu_toggle_f2();" />
 
-	<!-- 2층 하위 메뉴 컨테이너 -->
 	<layer name="menu_f2_box" type="container" align="lefttop" x="320" y="60" width="160" height="216" visible="false" keep="true" devices="desktop">
 		<layer name="m_f2_1" style="menu_item_style" html="제1열람실"          x="0" y="0"   width="140" onclick="loadscene(scene_libjw_17, null, MERGE, BLEND(0.7));" />
 		<layer name="m_f2_2" style="menu_item_style" html="제2열람실"          x="0" y="36"  width="140" onclick="loadscene(scene_libjw_16, null, MERGE, BLEND(0.7));" />
@@ -96,45 +99,173 @@
 		<layer name="m_f2_6" style="menu_item_style" html="물품보관함"          x="0" y="180" width="140" onclick="loadscene(scene_libjw_26, null, MERGE, BLEND(0.7));" />
 	</layer>
 
-	<!-- 📖 중앙도서관 이동 버튼: 클릭 시 모바일 패널 닫고 씬1(scene_libjw_1)로 이동 -->
-	<layer name="m_btn_home" style="menu_btn_style" html="📖 중앙도서관" align="leftbottom" x="15" y="15" width="110" height="38" keep="true" devices="mobile|tablet"
+	<!-- ========================================================= -->
+	<!-- [모바일/태블릿 전용 메뉴] - 하단 바 및 위쪽 팝업          -->
+	<!-- ========================================================= -->
+	<layer name="m_btn_home" style="menu_btn_style" html="📖 중앙도서관" align="leftbottom" x="15" y="15" width="110" height="38" keep="true" zorder="1000" devices="mobile|tablet"
 	       onclick="menu_mobile_close_all(); loadscene(scene_libjw_1, null, MERGE, BLEND(0.7));" />
 
-	<!-- 1층 메뉴 토글 버튼 (X: 110px / W: 100px) -->
-	<layer name="m_btn_f1" style="menu_btn_style" html="1층 ▲" align="leftbottom" x="130" y="15" width="100" height="38" keep="true" devices="mobile|tablet"
+	<layer name="m_btn_f1" style="menu_btn_style" html="1층 ▲" align="leftbottom" x="130" y="15" width="100" height="38" keep="true" zorder="1000" devices="mobile|tablet"
 	       onclick="menu_mobile_toggle_f1();" />
 
-	<!-- 2층 메뉴 토글 버튼 (X: 215px / W: 100px) -->
-	<layer name="m_btn_f2" style="menu_btn_style" html="2층 ▲" align="leftbottom" x="235" y="15" width="100" height="38" keep="true" devices="mobile|tablet"
+	<layer name="m_btn_f2" style="menu_btn_style" html="2층 ▲" align="leftbottom" x="235" y="15" width="100" height="38" keep="true" zorder="1000" devices="mobile|tablet"
 	       onclick="menu_mobile_toggle_f2();" />
 
-
-	<!-- 2. 모바일 위쪽 팝업 메뉴 컨테이너 (하단 메뉴바 바로 위에 노출: y="58") -->
-
-	<!-- [모바일] 1층 하위 메뉴 패널 (위쪽 노출) -->
-	<layer name="m_menu_f1_panel" type="container" align="leftbottom" x="130" y="58" width="150" height="152" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" devices="mobile|tablet">
-		<layer name="m_f1_1" style="menu_item_style" html="어린이자료실"     align="lefttop" x="5" y="6"   width="140" onclick="loadscene(scene_libjw_5, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
-		<layer name="m_f1_2" style="menu_item_style" html="종합자료실"       align="lefttop" x="5" y="42"  width="140" onclick="loadscene(scene_libjw_4, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
-		<layer name="m_f1_3" style="menu_item_style" html="사회복지특화자료" align="lefttop" x="5" y="78"  width="140" onclick="loadscene(scene_libjw_9, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
-		<layer name="m_f1_4" style="menu_item_style" html="주차장"           align="lefttop" x="5" y="114" width="140" onclick="loadscene(scene_libjw_27, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+	<layer name="m_menu_f1_panel" type="container" align="leftbottom" x="130" y="58" width="150" height="152" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" zorder="1001" devices="mobile|tablet">
+		<layer name="mb_f1_1" style="menu_item_style" html="어린이자료실"     align="lefttop" x="5" y="6"   width="140" onclick="loadscene(scene_libjw_5, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="mb_f1_2" style="menu_item_style" html="종합자료실"       align="lefttop" x="5" y="42"  width="140" onclick="loadscene(scene_libjw_4, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="mb_f1_3" style="menu_item_style" html="사회복지특화자료" align="lefttop" x="5" y="78"  width="140" onclick="loadscene(scene_libjw_9, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="mb_f1_4" style="menu_item_style" html="주차장"           align="lefttop" x="5" y="114" width="140" onclick="loadscene(scene_libjw_27, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
 	</layer>
 
-	<!-- [모바일] 2층 하위 메뉴 패널 (위쪽 노출) -->
-	<layer name="m_menu_f2_panel" type="container" align="leftbottom" x="205" y="58" width="150" height="224" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" devices="mobile|tablet">
-		<layer name="m_f2_1" style="menu_item_style" html="제1열람실"          align="lefttop" x="5" y="6"   width="140" onclick="loadscene(scene_libjw_17, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
-		<layer name="m_f2_2" style="menu_item_style" html="제2열람실"          align="lefttop" x="5" y="42"  width="140" onclick="loadscene(scene_libjw_16, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
-		<layer name="m_f2_3" style="menu_item_style" html="정보자료실/동아리실" align="lefttop" x="5" y="78"  width="140" onclick="loadscene(scene_libjw_18, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
-		<layer name="m_f2_4" style="menu_item_style" html="휴게실"              align="lefttop" x="5" y="114" width="140" onclick="loadscene(scene_libjw_25, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
-		<layer name="m_f2_5" style="menu_item_style" html="강의실"              align="lefttop" x="5" y="150" width="140" onclick="loadscene(scene_libjw_22, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
-		<layer name="m_f2_6" style="menu_item_style" html="물품보관함"          align="lefttop" x="5" y="186" width="140" onclick="loadscene(scene_libjw_26, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+	<layer name="m_menu_f2_panel" type="container" align="leftbottom" x="205" y="58" width="150" height="224" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" zorder="1001" devices="mobile|tablet">
+		<layer name="mb_f2_1" style="menu_item_style" html="제1열람실"          align="lefttop" x="5" y="6"   width="140" onclick="loadscene(scene_libjw_17, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="mb_f2_2" style="menu_item_style" html="제2열람실"          align="lefttop" x="5" y="42"  width="140" onclick="loadscene(scene_libjw_16, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="mb_f2_3" style="menu_item_style" html="정보자료실/동아리실" align="lefttop" x="5" y="78"  width="140" onclick="loadscene(scene_libjw_18, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="mb_f2_4" style="menu_item_style" html="휴게실"              align="lefttop" x="5" y="114" width="140" onclick="loadscene(scene_libjw_25, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="mb_f2_5" style="menu_item_style" html="강의실"              align="lefttop" x="5" y="150" width="140" onclick="loadscene(scene_libjw_22, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
+		<layer name="mb_f2_6" style="menu_item_style" html="물품보관함"          align="lefttop" x="5" y="186" width="140" onclick="loadscene(scene_libjw_26, null, MERGE, BLEND(0.7)); menu_mobile_close_all();" />
 	</layer>
 
+	<!-- ========================================================= -->
+	<!-- PC 전용 미니맵 UI 시스템                                  -->
+	<!-- ========================================================= -->
+	<events name="minimap_track_events" keep="true" onnewscene="update_minimap_location();" />
 
-	<!-- =================================================================== -->
-	<!-- 메뉴 제어 액션 (동작 로직)                                           -->
-	<!-- =================================================================== -->
+	<layer name="btn_minimap_toggle" style="menu_btn_style" align="rightbottom" x="20" y="20" width="120" height="38" 
+	       html="지도 🗺️" keep="true" zorder="1000" onclick="switch(layer[minimap_box].visible);" devices="desktop"/>
+
+	<layer name="minimap_box" type="container" align="rightbottom" x="20" y="65" width="460" height="390" 
+	       bg="true" bgcolor="0x111111" bgalpha="0.92" roundedge="12" keep="true" zorder="999" visible="true" devices="desktop">
+		
+		<layer name="tab_map_1f" style="menu_btn_style" align="lefttop" x="15" y="12" width="70" height="32" html="1층" zorder="200" onclick="show_minimap_floor(1);" />
+		<layer name="tab_map_2f" style="menu_btn_style" align="lefttop" x="92" y="12" width="70" height="32" html="2층" zorder="200" onclick="show_minimap_floor(2);" />
+
+		<layer name="btn_map_close" type="text" align="righttop" x="15" y="15" html="✕" zorder="200"
+	       css="color:#AAAAAA; font-size:18px; font-weight:bold; cursor:pointer;" bg="false" onclick="set(layer[minimap_box].visible, false);" />
+
+		<layer name="map_1f_layer" url="skin/jw_1f.png" align="center" x="0" y="18" width="420" height="315" visible="true" zorder="10" keep="true">
+			<layer name="입구" style="map_facility_area" x="212" y="254" width="42" height="28" onclick="loadscene(scene_libjw_3, null, MERGE, BLEND(0.7));" />
+			<layer name="어린이자료실" style="map_facility_area" x="63" y="30" width="129" height="203" onclick="loadscene(scene_libjw_5, null, MERGE, BLEND(0.7));" />
+			<layer name="종합자료실" style="map_facility_area" x="213" y="30" width="159" height="210" onclick="loadscene(scene_libjw_8, null, MERGE, BLEND(0.7));" />
+			<layer name="계단" style="map_facility_area" x="131" y="251" width="46" height="25" onclick="loadscene(scene_libjw_12, null, MERGE, BLEND(0.7));" />
+
+			<layer name="spot_scene_libjw_1" style="map_spot_base" x="210" y="300" onclick="loadscene(scene_libjw_1, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_2" style="map_spot_base" x="230" y="280" onclick="loadscene(scene_libjw_2, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_3" style="map_spot_base" x="230" y="250" onclick="loadscene(scene_libjw_3, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_4" style="map_spot_base" x="200" y="200" onclick="loadscene(scene_libjw_4, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_5" style="map_spot_base" x="170" y="220" onclick="loadscene(scene_libjw_5, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_6" style="map_spot_base" x="110" y="200" onclick="loadscene(scene_libjw_6, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_7" style="map_spot_base" x="150" y="190" onclick="loadscene(scene_libjw_7, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_8" style="map_spot_base" x="290" y="200" onclick="loadscene(scene_libjw_8, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_9" style="map_spot_base" x="350" y="200" onclick="loadscene(scene_libjw_9, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_10" style="map_spot_base" x="350" y="150" onclick="loadscene(scene_libjw_10, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_12" style="map_spot_base" x="170" y="257" onclick="loadscene(scene_libjw_12, null, MERGE, BLEND(0.7));" />
+		</layer>
+
+		<layer name="map_2f_layer" url="skin/jw_2f.png" align="center" x="0" y="18" width="420" height="315" visible="false" zorder="10" keep="true">
+			<layer name="계단" style="map_facility_area" x="129" y="241" width="51" height="28" onclick="loadscene(scene_libjw_13, null, MERGE, BLEND(0.7));" />
+			<layer name="휴게실" style="map_facility_area" x="188" y="31" width="53" height="34" onclick="loadscene(scene_libjw_25, null, MERGE, BLEND(0.7));" />
+			<layer name="강의실" style="map_facility_area" x="253" y="32" width="86" height="48" onclick="loadscene(scene_libjw_22, null, MERGE, BLEND(0.7));" />
+			<layer name="정보" style="map_facility_area" x="251" y="91" width="113" height="79" onclick="loadscene(scene_libjw_19, null, MERGE, BLEND(0.7));" />
+			<layer name="열람1" style="map_facility_area" x="67" y="94" width="127" height="55" onclick="loadscene(scene_libjw_17, null, MERGE, BLEND(0.7));" />
+			<layer name="열람2" style="map_facility_area" x="67" y="161" width="119" height="61" onclick="loadscene(scene_libjw_16, null, MERGE, BLEND(0.7));" />
+
+			<layer name="spot_scene_libjw_13" style="map_spot_base" x="170" y="257" onclick="loadscene(scene_libjw_13, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_14" style="map_spot_base" x="230" y="205" onclick="loadscene(scene_libjw_14, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_15" style="map_spot_base" x="225" y="155" onclick="loadscene(scene_libjw_15, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_16" style="map_spot_base" x="180" y="190" onclick="loadscene(scene_libjw_16, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_17" style="map_spot_base" x="180" y="120" onclick="loadscene(scene_libjw_17, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_18" style="map_spot_base" x="235" y="130" onclick="loadscene(scene_libjw_18, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_19" style="map_spot_base" x="255" y="130" onclick="loadscene(scene_libjw_19, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_22" style="map_spot_base" x="260" y="65" onclick="loadscene(scene_libjw_22, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_24" style="map_spot_base" x="215" y="75" onclick="loadscene(scene_libjw_24, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_25" style="map_spot_base" x="215" y="65" onclick="loadscene(scene_libjw_25, null, MERGE, BLEND(0.7));" />
+			<layer name="spot_scene_libjw_26" style="map_spot_base" x="130" y="77" onclick="loadscene(scene_libjw_26, null, MERGE, BLEND(0.7));" />
+		</layer>
+
+		<layer name="user_blue_circle" type="container" align="lefttop" width="10" height="10" 
+		       bg="true" bgcolor="0x0088FF" bgalpha="1.0" bgborder="1.5 0xFFFFFF 1.0" 
+		       roundedge="100" zorder="100" keep="true" visible="false" />
+	</layer>
+
+	<!-- ========================================================= -->
+	<!-- 모바일 전용 미니맵 UI 시스템 (비율 및 탭 간격 개선)        -->
+	<!-- ========================================================= -->
+	<events name="mobile_minimap_track_events" keep="true" onnewscene="update_mobile_minimap_location();" />
+
+	<layer name="mb_btn_minimap_toggle" style="menu_btn_style" align="leftbottom" x="15" y="58" width="75" height="38" 
+	       html="지도 🗺️" keep="true" zorder="1100" onclick="mb_toggle_map();" devices="mobile|tablet"/>
+
+	<!-- 모바일 미니맵 패널 (너비 80%, 높이는 세로비를 살짝 축소) -->
+	<layer name="mb_map_panel" type="container" align="center" x="0" y="0" 
+	       width="95%" height="50%"
+	       bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="10" bgborder="1 0xFFFFFF 0.25"
+	       keep="true" zorder="2000" visible="false" devices="mobile|tablet">
+
+		<!-- 상단 탭 버튼 영역 (너비를 38%로 축소하여 ✕ 버튼과의 간격 확보) -->
+		<layer name="mb_map_tab_1f" style="menu_btn_style" align="lefttop" x="3%" y="8" width="38%" height="30" html="1층" zorder="2100" onclick="mb_show_map_floor(1);" />
+		<layer name="mb_map_tab_2f" style="menu_btn_style" align="lefttop" x="43%" y="8" width="38%" height="30" html="2층" zorder="2100" onclick="mb_show_map_floor(2);" />
+
+		<layer name="mb_map_close" type="text" align="righttop" x="8" y="8" width="25" height="30"
+	       html="✕" zorder="2200" bg="false"
+	       css="color:#AAAAAA; font-size:18px; font-weight:bold; text-align:center; cursor:pointer;"
+	       onclick="set(layer[mb_map_panel].visible, false);" />
+
+		<!-- 모바일 1층 레이어 (%) -->
+		<layer name="mmap_1f_layer" url="skin/jw_1f.png" align="center" x="0" y="20" width="95%" height="75%" visible="true" zorder="10" keep="true" devices="mobile|tablet">
+			<layer name="m_area_1f_child" style="map_facility_area" x="15.0%" y="9.5%" width="30.7%" height="64.4%" onclick="loadscene(scene_libjw_5, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_area_1f_main" style="map_facility_area" x="50.7%" y="9.5%" width="37.8%" height="66.7%" onclick="loadscene(scene_libjw_4, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_area_1f_stairs" style="map_facility_area" x="31.2%" y="79.7%" width="11.0%" height="7.9%" onclick="loadscene(scene_libjw_12, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+
+			<layer name="m_spot_scene_libjw_1" style="map_spot_base" x="50.0%" y="95.2%" onclick="loadscene(scene_libjw_1, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_2" style="map_spot_base" x="54.8%" y="88.9%" onclick="loadscene(scene_libjw_2, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_3" style="map_spot_base" x="54.8%" y="79.4%" onclick="loadscene(scene_libjw_3, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_4" style="map_spot_base" x="47.6%" y="63.5%" onclick="loadscene(scene_libjw_4, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_5" style="map_spot_base" x="40.5%" y="69.8%" onclick="loadscene(scene_libjw_5, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_6" style="map_spot_base" x="26.2%" y="63.5%" onclick="loadscene(scene_libjw_6, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_7" style="map_spot_base" x="35.7%" y="60.3%" onclick="loadscene(scene_libjw_7, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_8" style="map_spot_base" x="69.0%" y="63.5%" onclick="loadscene(scene_libjw_8, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_9" style="map_spot_base" x="83.3%" y="63.5%" onclick="loadscene(scene_libjw_9, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_10" style="map_spot_base" x="83.3%" y="47.6%" onclick="loadscene(scene_libjw_10, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_12" style="map_spot_base" x="40.5%" y="81.6%" onclick="loadscene(scene_libjw_12, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+		</layer>
+
+		<!-- 모바일 2층 레이어 (%) -->
+		<layer name="mmap_2f_layer" url="skin/jw_2f.png" align="center" x="0" y="20" width="95%" height="75%" visible="false" zorder="10" keep="true" devices="mobile|tablet">
+			<layer name="m_area_2f_room1" style="map_facility_area" x="16.0%" y="29.8%" width="30.2%" height="17.5%" onclick="loadscene(scene_libjw_17, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_area_2f_room2" style="map_facility_area" x="16.0%" y="51.1%" width="28.3%" height="19.4%" onclick="loadscene(scene_libjw_16, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_area_2f_info" style="map_facility_area" x="59.8%" y="28.9%" width="26.9%" height="25.1%" onclick="loadscene(scene_libjw_19, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_area_2f_rest" style="map_facility_area" x="44.8%" y="9.8%" width="12.6%" height="10.8%" onclick="loadscene(scene_libjw_25, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_area_2f_lecture" style="map_facility_area" x="60.2%" y="10.2%" width="20.5%" height="15.2%" onclick="loadscene(scene_libjw_22, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_area_2f_stairs" style="map_facility_area" x="30.7%" y="76.5%" width="12.1%" height="8.9%" onclick="loadscene(scene_libjw_13, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+
+			<layer name="m_spot_scene_libjw_13" style="map_spot_base" x="40.5%" y="81.6%" onclick="loadscene(scene_libjw_13, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_14" style="map_spot_base" x="54.8%" y="65.1%" onclick="loadscene(scene_libjw_14, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_15" style="map_spot_base" x="53.6%" y="49.2%" onclick="loadscene(scene_libjw_15, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_16" style="map_spot_base" x="42.9%" y="60.3%" onclick="loadscene(scene_libjw_16, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_17" style="map_spot_base" x="42.9%" y="38.1%" onclick="loadscene(scene_libjw_17, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_18" style="map_spot_base" x="56.0%" y="41.3%" onclick="loadscene(scene_libjw_18, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_19" style="map_spot_base" x="60.7%" y="41.3%" onclick="loadscene(scene_libjw_19, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_22" style="map_spot_base" x="61.9%" y="20.6%" onclick="loadscene(scene_libjw_22, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_24" style="map_spot_base" x="51.2%" y="23.8%" onclick="loadscene(scene_libjw_24, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_25" style="map_spot_base" x="38.1%" y="20.6%" onclick="loadscene(scene_libjw_25, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+			<layer name="m_spot_scene_libjw_26" style="map_spot_base" x="31.0%" y="24.4%" onclick="loadscene(scene_libjw_26, null, MERGE, BLEND(0.7)); mb_toggle_map();" />
+		</layer>
+
+		<!-- 모바일 위치 마커 -->
+		<layer name="m_user_blue_circle" type="container" align="lefttop" width="10" height="10"
+		       bg="true" bgcolor="0x0088FF" bgalpha="1.0" bgborder="1.5 0xFFFFFF 1.0"
+		       roundedge="100" zorder="1000" keep="true" visible="false" />
+	</layer>
+
+	<style name="map_facility_area" type="container" align="lefttop" bg="true" bgcolor="0xFFFFFF" bgalpha="0.0" bgcapture="true" zorder="50" cursor="pointer" />
+	<style name="map_spot_base" type="container" align="lefttop" width="14" height="14" bg="true" bgcolor="0xFFFFFF" bgalpha="0.0" bgcapture="true" zorder="10" cursor="pointer" />
+
+	<!-- ========================================================= -->
+	<!-- 액션 스크립트                                             -->
+	<!-- ========================================================= -->
 	
-	<!-- PC용 메뉴 액션 -->
 	<action name="menu_toggle_f1">
 		set(layer[menu_f2_box].visible, false);
 		switch(layer[menu_f1_box].visible);
@@ -145,21 +276,80 @@
 		switch(layer[menu_f2_box].visible);
 	</action>
 
-	<!-- 모바일용 메뉴 액션 (위쪽 팝업 제어) -->
 	<action name="menu_mobile_toggle_f1">
-		set(layer[m_menu_f2_panel].visible, false);
-		switch(layer[m_menu_f1_panel].visible);
+		menu_mobile_close_all();
+		set(layer[m_menu_f1_panel].visible, true);
 	</action>
 
 	<action name="menu_mobile_toggle_f2">
-		set(layer[m_menu_f1_panel].visible, false);
-		switch(layer[m_menu_f2_panel].visible);
+		menu_mobile_close_all();
+		set(layer[m_menu_f2_panel].visible, true);
 	</action>
 
 	<action name="menu_mobile_close_all">
 		set(layer[m_menu_f1_panel].visible, false);
 		set(layer[m_menu_f2_panel].visible, false);
+		set(layer[mb_map_panel].visible, false);
 	</action>
+
+	<action name="show_minimap_floor" scope="local" args="floor_num">
+		set(layer[map_1f_layer].visible, false);
+		set(layer[map_2f_layer].visible, false);
+		if(args[0] == 1, set(layer[map_1f_layer].visible, true); );
+		if(args[0] == 2, set(layer[map_2f_layer].visible, true); );
+	</action>
+
+	<action name="update_minimap_location" scope="local">
+		txtadd(target_spot, 'spot_', get(xml.scene));
+		if(layer[get(target_spot)],
+			set(layer[user_blue_circle].parent, get(layer[get(target_spot)].parent));
+			set(layer[user_blue_circle].x, get(layer[get(target_spot)].x));
+			set(layer[user_blue_circle].y, get(layer[get(target_spot)].y));
+			set(layer[user_blue_circle].visible, true);
+			
+			set(parent_map, get(layer[get(target_spot)].parent));
+			set(layer[map_1f_layer].visible, false);
+			set(layer[map_2f_layer].visible, false);
+			set(layer[get(parent_map)].visible, true);
+		,
+			set(layer[user_blue_circle].visible, false);
+		);
+	</action>
+
+	<action name="mb_toggle_map">
+		if(layer[mb_map_panel].visible,
+			set(layer[mb_map_panel].visible, false);
+		,
+			menu_mobile_close_all();
+			set(layer[mb_map_panel].visible, true);
+			update_mobile_minimap_location();
+		);
+	</action>
+
+	<action name="mb_show_map_floor" scope="local" args="floor_num">
+		set(layer[mmap_1f_layer].visible, false);
+		set(layer[mmap_2f_layer].visible, false);
+		if(args[0] == 1, set(layer[mmap_1f_layer].visible, true); );
+		if(args[0] == 2, set(layer[mmap_2f_layer].visible, true); );
+	</action>
+
+	<action name="update_mobile_minimap_location" scope="local">
+		txtadd(m_target_spot, 'm_spot_', get(xml.scene));
+		if(layer[get(m_target_spot)],
+			set(layer[m_user_blue_circle].parent, get(layer[get(m_target_spot)].parent));
+			set(layer[m_user_blue_circle].x, get(layer[get(m_target_spot)].x));
+			set(layer[m_user_blue_circle].y, get(layer[get(m_target_spot)].y));
+			set(layer[m_user_blue_circle].visible, true);
+			
+			set(m_parent_map, get(layer[get(m_target_spot)].parent));
+			set(layer[mmap_1f_layer].visible, false);
+			set(layer[mmap_2f_layer].visible, false);
+			set(layer[get(m_parent_map)].visible, true);
+		,
+			set(layer[m_user_blue_circle].visible, false);
+		);
+	</action>
+
 
 	<scene name="scene_libjw_1" title="libjw_1" onstart="" thumburl="panos/libjw_1.tiles/thumb.jpg" lat="37.27322222" lng="127.01222778" alt="102.11" heading="242.2">
 		
