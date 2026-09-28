@@ -156,7 +156,7 @@
 	       style="menu_btn_style"
 	       html="지도 🗺️"
 	       align="leftbottom"
-	       x="280"
+	       x="15"
 	       y="58"
 	       width="75"
 	       height="38"
@@ -182,7 +182,7 @@
 	</layer>
 
 	<!-- 3층 패널 (항목 5개 / 높이 188, 버튼 위치와 맞추어 x=280 수정) -->
-	<layer name="mb_menu_f3_panel" type="container" align="leftbottom" x="250" y="58" width="103" height="230" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" zorder="1001" devices="mobile|tablet">
+	<layer name="mb_menu_f3_panel" type="container" align="leftbottom" x="250" y="58" width="103" height="192" bg="true" bgcolor="0x111111" bgalpha="0.95" roundedge="8" bgborder="1 0xFFFFFF 0.2" visible="false" keep="true" zorder="1001" devices="mobile|tablet">
 	    <layer name="mb_f3_1" style="menu_item_style" html="열람실"       align="lefttop" x="5" y="5"   width="93" onclick="loadscene(scene_libsk_53, null, MERGE, BLEND(0.7)); mb_close_all();" />
 	    <layer name="mb_f3_2" style="menu_item_style" html="휴게실"       align="lefttop" x="5" y="42"  width="93" onclick="loadscene(scene_libsk_55, null, MERGE, BLEND(0.7)); mb_close_all();" />
 <layer name="mb_f3_3" style="menu_item_style" css="font-size:11px; line-height:12px; color:#ffffff; text-align:center;" html="휴게실&lt;br/&gt;(도시락전용)" align="lefttop" x="5" y="79" width="90" onclick="loadscene(scene_libsk_65, null, MERGE, BLEND(0.7)); mb_close_all();" />
