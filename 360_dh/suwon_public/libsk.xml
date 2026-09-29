@@ -221,7 +221,7 @@
 		       onclick="set(layer[mb_map_panel].visible, false);" />
 
 		<!-- 1층 -->
-<layer name="mmap_1f_layer" url="skin/map_1f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="true" zorder="10" keep="true" devices="mobile|tablet">
+<layer name="mmap_1f_layer" url="skin/sk_1f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="true" zorder="10" keep="true" devices="mobile|tablet">
 			
 			<!-- 시설 터치 영역 (대표 씬 연동) -->
 			<layer name="m_area_1f_child" style="map_facility_area" x="8.333333%" y="52.380952%" width="26.190476%" height="31.746032%" onclick="loadscene(scene_libsk_13, null, MERGE, BLEND(0.7));" />
@@ -256,7 +256,7 @@
 			<layer name="m_spot_scene_libsk_26" style="map_spot_base" x="50.952381%" y="43.492063%" onclick="loadscene(scene_libsk_26, null, MERGE, BLEND(0.7));" />
 		</layer>
 		<!-- 2층 -->
-<layer name="mmap_2f_layer" url="skin/map_2f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="false" zorder="10" keep="true" devices="mobile|tablet">
+<layer name="mmap_2f_layer" url="skin/sk_2f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="false" zorder="10" keep="true" devices="mobile|tablet">
 			
 			<!-- 종합자료실 시설 클릭 이동 영역 (대표 씬: scene_libsk_31) -->
 			<layer name="m_area_2f_main" style="map_facility_area" x="8.333333%" y="50.793651%" width="78.571429%" height="36.507937%" onclick="loadscene(scene_libsk_49, null, MERGE, BLEND(0.7));" />
@@ -288,7 +288,7 @@
 			<layer name="m_spot_scene_libsk_49" style="map_spot_base" x="73.809524%" y="60.317460%" onclick="loadscene(scene_libsk_49, null, MERGE, BLEND(0.7));" />
 		</layer>
 		<!-- 3층 -->
-<layer name="mmap_3f_layer" url="skin/map_3f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="false" zorder="10" keep="true" devices="mobile|tablet">
+<layer name="mmap_3f_layer" url="skin/sk_3f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="false" zorder="10" keep="true" devices="mobile|tablet">
 			
 			<!-- 시설 클릭 이동 영역 -->
 			<layer name="m_area_3f_suwon" style="map_facility_area" x="29.761905%" y="7.936508%" width="54.761905%" height="25.396825%" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7));" />
@@ -1523,7 +1523,7 @@
 
 
 		<!-- ================= 1층 미니맵 ================= -->
-		<layer name="map_1f_layer" url="skin/map_1f.png" align="center" x="0" y="18" width="420" height="315" visible="true" zorder="10" keep="true">
+		<layer name="map_1f_layer" url="skin/sk_1f.png" align="center" x="0" y="18" width="420" height="315" visible="true" zorder="10" keep="true">
 			
 			<!-- 시설 터치 영역 (대표 씬 연동) -->
 			<layer name="area_1f_child" style="map_facility_area" x="35" y="165" width="110" height="100" onclick="loadscene(scene_libsk_13, null, MERGE, BLEND(0.7));" />
@@ -1559,7 +1559,7 @@
 		</layer>
 
 		<!-- ================= 2층 미니맵 ================= -->
-		<layer name="map_2f_layer" url="skin/map_2f.png" align="center" x="0" y="18" width="420" height="315" visible="false" zorder="10" keep="true">
+		<layer name="map_2f_layer" url="skin/sk_2f.png" align="center" x="0" y="18" width="420" height="315" visible="false" zorder="10" keep="true">
 			
 			<!-- 종합자료실 시설 클릭 이동 영역 (대표 씬: scene_libsk_31) -->
 			<layer name="area_2f_main" style="map_facility_area" x="35" y="160" width="330" height="115" onclick="loadscene(scene_libsk_49, null, MERGE, BLEND(0.7));" />
@@ -1592,7 +1592,7 @@
 		</layer>
 
 		<!-- ================= 3층 미니맵 ================= -->
-		<layer name="map_3f_layer" url="skin/map_3f.png" align="center" x="0" y="18" width="420" height="315" visible="false" zorder="10" keep="true">
+		<layer name="map_3f_layer" url="skin/sk_3f.png" align="center" x="0" y="18" width="420" height="315" visible="false" zorder="10" keep="true">
 			
 			<!-- 시설 클릭 이동 영역 -->
 			<layer name="area_3f_suwon" style="map_facility_area" x="125" y="25" width="230" height="80" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7));" />
