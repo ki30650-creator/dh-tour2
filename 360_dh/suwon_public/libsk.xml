@@ -87,6 +87,49 @@
 	       height="42"
 	       align="lefttop" />
 
+	<!-- 시설 구역 터치 스팟 스타일 -->
+	<style name="map_facility_area" 
+	       type="container" align="lefttop" 
+	       bg="true" bgcolor="0xFFFFFF" bgalpha="0.0" bgcapture="true" 
+	       zorder="50" cursor="pointer" />
+
+	<!-- 세부 위치 스팟 스타일 -->
+	<style name="map_spot_base" 
+	       type="container" align="lefttop" width="14" height="14" 
+	       bg="true" bgcolor="0xFFFFFF" bgalpha="0.0" bgcapture="true" 
+	       zorder="10" cursor="pointer" />
+
+	<!-- 층선택 탭 전환 액션 (visible 및 zorder를 명확하게 교체) -->
+	<action name="show_minimap_floor" scope="local" args="floor_num">
+		set(layer[map_1f_layer].visible, false);
+		set(layer[map_2f_layer].visible, false);
+		set(layer[map_3f_layer].visible, false);
+
+		if(args[0] == 1, set(layer[map_1f_layer].visible, true); );
+		if(args[0] == 2, set(layer[map_2f_layer].visible, true); );
+		if(args[0] == 3, set(layer[map_3f_layer].visible, true); );
+	</action>
+
+	<!-- 씬 이동 시 파란 동그라미 위치 자동 동기화 및 층 도면 보정 -->
+	<action name="update_minimap_location" scope="local">
+		txtadd(target_spot, 'spot_', get(xml.scene));
+		
+		if(layer[get(target_spot)],
+			set(layer[user_blue_circle].parent, get(layer[get(target_spot)].parent));
+			set(layer[user_blue_circle].x, get(layer[get(target_spot)].x));
+			set(layer[user_blue_circle].y, get(layer[get(target_spot)].y));
+			set(layer[user_blue_circle].visible, true);
+			
+			<!-- 현재 파란점의 부모 층 맵만 보여주고 나머지 닫기 -->
+			set(parent_map, get(layer[get(target_spot)].parent));
+			set(layer[map_1f_layer].visible, false);
+			set(layer[map_2f_layer].visible, false);
+			set(layer[map_3f_layer].visible, false);
+			set(layer[get(parent_map)].visible, true);
+		,
+			set(layer[user_blue_circle].visible, false);
+		);
+	</action>
 
 	<!-- ========================================================= -->
 	<!-- 1. PC 상단 메뉴 (desktop에서만 표시)                      -->
@@ -224,10 +267,10 @@
 <layer name="mmap_1f_layer" url="skin/sk_1f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="true" zorder="10" keep="true" devices="mobile|tablet">
 			
 			<!-- 시설 터치 영역 (대표 씬 연동) -->
-			<layer name="m_area_1f_child" style="map_facility_area" x="8.333333%" y="52.380952%" width="26.190476%" height="31.746032%" onclick="loadscene(scene_libsk_13, null, MERGE, BLEND(0.7));" />
-			<layer name="m_area_1f_return" style="map_facility_area" x="26.190476%" y="84.126984%" width="26.190476%" height="12.698413%" onclick="loadscene(scene_libsk_4, null, MERGE, BLEND(0.7));" />
-			<layer name="m_area_1f_class" style="map_facility_area" x="54.761905%" y="7.936508%" width="19.047619%" height="15.873016%" onclick="loadscene(scene_libsk_23, null, MERGE, BLEND(0.7));" />
-			<layer name="m_area_1f_hall" style="map_facility_area" x="75.000000%" y="36.507937%" width="16.666667%" height="49.206349%" onclick="loadscene(scene_libsk_12, null, MERGE, BLEND(0.7));" />
+			<layer name="어린이자료실" style="map_facility_area" x="9.0%" y="53.6%" width="24.5%" height="28.1%" onclick="loadscene(scene_libsk_13, null, MERGE, BLEND(0.7));" />
+			<layer name="무인반납기" style="map_facility_area" x="9.0%" y="86.4%" width="26.3%" height="9.7%" onclick="loadscene(scene_libsk_4, null, MERGE, BLEND(0.7));" />
+			<layer name="강의실" style="map_facility_area" x="55.0%" y="9.2%" width="20.5%" height="11.9%" onclick="loadscene(scene_libsk_23, null, MERGE, BLEND(0.7));" />
+			<layer name="강당" style="map_facility_area" x="72.3%" y="36.4%" width="17.5%" height="20.9%" onclick="loadscene(scene_libsk_12, null, MERGE, BLEND(0.7));" />
 
 			<!-- 세부 씬 마커 스팟 -->
 			<layer name="m_spot_scene_libsk_1" style="map_spot_base" x="50.000000%" y="95.238095%" onclick="loadscene(scene_libsk_1, null, MERGE, BLEND(0.7));" />
@@ -259,8 +302,8 @@
 <layer name="mmap_2f_layer" url="skin/sk_2f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="false" zorder="10" keep="true" devices="mobile|tablet">
 			
 			<!-- 종합자료실 시설 클릭 이동 영역 (대표 씬: scene_libsk_31) -->
-			<layer name="m_area_2f_main" style="map_facility_area" x="8.333333%" y="50.793651%" width="78.571429%" height="36.507937%" onclick="loadscene(scene_libsk_49, null, MERGE, BLEND(0.7));" />
-			<layer name="m_area_2f_main2" style="map_facility_area" x="1.333333%" y="19.047619%" width="88.571429%" height="36.507937%" onclick="loadscene(scene_libsk_31, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_2f_main" style="map_facility_area" x="10.0%" y="11.1%" width="47.3%" height="16.9%" onclick="loadscene(scene_libsk_31, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_2f_main2" style="map_facility_area" x="23.5%" y="64.2%" width="64.8%" height="16.6%" onclick="loadscene(scene_libsk_49, null, MERGE, BLEND(0.7));" />
 
 			<!-- 세부 씬 마커 스팟 -->
 			<layer name="m_spot_scene_libsk_27" style="map_spot_base" x="58.333333%" y="42.857143%" onclick="loadscene(scene_libsk_27, null, MERGE, BLEND(0.7));" />
@@ -291,11 +334,11 @@
 <layer name="mmap_3f_layer" url="skin/sk_3f.png" align="lefttop" x="0" y="50" width="100%" height="calc(width*0.75)" visible="false" zorder="10" keep="true" devices="mobile|tablet">
 			
 			<!-- 시설 클릭 이동 영역 -->
-			<layer name="m_area_3f_suwon" style="map_facility_area" x="29.761905%" y="7.936508%" width="54.761905%" height="25.396825%" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7));" />
-			<layer name="m_area_3f_locker" style="map_facility_area" x="8.333333%" y="34.920635%" width="13.095238%" height="12.698413%" onclick="loadscene(scene_libsk_60, null, MERGE, BLEND(0.7));" />
-			<layer name="m_area_3f_lunch" style="map_facility_area" x="65.476190%" y="34.920635%" width="21.428571%" height="12.698413%" onclick="loadscene(scene_libsk_65, null, MERGE, BLEND(0.7));" />
-			<layer name="m_area_3f_study" style="map_facility_area" x="53.571429%" y="50.793651%" width="33.333333%" height="34.920635%" onclick="loadscene(scene_libsk_53, null, MERGE, BLEND(0.7));" />
-			<layer name="m_area_3f_rest" style="map_facility_area" x="32.142857%" y="71.428571%" width="28.571429%" height="15.873016%" onclick="loadscene(scene_libsk_55, null, MERGE, BLEND(0.7));" />
+			<layer name="수원학자료실" style="map_facility_area" x="43.0%" y="11.1%" width="46.0%" height="18.4%" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7));" />
+			<layer name="물품보관함" style="map_facility_area" x="10.0%" y="42.4%" width="6.0%" height="6.9%" onclick="loadscene(scene_libsk_60, null, MERGE, BLEND(0.7));" />
+			<layer name="휴게실 도시락" style="map_facility_area" x="70.8%" y="42.1%" width="19.0%" height="7.5%" onclick="loadscene(scene_libsk_65, null, MERGE, BLEND(0.7));" />
+			<layer name="열람실" style="map_facility_area" x="60.8%" y="63.9%" width="28.5%" height="20.9%" onclick="loadscene(scene_libsk_53, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_3f_rest" style="map_facility_area" x="42.3%" y="77.7%" width="14.8%" height="6.6%" onclick="loadscene(scene_libsk_55, null, MERGE, BLEND(0.7));" />
 
 			<!-- 세부 씬 마커 스팟 -->
 			<layer name="m_spot_scene_libsk_50" style="map_spot_base" x="55.952381%" y="41.269841%" onclick="loadscene(scene_libsk_50, null, MERGE, BLEND(0.7));" />
@@ -1526,11 +1569,10 @@
 		<layer name="map_1f_layer" url="skin/sk_1f.png" align="center" x="0" y="18" width="420" height="315" visible="true" zorder="10" keep="true">
 			
 			<!-- 시설 터치 영역 (대표 씬 연동) -->
-			<layer name="area_1f_child" style="map_facility_area" x="35" y="165" width="110" height="100" onclick="loadscene(scene_libsk_13, null, MERGE, BLEND(0.7));" />
-			<layer name="area_1f_return" style="map_facility_area" x="110" y="265" width="110" height="40" onclick="loadscene(scene_libsk_4, null, MERGE, BLEND(0.7));" />
-			<layer name="area_1f_class" style="map_facility_area" x="230" y="25" width="80" height="50" onclick="loadscene(scene_libsk_23, null, MERGE, BLEND(0.7));" />
-			<layer name="area_1f_hall" style="map_facility_area" x="315" y="115" width="70" height="155" onclick="loadscene(scene_libsk_12, null, MERGE, BLEND(0.7));" />
-
+			<layer name="어린이자료실" style="map_facility_area" x="9.0%" y="53.6%" width="24.5%" height="28.1%" onclick="loadscene(scene_libsk_13, null, MERGE, BLEND(0.7));" />
+			<layer name="무인반납기" style="map_facility_area" x="9.0%" y="86.4%" width="26.3%" height="9.7%" onclick="loadscene(scene_libsk_4, null, MERGE, BLEND(0.7));" />
+			<layer name="강의실" style="map_facility_area" x="55.0%" y="9.2%" width="20.5%" height="11.9%" onclick="loadscene(scene_libsk_23, null, MERGE, BLEND(0.7));" />
+			<layer name="강당" style="map_facility_area" x="72.3%" y="36.4%" width="17.5%" height="20.9%" onclick="loadscene(scene_libsk_12, null, MERGE, BLEND(0.7));" />
 			<!-- 세부 씬 마커 스팟 -->
 			<layer name="spot_scene_libsk_1" style="map_spot_base" x="210" y="300" onclick="loadscene(scene_libsk_1, null, MERGE, BLEND(0.7));" />
 			<layer name="spot_scene_libsk_2" style="map_spot_base" x="210" y="280" onclick="loadscene(scene_libsk_2, null, MERGE, BLEND(0.7));" />
@@ -1562,9 +1604,8 @@
 		<layer name="map_2f_layer" url="skin/sk_2f.png" align="center" x="0" y="18" width="420" height="315" visible="false" zorder="10" keep="true">
 			
 			<!-- 종합자료실 시설 클릭 이동 영역 (대표 씬: scene_libsk_31) -->
-			<layer name="area_2f_main" style="map_facility_area" x="35" y="160" width="330" height="115" onclick="loadscene(scene_libsk_49, null, MERGE, BLEND(0.7));" />
-			<layer name="area_2f_main2" style="map_facility_area" x="35" y="60" width="330" height="115" onclick="loadscene(scene_libsk_31, null, MERGE, BLEND(0.7));" />
-
+			<layer name="m_area_2f_main" style="map_facility_area" x="10.0%" y="11.1%" width="47.3%" height="16.9%" onclick="loadscene(scene_libsk_31, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_2f_main2" style="map_facility_area" x="23.5%" y="64.2%" width="64.8%" height="16.6%" onclick="loadscene(scene_libsk_49, null, MERGE, BLEND(0.7));" />
 			<!-- 세부 씬 마커 스팟 -->
 			<layer name="spot_scene_libsk_27" style="map_spot_base" x="245" y="135" onclick="loadscene(scene_libsk_27, null, MERGE, BLEND(0.7));" />
 			<layer name="spot_scene_libsk_28" style="map_spot_base" x="245" y="100" onclick="loadscene(scene_libsk_28, null, MERGE, BLEND(0.7));" />
@@ -1595,11 +1636,11 @@
 		<layer name="map_3f_layer" url="skin/sk_3f.png" align="center" x="0" y="18" width="420" height="315" visible="false" zorder="10" keep="true">
 			
 			<!-- 시설 클릭 이동 영역 -->
-			<layer name="area_3f_suwon" style="map_facility_area" x="125" y="25" width="230" height="80" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7));" />
-			<layer name="area_3f_locker" style="map_facility_area" x="35" y="110" width="55" height="40" onclick="loadscene(scene_libsk_60, null, MERGE, BLEND(0.7));" />
-			<layer name="area_3f_lunch" style="map_facility_area" x="275" y="110" width="90" height="40" onclick="loadscene(scene_libsk_65, null, MERGE, BLEND(0.7));" />
-			<layer name="area_3f_study" style="map_facility_area" x="225" y="160" width="140" height="110" onclick="loadscene(scene_libsk_53, null, MERGE, BLEND(0.7));" />
-			<layer name="area_3f_rest" style="map_facility_area" x="135" y="225" width="120" height="50" onclick="loadscene(scene_libsk_55, null, MERGE, BLEND(0.7));" />
+			<layer name="수원학자료실" style="map_facility_area" x="43.0%" y="11.1%" width="46.0%" height="18.4%" onclick="loadscene(scene_libsk_63, null, MERGE, BLEND(0.7));" />
+			<layer name="물품보관함" style="map_facility_area" x="10.0%" y="42.4%" width="6.0%" height="6.9%" onclick="loadscene(scene_libsk_60, null, MERGE, BLEND(0.7));" />
+			<layer name="휴게실 도시락" style="map_facility_area" x="70.8%" y="42.1%" width="19.0%" height="7.5%" onclick="loadscene(scene_libsk_65, null, MERGE, BLEND(0.7));" />
+			<layer name="열람실" style="map_facility_area" x="60.8%" y="63.9%" width="28.5%" height="20.9%" onclick="loadscene(scene_libsk_53, null, MERGE, BLEND(0.7));" />
+			<layer name="m_area_3f_rest" style="map_facility_area" x="42.3%" y="77.7%" width="14.8%" height="6.6%" onclick="loadscene(scene_libsk_55, null, MERGE, BLEND(0.7));" />
 
 			<!-- 세부 씬 마커 스팟 -->
 			<layer name="spot_scene_libsk_50" style="map_spot_base" x="235" y="130" onclick="loadscene(scene_libsk_50, null, MERGE, BLEND(0.7));" />
@@ -1628,47 +1669,4 @@
 
 	</layer>
 
-	<!-- 시설 구역 터치 스팟 스타일 -->
-	<style name="map_facility_area" 
-	       type="container" align="lefttop" 
-	       bg="true" bgcolor="0xFFFFFF" bgalpha="0.0" bgcapture="true" 
-	       zorder="50" cursor="pointer" />
-
-	<!-- 세부 위치 스팟 스타일 -->
-	<style name="map_spot_base" 
-	       type="container" align="lefttop" width="14" height="14" 
-	       bg="true" bgcolor="0xFFFFFF" bgalpha="0.0" bgcapture="true" 
-	       zorder="10" cursor="pointer" />
-
-	<!-- 층선택 탭 전환 액션 (visible 및 zorder를 명확하게 교체) -->
-	<action name="show_minimap_floor" scope="local" args="floor_num">
-		set(layer[map_1f_layer].visible, false);
-		set(layer[map_2f_layer].visible, false);
-		set(layer[map_3f_layer].visible, false);
-
-		if(args[0] == 1, set(layer[map_1f_layer].visible, true); );
-		if(args[0] == 2, set(layer[map_2f_layer].visible, true); );
-		if(args[0] == 3, set(layer[map_3f_layer].visible, true); );
-	</action>
-
-	<!-- 씬 이동 시 파란 동그라미 위치 자동 동기화 및 층 도면 보정 -->
-	<action name="update_minimap_location" scope="local">
-		txtadd(target_spot, 'spot_', get(xml.scene));
-		
-		if(layer[get(target_spot)],
-			set(layer[user_blue_circle].parent, get(layer[get(target_spot)].parent));
-			set(layer[user_blue_circle].x, get(layer[get(target_spot)].x));
-			set(layer[user_blue_circle].y, get(layer[get(target_spot)].y));
-			set(layer[user_blue_circle].visible, true);
-			
-			<!-- 현재 파란점의 부모 층 맵만 보여주고 나머지 닫기 -->
-			set(parent_map, get(layer[get(target_spot)].parent));
-			set(layer[map_1f_layer].visible, false);
-			set(layer[map_2f_layer].visible, false);
-			set(layer[map_3f_layer].visible, false);
-			set(layer[get(parent_map)].visible, true);
-		,
-			set(layer[user_blue_circle].visible, false);
-		);
-	</action>
 </krpano>
